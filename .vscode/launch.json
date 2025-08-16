@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "msedge",
+            "name": "https://vscode.dev/redirect?url=vscode%3A%2F%2Fvscode.github-authentication%2Fdid-authenticate%3Fnonce%3Db47a04dc572c5e1a%26windowId%3D1",
+            "request": "launch",
+            "url": "https://vscode.dev/redirect?url=vscode%3A%2F%2Fvscode.github-authentication%2Fdid-authenticate%3Fnonce%3Db47a04dc572c5e1a%26windowId%3D1"
+        }
+    ]
+}
