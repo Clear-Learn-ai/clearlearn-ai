@@ -34,14 +34,14 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Simple Navigation */}
-      <nav className="border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+      {/* Premium Navigation */}
+      <nav className="border-b border-gray-100 bg-white/80 backdrop-blur-lg sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex justify-between items-center">
-            <div className="text-xl font-semibold">OrganicAI</div>
+            <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">OrganicAI</div>
             <Link
               href="/chat"
-              className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               Try it free
             </Link>
@@ -50,57 +50,68 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+      <section className="max-w-7xl mx-auto px-6 py-24">
+        <div className="text-center mb-20">
+          <h1 className="text-6xl font-bold text-gray-900 mb-8 leading-tight">
             Ask Any Organic Chemistry Question,<br />
-            Get Instant Video Explanations
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Get Instant Video Explanations
+            </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Learn organic chemistry faster with AI-curated video explanations
+          <p className="text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+            Learn organic chemistry faster with AI-curated video explanations tailored to your learning style
           </p>
+          <Link
+            href="/chat"
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+          >
+            <Play className="w-6 h-6 mr-3" />
+            Start Learning Now
+            <ArrowRight className="w-6 h-6 ml-3" />
+          </Link>
         </div>
 
         {/* Interactive Demo */}
-        <div className="bg-gray-50 rounded-xl p-8 mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-12 mb-20 border border-blue-100">
+          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">Try it yourself</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Question Side */}
             <div>
-              <div className="mb-6">
-                <div className="text-sm text-gray-500 mb-2">Try asking:</div>
-                <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
-                  <div className="flex items-center space-x-3">
-                    <MessageSquare className="w-5 h-5 text-gray-400" />
-                    <span className="text-gray-900">{demoSteps[0].question}</span>
+              <div className="mb-8">
+                <div className="text-lg font-semibold text-gray-700 mb-4">Try asking:</div>
+                <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-center space-x-4">
+                    <MessageSquare className="w-6 h-6 text-blue-500" />
+                    <span className="text-gray-900 text-lg font-medium">{demoSteps[0].question}</span>
                   </div>
                 </div>
               </div>
               
               <Link
                 href="/chat"
-                className="inline-flex items-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                <Play className="w-4 h-4 mr-2" />
+                <Play className="w-5 h-5 mr-3" />
                 Try it yourself
               </Link>
             </div>
 
             {/* Response Side */}
             <div>
-              <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-4">
-                <div className="text-sm text-gray-600 mb-3">AI Response:</div>
-                <p className="text-gray-900 mb-4">{demoSteps[0].response}</p>
+              <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="text-lg font-semibold text-gray-700 mb-4">AI Response:</div>
+                <p className="text-gray-900 mb-6 text-lg leading-relaxed">{demoSteps[0].response}</p>
                 
-                <div className="space-y-3">
-                  <div className="text-sm font-medium text-gray-900 mb-2">Related Videos:</div>
+                <div className="space-y-4">
+                  <div className="text-lg font-semibold text-gray-900 mb-4">Related Videos:</div>
                   {demoSteps[0].videos.map((video, index) => (
-                    <div key={index} className="flex space-x-3 p-3 bg-gray-50 rounded-lg">
-                      <div className="w-20 h-12 bg-gray-200 rounded flex items-center justify-center">
-                        <Play className="w-4 h-4 text-gray-600" />
+                    <div key={index} className="flex space-x-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100 hover:border-blue-200 transition-all duration-300 cursor-pointer hover:shadow-md">
+                      <div className="w-24 h-16 bg-gradient-to-r from-blue-200 to-purple-200 rounded-lg flex items-center justify-center">
+                        <Play className="w-6 h-6 text-blue-600" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-sm font-medium text-gray-900">{video.title}</div>
-                        <div className="text-xs text-gray-500">{video.duration}</div>
+                        <div className="text-base font-semibold text-gray-900">{video.title}</div>
+                        <div className="text-sm text-gray-600 mt-1">{video.duration}</div>
                       </div>
                     </div>
                   ))}
@@ -111,54 +122,69 @@ export default function LandingPage() {
         </div>
 
         {/* Product Demo Section */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">See it in action</h2>
-          <div className="bg-gray-100 rounded-xl p-12">
-            <div className="text-gray-600 mb-4">Video demo coming soon</div>
-            <div className="w-16 h-16 bg-gray-300 rounded-full mx-auto flex items-center justify-center">
-              <Play className="w-6 h-6 text-gray-600" />
-            </div>
+        <div className="text-center mb-20">
+          <h2 className="text-4xl font-bold text-gray-900 mb-12">See it in action</h2>
+          <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl max-w-5xl mx-auto">
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              className="w-full h-auto"
+            >
+              <source src="/Demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
           </div>
+          <p className="text-gray-600 mt-6 text-lg max-w-2xl mx-auto">
+            Watch how OrganicAI instantly understands your chemistry questions and provides curated video explanations
+          </p>
         </div>
 
         {/* Simple Workflow */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">How it works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-black text-white rounded-lg mx-auto mb-4 flex items-center justify-center font-bold">1</div>
-              <h3 className="font-semibold mb-2">Ask Question</h3>
-              <p className="text-gray-600 text-sm">Type any organic chemistry question</p>
+        <div className="mb-24">
+          <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">How it works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl mx-auto mb-6 flex items-center justify-center font-bold text-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">1</div>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Ask Question</h3>
+              <p className="text-gray-600 text-lg leading-relaxed">Type any organic chemistry question in natural language</p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-black text-white rounded-lg mx-auto mb-4 flex items-center justify-center font-bold">2</div>
-              <h3 className="font-semibold mb-2">AI Analysis</h3>
-              <p className="text-gray-600 text-sm">AI understands and processes your question</p>
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl mx-auto mb-6 flex items-center justify-center font-bold text-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">2</div>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">AI Analysis</h3>
+              <p className="text-gray-600 text-lg leading-relaxed">Advanced AI understands and processes your question instantly</p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-black text-white rounded-lg mx-auto mb-4 flex items-center justify-center font-bold">3</div>
-              <h3 className="font-semibold mb-2">Video Results</h3>
-              <p className="text-gray-600 text-sm">Get curated educational videos</p>
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl mx-auto mb-6 flex items-center justify-center font-bold text-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">3</div>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Video Results</h3>
+              <p className="text-gray-600 text-lg leading-relaxed">Get perfectly curated educational videos from top sources</p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-black text-white rounded-lg mx-auto mb-4 flex items-center justify-center font-bold">4</div>
-              <h3 className="font-semibold mb-2">Learn</h3>
-              <p className="text-gray-600 text-sm">Watch and understand the concept</p>
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl mx-auto mb-6 flex items-center justify-center font-bold text-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">4</div>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Master</h3>
+              <p className="text-gray-600 text-lg leading-relaxed">Watch, learn, and master complex chemistry concepts</p>
             </div>
           </div>
         </div>
 
         {/* Final CTA */}
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to learn faster?</h2>
-          <p className="text-gray-600 mb-8">Join students already using AI to master organic chemistry</p>
+        <div className="text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-16 text-white">
+          <h2 className="text-4xl font-bold mb-6">Ready to transform your chemistry learning?</h2>
+          <p className="text-xl mb-10 max-w-2xl mx-auto leading-relaxed opacity-90">
+            Join thousands of students already using AI to master organic chemistry faster than ever
+          </p>
           <Link
             href="/chat"
-            className="inline-flex items-center px-8 py-4 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-lg"
+            className="inline-flex items-center px-10 py-5 bg-white text-blue-600 rounded-2xl hover:bg-gray-50 transition-all duration-300 text-xl font-bold shadow-xl hover:shadow-2xl transform hover:-translate-y-2"
           >
-            Start learning now
-            <ArrowRight className="w-5 h-5 ml-2" />
+            Start Learning Now
+            <ArrowRight className="w-6 h-6 ml-3" />
           </Link>
+          <div className="mt-8 text-blue-100">
+            <p className="text-lg">No signup required • Free forever • Instant results</p>
+          </div>
         </div>
       </section>
     </div>

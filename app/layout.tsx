@@ -1,6 +1,11 @@
 import type { Metadata } from 'next'
-import { JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter'
+})
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ['latin'],
@@ -8,9 +13,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'ChemTutor AI - Organic Chemistry AI Tutor',
-  description: 'AI-powered organic chemistry tutor with video explanations. Get instant help with reaction mechanisms, stereochemistry, and synthesis problems.',
-  keywords: 'organic chemistry, AI tutor, pre-med, reaction mechanisms, stereochemistry, synthesis',
+  title: 'OrganicAI - Smart Chemistry Learning with Video Explanations',
+  description: 'Transform your organic chemistry learning with AI-powered explanations and curated video content. Master reactions, mechanisms, and synthesis faster.',
+  keywords: 'organic chemistry, AI tutor, video explanations, reaction mechanisms, stereochemistry, synthesis, pre-med',
 }
 
 export default function RootLayout({
@@ -20,10 +25,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${jetbrainsMono.variable} font-mono`}>
-        <div className="min-h-screen gradient-bg">
-          {children}
-        </div>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+        {children}
       </body>
     </html>
   )
