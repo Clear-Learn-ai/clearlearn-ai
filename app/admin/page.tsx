@@ -101,7 +101,7 @@ export default function AdminDashboard() {
 
     // Record interactions through the adaptive engine
     interactions.forEach(interaction => {
-      // @ts-ignore - accessing private method for demo
+      // @ts-expect-error - Dynamic import requires any type - accessing private method for demo
       engine.adaptiveEngine?.recordUserInteraction(interaction)
     })
   }

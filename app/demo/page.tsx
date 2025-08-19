@@ -465,7 +465,7 @@ export default function DemoMode() {
               <div className="text-3xl mb-2">🧠</div>
               <h4 className="font-semibold mb-2">True Personalization</h4>
               <p className="text-sm text-gray-600">
-                Bayesian learning adapts to each user's unique learning style in real-time
+                Bayesian learning adapts to each user&apos;s unique learning style in real-time
               </p>
             </div>
             <div className="text-center">

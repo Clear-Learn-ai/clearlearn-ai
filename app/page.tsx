@@ -174,7 +174,7 @@ export default function LandingPage() {
                 <h3 className="text-xl font-bold mb-4">Prerequisite Intelligence</h3>
                 <p className="text-gray-600">
                   Automatically detects missing background knowledge and offers 
-                  just-in-time primers. No more "I don't get it" moments.
+                  just-in-time primers. No more &quot;I don&apos;t get it&quot; moments.
                 </p>
               </div>
             </div>
