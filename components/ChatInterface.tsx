@@ -5,7 +5,8 @@ import {
   Send, 
   Play, 
   Clock,
-  Loader2
+  Loader2,
+  MessageSquare
 } from 'lucide-react'
 import { 
   useMessages, 
