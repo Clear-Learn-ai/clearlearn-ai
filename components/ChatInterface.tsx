@@ -59,7 +59,7 @@ export function ChatInterface() {
       {/* Premium Header */}
       <div className="border-b border-gray-100 bg-white/80 backdrop-blur-lg p-6">
         <div className="text-center">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">OrganicAI</h1>
+          <h1 className="text-2xl font-bold text-black">OrganicAI</h1>
           <p className="text-gray-600 mt-2">Your intelligent chemistry learning companion</p>
         </div>
       </div>
@@ -68,7 +68,7 @@ export function ChatInterface() {
       <div className="flex-1 overflow-y-auto p-8 space-y-8">
         {messages.length === 0 && (
           <div className="text-center py-24">
-            <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl mx-auto mb-8 flex items-center justify-center">
+            <div className="w-20 h-20 bg-black rounded-2xl mx-auto mb-8 flex items-center justify-center">
               <MessageSquare className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
@@ -78,12 +78,12 @@ export function ChatInterface() {
               I'll provide detailed explanations and find the perfect videos to help you master any chemistry concept
             </p>
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
-                <div className="text-sm font-semibold text-blue-600 mb-2">Try asking:</div>
+              <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <div className="text-sm font-semibold text-gray-600 mb-2">Try asking:</div>
                 <div className="text-gray-700">\"Explain SN1 vs SN2 reactions\"</div>
               </div>
-              <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
-                <div className="text-sm font-semibold text-blue-600 mb-2">Or ask about:</div>
+              <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <div className="text-sm font-semibold text-gray-600 mb-2">Or ask about:</div>
                 <div className="text-gray-700">\"How does stereochemistry work?\"</div>
               </div>
             </div>
@@ -101,7 +101,7 @@ export function ChatInterface() {
             <div className={cn(
               "max-w-[75%] rounded-2xl px-6 py-4 shadow-sm",
               message.role === 'user' 
-                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white ml-12' 
+                ? 'bg-black text-white ml-12' 
                 : 'bg-white border border-gray-200 text-gray-900 mr-12'
             )}>
               <div className="whitespace-pre-wrap text-base leading-relaxed">
@@ -117,11 +117,11 @@ export function ChatInterface() {
                   {message.videoResults.map((video: VideoResult) => (
                     <div
                       key={video.id}
-                      className="flex space-x-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100 hover:border-blue-200 transition-all duration-300 cursor-pointer hover:shadow-lg transform hover:-translate-y-1"
+                      className="flex space-x-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
                       onClick={() => selectVideo(video)}
                     >
-                      <div className="w-20 h-14 bg-gradient-to-r from-blue-200 to-purple-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Play className="w-5 h-5 text-blue-600" />
+                      <div className="w-20 h-14 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Play className="w-5 h-5 text-gray-600" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-base font-semibold text-gray-900 mb-1">
@@ -133,7 +133,7 @@ export function ChatInterface() {
                             <span>{video.duration}</span>
                           </div>
                           <span>•</span>
-                          <span className="capitalize font-medium text-blue-600">{video.source}</span>
+                          <span className="capitalize font-medium text-gray-600">{video.source}</span>
                         </div>
                       </div>
                     </div>
@@ -149,7 +149,7 @@ export function ChatInterface() {
           <div className="flex justify-start">
             <div className="bg-white border border-gray-200 rounded-2xl px-6 py-4 mr-12 shadow-sm">
               <div className="flex items-center space-x-3">
-                <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+                <Loader2 className="w-5 h-5 animate-spin text-gray-600" />
                 <span className="text-base text-gray-700">Analyzing your question...</span>
               </div>
             </div>
@@ -188,7 +188,7 @@ export function ChatInterface() {
           <button
             type="submit"
             disabled={!inputValue.trim() || isLoading}
-            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 flex items-center space-x-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:transform-none"
+            className="px-8 py-4 bg-black text-white rounded-lg hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center space-x-3"
           >
             {isLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
