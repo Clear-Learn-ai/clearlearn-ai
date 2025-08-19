@@ -2,18 +2,20 @@ import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import Anthropic from '@anthropic-ai/sdk'
 
-// Initialize AI clients
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
-
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
-
 export async function POST(request: NextRequest) {
   try {
     const { message, sessionId, conversationHistory } = await request.json()
+
+    // Initialize AI clients only when needed and with proper error handling
+    const anthropicApiKey = process.env.ANTHROPIC_API_KEY
+    const openaiApiKey = process.env.OPENAI_API_KEY
+
+    if (!anthropicApiKey && !openaiApiKey) {
+      return NextResponse.json(
+        { error: 'No AI API keys configured' },
+        { status: 500 }
+      )
+    }
 
     // Organic chemistry context for AI
     const systemPrompt = `You are an expert organic chemistry tutor specializing in pre-med education. Your role is to:
@@ -45,35 +47,51 @@ Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
     // Generate AI response
     let aiResponse: string
     try {
-      // Try Claude first (better for educational content)
-      const claudeResponse = await anthropic.messages.create({
-        model: 'claude-3-sonnet-20240229',
-        max_tokens: 1000,
-        messages: [
-          {
-            role: 'user',
-            content: `${systemPrompt}\n\nConversation history:\n${conversationContext}\n\nStudent question: ${message}\n\nProvide a helpful, educational response:`
-          }
-        ]
-      })
-      aiResponse = claudeResponse.content[0].type === 'text' ? claudeResponse.content[0].text : ''
+      // Try Claude first (better for educational content) if API key available
+      if (anthropicApiKey) {
+        const anthropic = new Anthropic({
+          apiKey: anthropicApiKey,
+        })
+        
+        const claudeResponse = await anthropic.messages.create({
+          model: 'claude-3-sonnet-20240229',
+          max_tokens: 1000,
+          messages: [
+            {
+              role: 'user',
+              content: `${systemPrompt}\n\nConversation history:\n${conversationContext}\n\nStudent question: ${message}\n\nProvide a helpful, educational response:`
+            }
+          ]
+        })
+        aiResponse = claudeResponse.content[0].type === 'text' ? claudeResponse.content[0].text : ''
+      } else {
+        throw new Error('No Anthropic API key')
+      }
     } catch (error) {
       console.log('Claude failed, trying OpenAI...')
-      // Fallback to OpenAI
-      const openaiResponse = await openai.chat.completions.create({
-        model: 'gpt-4',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          ...conversationHistory.slice(-5).map(msg => ({
-            role: msg.role as 'user' | 'assistant',
-            content: msg.content
-          })),
-          { role: 'user', content: message }
-        ],
-        max_tokens: 1000,
-        temperature: 0.7
-      })
-      aiResponse = openaiResponse.choices[0].message.content || ''
+      // Fallback to OpenAI if available
+      if (openaiApiKey) {
+        const openai = new OpenAI({
+          apiKey: openaiApiKey,
+        })
+        
+        const openaiResponse = await openai.chat.completions.create({
+          model: 'gpt-4',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            ...conversationHistory.slice(-5).map(msg => ({
+              role: msg.role as 'user' | 'assistant',
+              content: msg.content
+            })),
+            { role: 'user', content: message }
+          ],
+          max_tokens: 1000,
+          temperature: 0.7
+        })
+        aiResponse = openaiResponse.choices[0].message.content || ''
+      } else {
+        throw new Error('No OpenAI API key available')
+      }
     }
 
     // Search for relevant videos
