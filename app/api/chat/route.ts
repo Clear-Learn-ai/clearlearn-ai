@@ -18,15 +18,18 @@ export async function POST(request: NextRequest) {
     const openaiApiKey = process.env.OPENAI_API_KEY
 
     // Check if API keys are properly configured (not demo mode)
-    const hasValidAnthropicKey = anthropicApiKey && 
-      anthropicApiKey !== 'demo_mode_enabled' && 
-      anthropicApiKey.trim().length > 10 &&
-      (anthropicApiKey.startsWith('sk-ant-') || anthropicApiKey.startsWith('sk-'))
+    const cleanAnthropicKey = anthropicApiKey?.replace(/\s+/g, '') || ''
+    const cleanOpenAIKey = openaiApiKey?.replace(/\s+/g, '') || ''
     
-    const hasValidOpenAIKey = openaiApiKey && 
-      openaiApiKey !== 'demo_mode_enabled' && 
-      openaiApiKey.trim().length > 10 &&
-      openaiApiKey.startsWith('sk-')
+    const hasValidAnthropicKey = cleanAnthropicKey && 
+      cleanAnthropicKey !== 'demo_mode_enabled' && 
+      cleanAnthropicKey.length > 20 &&
+      (cleanAnthropicKey.startsWith('sk-ant-') || cleanAnthropicKey.startsWith('sk-'))
+    
+    const hasValidOpenAIKey = cleanOpenAIKey && 
+      cleanOpenAIKey !== 'demo_mode_enabled' && 
+      cleanOpenAIKey.length > 20 &&
+      cleanOpenAIKey.startsWith('sk-')
 
     if (!hasValidAnthropicKey && !hasValidOpenAIKey) {
       return NextResponse.json(
@@ -87,7 +90,7 @@ Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
       if (hasValidAnthropicKey) {
         try {
           const anthropic = new Anthropic({
-            apiKey: anthropicApiKey,
+            apiKey: cleanAnthropicKey,
           })
           
           const claudeResponse = await anthropic.messages.create({
@@ -110,7 +113,7 @@ Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
       } else if (hasValidOpenAIKey) {
         // Use OpenAI if Claude key not available
         const openai = new OpenAI({
-          apiKey: openaiApiKey,
+          apiKey: cleanOpenAIKey,
         })
         
         const openaiResponse = await openai.chat.completions.create({
@@ -137,7 +140,7 @@ Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
       if (usedProvider !== 'openai' && hasValidOpenAIKey) {
         try {
           const openai = new OpenAI({
-            apiKey: openaiApiKey,
+            apiKey: cleanOpenAIKey,
           })
           
           const openaiResponse = await openai.chat.completions.create({

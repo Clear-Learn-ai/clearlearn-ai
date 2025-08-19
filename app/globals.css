@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --font-jetbrains-mono: 'JetBrains Mono', monospace;
+  }
+  
   body {
-    @apply bg-slate-50 text-gray-900;
+    @apply bg-white text-gray-900;
+    font-family: var(--font-jetbrains-mono);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
