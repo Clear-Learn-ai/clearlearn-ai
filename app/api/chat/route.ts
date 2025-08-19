@@ -18,14 +18,34 @@ export async function POST(request: NextRequest) {
     const openaiApiKey = process.env.OPENAI_API_KEY
 
     // Check if API keys are properly configured (not demo mode)
-    const hasValidAnthropicKey = anthropicApiKey && anthropicApiKey !== 'demo_mode_enabled' && anthropicApiKey.startsWith('sk-')
-    const hasValidOpenAIKey = openaiApiKey && openaiApiKey !== 'demo_mode_enabled' && openaiApiKey.startsWith('sk-')
+    const hasValidAnthropicKey = anthropicApiKey && 
+      anthropicApiKey !== 'demo_mode_enabled' && 
+      anthropicApiKey.trim().length > 10 &&
+      (anthropicApiKey.startsWith('sk-ant-') || anthropicApiKey.startsWith('sk-'))
+    
+    const hasValidOpenAIKey = openaiApiKey && 
+      openaiApiKey !== 'demo_mode_enabled' && 
+      openaiApiKey.trim().length > 10 &&
+      openaiApiKey.startsWith('sk-')
 
     if (!hasValidAnthropicKey && !hasValidOpenAIKey) {
       return NextResponse.json(
         { 
-          error: 'API keys not configured correctly. Please set valid ANTHROPIC_API_KEY or OPENAI_API_KEY in your environment variables.',
-          details: 'Keys should start with "sk-" and not be set to "demo_mode_enabled"'
+          error: 'API keys not configured correctly',
+          details: {
+            message: 'Please set valid ANTHROPIC_API_KEY or OPENAI_API_KEY in your environment variables',
+            anthropicKey: {
+              present: !!anthropicApiKey,
+              valid: hasValidAnthropicKey,
+              expectedFormat: 'sk-ant-... or sk-...'
+            },
+            openaiKey: {
+              present: !!openaiApiKey,
+              valid: hasValidOpenAIKey,
+              expectedFormat: 'sk-...'
+            },
+            troubleshooting: 'Check /api/debug for detailed key status'
+          }
         },
         { status: 500 }
       )
