@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import Anthropic from '@anthropic-ai/sdk'
 
+// Prevent build-time execution
+export const dynamic = 'force-dynamic'
+
+export async function GET() {
+  return NextResponse.json({ message: 'Chat API endpoint - use POST to send messages' })
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { message, sessionId, conversationHistory } = await request.json()
