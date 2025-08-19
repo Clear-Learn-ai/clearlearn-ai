@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .canvas-container {
+    @apply relative w-full h-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm;
+  }
+  
+  .learning-card {
+    @apply rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-blue-50 via-slate-50 to-gray-50;
+  }
+}
