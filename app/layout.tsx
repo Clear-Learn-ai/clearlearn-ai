@@ -5,8 +5,9 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Clearlearn - Adaptive Visual Learning System',
-  description: 'AI-powered tutor that explains any concept through multiple modalities',
+  title: 'ChemTutor AI - Organic Chemistry AI Tutor',
+  description: 'AI-powered organic chemistry tutor with video explanations. Get instant help with reaction mechanisms, stereochemistry, and synthesis problems.',
+  keywords: 'organic chemistry, AI tutor, pre-med, reaction mechanisms, stereochemistry, synthesis',
 }
 
 export default function RootLayout({

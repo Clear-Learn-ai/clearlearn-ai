@@ -2,27 +2,40 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { 
+  Beaker, 
+  Video, 
+  Brain, 
+  MessageSquare, 
+  Play, 
+  ArrowRight,
+  CheckCircle,
+  Users,
+  Clock,
+  Zap
+} from 'lucide-react'
 
-const DemoWidget = () => {
+const OrganicChemDemo = () => {
   const [isDemo, setIsDemo] = useState(false)
   
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-8 text-center">
-      <div className="text-4xl mb-4">🎯</div>
-      <h3 className="text-xl font-semibold mb-4">See Adaptation in Action</h3>
+    <div className="bg-gradient-to-br from-green-50 to-blue-100 rounded-xl p-8 text-center">
+      <div className="text-4xl mb-4">🧪</div>
+      <h3 className="text-xl font-semibold mb-4">Try Organic Chemistry AI Tutor</h3>
       <p className="text-gray-600 mb-6">
-        Watch how our AI learns your style in real-time and adapts the explanation method.
+        Ask questions about organic chemistry and get AI explanations with relevant video content.
       </p>
       <button
         onClick={() => setIsDemo(true)}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+        className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
       >
-        ▶️ Start Live Demo
+        🚀 Start Chemistry Session
       </button>
       {isDemo && (
         <div className="mt-4 p-4 bg-white rounded-lg">
           <div className="text-2xl mb-2">🎬</div>
-          <p className="text-sm">Demo functionality will be available once the system loads completely.</p>
+          <p className="text-sm">Chemistry AI tutor will be available once fully loaded.</p>
         </div>
       )}
     </div>
@@ -58,45 +71,45 @@ export default function LandingPage() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
             <div className="text-center">
               <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-                Learn Anything,
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  {" "}Your Way
+                Master Organic Chemistry
+                <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                  {" "}with AI + Video
                 </span>
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                The first AI-powered learning system that truly adapts to how <em>you</em> learn best. 
-                From visual animations to hands-on simulations - personalized in real-time.
+                The first AI tutor specifically designed for <em>pre-med organic chemistry</em>. 
+                Get instant explanations with curated video content and visual molecular structures.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <Link 
+                  href="/chemistry-chat"
+                  className="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium text-lg transition-colors"
+                >
+                  🧪 Start Chemistry Session
+                </Link>
+                <Link
                   href="/demo"
                   className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium text-lg transition-colors"
                 >
-                  🚀 Watch 2-Minute Demo
-                </Link>
-                <Link
-                  href="/test-quantum"
-                  className="px-8 py-4 bg-gray-600 text-white rounded-lg hover:bg-gray-700 font-medium text-lg transition-colors"
-                >
-                  🧪 Try Interactive Demo
+                  📹 Watch How It Works
                 </Link>
               </div>
               
               {/* Live Stats */}
               <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600">{stats.concepts.toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">Concepts Explained</div>
+                  <div className="text-3xl font-bold text-green-600">{stats.concepts.toLocaleString()}</div>
+                  <div className="text-sm text-gray-600">Reactions Explained</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-600">{stats.adaptations.toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">AI Adaptations</div>
+                  <div className="text-3xl font-bold text-blue-600">{stats.adaptations.toLocaleString()}</div>
+                  <div className="text-sm text-gray-600">Videos Analyzed</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-purple-600">{stats.users.toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">Learning Sessions</div>
+                  <div className="text-sm text-gray-600">Study Sessions</div>
                 </div>
               </div>
             </div>
@@ -105,7 +118,7 @@ export default function LandingPage() {
         
         {/* Live Demo Widget */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
-          <DemoWidget />
+          <OrganicChemDemo />
         </div>
         
         {/* Problem & Solution */}
@@ -114,22 +127,22 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                  The Problem with One-Size-Fits-All Education
+                  Why Organic Chemistry Is So Challenging
                 </h2>
                 <div className="space-y-4 text-lg text-gray-600">
-                  <p>📚 Traditional learning assumes everyone learns the same way</p>
-                  <p>😴 65% of people are visual learners, yet most education is text-based</p>
-                  <p>⏰ Students waste hours on content that doesn't match their learning style</p>
-                  <p>🧠 Complex concepts become barriers instead of stepping stones</p>
+                  <p>🧪 Complex 3D molecular structures are hard to visualize from textbooks</p>
+                  <p>⚡ Reaction mechanisms require understanding both theory and spatial reasoning</p>
+                  <p>📚 Traditional study methods don't connect concepts to visual representations</p>
+                  <p>🎯 Students need immediate feedback and personalized explanations</p>
                 </div>
               </div>
               <div className="bg-white rounded-2xl p-8 shadow-lg">
                 <div className="text-center">
-                  <div className="text-6xl mb-4">🎯</div>
-                  <h3 className="text-2xl font-bold mb-4">Our Solution</h3>
+                  <div className="text-6xl mb-4">🧪</div>
+                  <h3 className="text-2xl font-bold mb-4">Video-Augmented AI Tutor</h3>
                   <p className="text-gray-600">
-                    AI that learns how you learn, then adapts every explanation to match your unique style. 
-                    Visual? Interactive? Step-by-step? We detect and deliver.
+                    AI that understands organic chemistry questions and responds with personalized explanations 
+                    plus curated video content from YouTube and Khan Academy.
                   </p>
                 </div>
               </div>
@@ -258,7 +271,7 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div className="col-span-2">
-                <h3 className="text-2xl font-bold mb-4">ClearLearn</h3>
+                <h3 className="text-2xl font-bold mb-4">ChemTutor AI</h3>
                 <p className="text-gray-400 mb-4">
                   Adaptive Visual Learning System powered by breakthrough AI technology. 
                   Making personalized education accessible to everyone.
@@ -286,7 +299,7 @@ export default function LandingPage() {
             </div>
             
             <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2024 ClearLearn. Revolutionizing education through AI adaptation.</p>
+              <p>&copy; 2024 ChemTutor AI. Revolutionizing education through AI adaptation.</p>
             </div>
           </div>
         </footer>

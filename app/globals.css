@@ -21,4 +21,77 @@
   .gradient-bg {
     @apply bg-gradient-to-br from-blue-50 via-slate-50 to-gray-50;
   }
+
+  /* Chat interface styles */
+  .chat-message {
+    @apply max-w-[80%] rounded-lg p-4;
+  }
+
+  .chat-message-user {
+    @apply bg-blue-600 text-white;
+  }
+
+  .chat-message-assistant {
+    @apply bg-white border border-gray-200;
+  }
+
+  /* Video player styles */
+  .video-controls {
+    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4;
+  }
+
+  .video-control-button {
+    @apply w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-colors;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  }
+
+  /* Animation classes */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Chemistry-themed gradients */
+  .chem-gradient-primary {
+    @apply bg-gradient-to-br from-green-500 to-blue-600;
+  }
+
+  .chem-gradient-secondary {
+    @apply bg-gradient-to-br from-green-100 to-blue-100;
+  }
+
+  .chem-gradient-accent {
+    @apply bg-gradient-to-br from-green-400 to-blue-500;
+  }
 }

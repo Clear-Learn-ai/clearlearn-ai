@@ -1,165 +1,219 @@
 import { create } from 'zustand'
 import { subscribeWithSelector } from 'zustand/middleware'
-import { LearningEngine } from '@/core/LearningEngine'
-import { 
-  LearningQuery, 
-  GeneratedContent, 
-  FeedbackData, 
-  SessionMetrics, 
-  UserProgress 
-} from '@/core/types'
 
-interface LearningState {
-  // Core engine
-  engine: LearningEngine
-  
-  // Current session state
-  currentQuery: string
-  isGenerating: boolean
-  currentContent: GeneratedContent | null
-  error: string | null
-  
-  // Learning history
-  queryHistory: LearningQuery[]
-  contentHistory: GeneratedContent[]
-  feedbackHistory: FeedbackData[]
-  
-  // Session metrics
-  sessionMetrics: SessionMetrics | null
-  
-  // User preferences (would be loaded from API in production)
-  userProgress: UserProgress | null
-  
-  // Actions
-  setQuery: (query: string) => void
-  generateContent: (query: string) => Promise<void>
-  submitFeedback: (feedback: Omit<FeedbackData, 'timestamp'>) => void
-  clearError: () => void
-  resetSession: () => void
-  
-  // Getters
-  getRecentQueries: () => LearningQuery[]
-  getSessionStats: () => SessionMetrics
+// Types for the new video-augmented AI tutor
+export interface ChatMessage {
+  id: string
+  role: 'user' | 'assistant'
+  content: string
+  timestamp: Date
+  videoResults?: VideoResult[]
+  aiExplanation?: string
 }
 
-export const useLearningStore = create<LearningState>()(
+export interface VideoResult {
+  id: string
+  title: string
+  description: string
+  thumbnail: string
+  url: string
+  duration: string
+  source: 'youtube' | 'khan-academy'
+  relevance: number
+}
+
+export interface SessionState {
+  sessionId: string
+  startTime: Date
+  messages: ChatMessage[]
+  currentQuery: string
+  isLoading: boolean
+  error: string | null
+  videoResults: VideoResult[]
+  selectedVideo: VideoResult | null
+}
+
+interface ChemTutorStore {
+  // Session state
+  session: SessionState
+  
+  // Actions
+  sendMessage: (content: string) => Promise<void>
+  setCurrentQuery: (query: string) => void
+  selectVideo: (video: VideoResult) => void
+  clearSession: () => void
+  setError: (error: string | null) => void
+  
+  // Getters
+  getRecentMessages: () => ChatMessage[]
+  getSessionStats: () => { messageCount: number; duration: number }
+}
+
+export const useChemTutorStore = create<ChemTutorStore>()(
   subscribeWithSelector((set, get) => ({
     // Initial state
-    engine: new LearningEngine(),
-    currentQuery: '',
-    isGenerating: false,
-    currentContent: null,
-    error: null,
-    queryHistory: [],
-    contentHistory: [],
-    feedbackHistory: [],
-    sessionMetrics: null,
-    userProgress: null,
+    session: {
+      sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      startTime: new Date(),
+      messages: [],
+      currentQuery: '',
+      isLoading: false,
+      error: null,
+      videoResults: [],
+      selectedVideo: null
+    },
     
     // Actions
-    setQuery: (query: string) => {
-      set({ currentQuery: query, error: null })
-    },
-    
-    generateContent: async (query: string) => {
-      const { engine } = get()
+    sendMessage: async (content: string) => {
+      const { session } = get()
       
-      set({ 
-        isGenerating: true, 
-        error: null,
-        currentQuery: query 
-      })
-      
-      try {
-        const content = await engine.processQuery(query)
-        
-        set(state => ({
-          isGenerating: false,
-          currentContent: content,
-          contentHistory: [...state.contentHistory, content],
-          sessionMetrics: engine.getSessionMetrics()
-        }))
-        
-      } catch (error) {
-        console.error('Content generation failed:', error)
-        set({ 
-          isGenerating: false, 
-          error: error instanceof Error ? error.message : 'Failed to generate content',
-          currentContent: null
-        })
-      }
-    },
-    
-    submitFeedback: (feedback: Omit<FeedbackData, 'timestamp'>) => {
-      const { engine } = get()
-      
-      const fullFeedback: FeedbackData = {
-        ...feedback,
+      // Add user message
+      const userMessage: ChatMessage = {
+        id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        role: 'user',
+        content,
         timestamp: new Date()
       }
       
-      // Record feedback in engine
-      engine.recordFeedback(fullFeedback)
-      
-      // Update store state
       set(state => ({
-        feedbackHistory: [...state.feedbackHistory, fullFeedback],
-        sessionMetrics: engine.getSessionMetrics()
+        session: {
+          ...state.session,
+          messages: [...state.session.messages, userMessage],
+          isLoading: true,
+          error: null,
+          currentQuery: content
+        }
       }))
       
-      // In production, would also send to analytics/adaptation system
-      console.log('Feedback submitted:', fullFeedback)
+      try {
+        // Call AI API to get response
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: content,
+            sessionId: session.sessionId,
+            conversationHistory: session.messages
+          })
+        })
+        
+        if (!response.ok) {
+          throw new Error('Failed to get AI response')
+        }
+        
+        const data = await response.json()
+        
+        // Add AI response
+        const aiMessage: ChatMessage = {
+          id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          role: 'assistant',
+          content: data.explanation,
+          timestamp: new Date(),
+          videoResults: data.videoResults,
+          aiExplanation: data.explanation
+        }
+        
+        set(state => ({
+          session: {
+            ...state.session,
+            messages: [...state.session.messages, aiMessage],
+            isLoading: false,
+            videoResults: data.videoResults || []
+          }
+        }))
+        
+      } catch (error) {
+        console.error('Error sending message:', error)
+        set(state => ({
+          session: {
+            ...state.session,
+            isLoading: false,
+            error: error instanceof Error ? error.message : 'Failed to send message'
+          }
+        }))
+      }
     },
     
-    clearError: () => {
-      set({ error: null })
+    setCurrentQuery: (query: string) => {
+      set(state => ({
+        session: {
+          ...state.session,
+          currentQuery: query,
+          error: null
+        }
+      }))
     },
     
-    resetSession: () => {
-      const newEngine = new LearningEngine()
+    selectVideo: (video: VideoResult) => {
+      set(state => ({
+        session: {
+          ...state.session,
+          selectedVideo: video
+        }
+      }))
+    },
+    
+    clearSession: () => {
       set({
-        engine: newEngine,
-        currentQuery: '',
-        isGenerating: false,
-        currentContent: null,
-        error: null,
-        queryHistory: [],
-        contentHistory: [],
-        feedbackHistory: [],
-        sessionMetrics: null
+        session: {
+          sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          startTime: new Date(),
+          messages: [],
+          currentQuery: '',
+          isLoading: false,
+          error: null,
+          videoResults: [],
+          selectedVideo: null
+        }
       })
     },
     
+    setError: (error: string | null) => {
+      set(state => ({
+        session: {
+          ...state.session,
+          error,
+          isLoading: false
+        }
+      }))
+    },
+    
     // Getters
-    getRecentQueries: () => {
-      const { queryHistory } = get()
-      return queryHistory
-        .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
-        .slice(0, 10)
+    getRecentMessages: () => {
+      const { session } = get()
+      return session.messages.slice(-10) // Last 10 messages
     },
     
     getSessionStats: () => {
-      const { engine } = get()
-      return engine.getSessionMetrics()
+      const { session } = get()
+      const duration = Date.now() - session.startTime.getTime()
+      return {
+        messageCount: session.messages.length,
+        duration: Math.floor(duration / 1000) // seconds
+      }
     }
   }))
 )
 
 // Selectors for optimized component subscriptions
-export const useCurrentQuery = () => useLearningStore(state => state.currentQuery)
-export const useIsGenerating = () => useLearningStore(state => state.isGenerating)
-export const useCurrentContent = () => useLearningStore(state => state.currentContent)
-export const useError = () => useLearningStore(state => state.error)
-export const useSessionMetrics = () => useLearningStore(state => state.sessionMetrics)
+export const useSession = () => useChemTutorStore(state => state.session)
+export const useMessages = () => useChemTutorStore(state => state.session.messages)
+export const useIsLoading = () => useChemTutorStore(state => state.session.isLoading)
+export const useError = () => useChemTutorStore(state => state.session.error)
+export const useVideoResults = () => useChemTutorStore(state => state.session.videoResults)
+export const useSelectedVideo = () => useChemTutorStore(state => state.session.selectedVideo)
 
 // Action selectors
-export const useGenerateContent = () => useLearningStore(state => state.generateContent)
-export const useSubmitFeedback = () => useLearningStore(state => state.submitFeedback)
-export const useSetQuery = () => useLearningStore(state => state.setQuery)
-export const useClearError = () => useLearningStore(state => state.clearError)
+export const useSendMessage = () => useChemTutorStore(state => state.sendMessage)
+export const useSetCurrentQuery = () => useChemTutorStore(state => state.setCurrentQuery)
+export const useSelectVideo = () => useChemTutorStore(state => state.selectVideo)
+export const useClearSession = () => useChemTutorStore(state => state.clearSession)
+export const useSetError = () => useChemTutorStore(state => state.setError)
 
 // Development helpers
 if (typeof window !== 'undefined') {
   // @ts-expect-error - For debugging in development
-  window.learningStore = useLearningStore
+  window.chemTutorStore = useChemTutorStore
 }
