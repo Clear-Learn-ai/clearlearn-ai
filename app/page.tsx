@@ -84,16 +84,16 @@ export default function LandingPage() {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <Link 
-                  href="/chemistry-chat"
+                  href="/chat"
                   className="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium text-lg transition-colors"
                 >
                   🧪 Start Chemistry Session
                 </Link>
                 <Link
-                  href="/demo"
+                  href="/chat"
                   className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium text-lg transition-colors"
                 >
-                  📹 Watch How It Works
+                  📹 Try AI Tutor
                 </Link>
               </div>
               
