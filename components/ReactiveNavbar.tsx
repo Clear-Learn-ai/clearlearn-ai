@@ -74,7 +74,7 @@ export function ReactiveNavbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link 
-              href="/#features" 
+              href="/features" 
               className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
             >
               Features
@@ -166,7 +166,7 @@ export function ReactiveNavbar() {
         >
           <div className="py-4 space-y-4 border-t border-gray-200 mt-4">
             <Link 
-              href="/#features" 
+              href="/features" 
               className="block text-gray-700 hover:text-gray-900 font-medium"
               onClick={() => setIsMenuOpen(false)}
             >

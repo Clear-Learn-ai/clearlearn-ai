@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Play, Sparkles } from 'lucide-react'
-import { HeroScene3D } from './HeroScene3D'
 import { KineticTypography } from './KineticTypography'
 import { MagneticButton } from './MagneticCursor'
 import { AnimatedSection } from './SmoothScroll'
@@ -50,12 +49,17 @@ export function InteractiveHero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(184,122,122,0.15),transparent_70%)]" />
       </motion.div>
 
-      {/* 3D Scene Background */}
+      {/* Floating Shapes Background */}
       <motion.div
-        className="absolute inset-0"
+        className="absolute inset-0 overflow-hidden"
         style={{ y: backgroundY }}
       >
-        <HeroScene3D />
+        {/* Animated floating shapes */}
+        <div className="absolute top-20 left-20 w-32 h-32 rounded-full animate-pulse" style={{ background: 'linear-gradient(135deg, #1E0F2E 0%, #B87A7A 100%)', animationDuration: '3s' }} />
+        <div className="absolute top-40 right-32 w-24 h-24 rounded-lg rotate-45 animate-bounce" style={{ background: 'linear-gradient(135deg, #B87A7A 0%, #7B4397 100%)', animationDuration: '4s' }} />
+        <div className="absolute bottom-40 left-32 w-20 h-20 rounded-full animate-pulse" style={{ background: 'linear-gradient(135deg, #7B4397 0%, #E6B3BA 100%)', animationDuration: '5s' }} />
+        <div className="absolute bottom-20 right-20 w-36 h-36 rounded-lg rotate-12 animate-bounce" style={{ background: 'linear-gradient(135deg, #3D1A78 0%, #1E0F2E 100%)', animationDuration: '3.5s' }} />
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 rounded-full animate-pulse" style={{ background: 'linear-gradient(135deg, #E6B3BA 0%, #B87A7A 100%)', animationDuration: '4.5s' }} />
       </motion.div>
 
       {/* Grain overlay for texture */}

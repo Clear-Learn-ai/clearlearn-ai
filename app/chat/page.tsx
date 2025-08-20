@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, Send, Loader2, Play, Clock, Sparkles, MessageSquare } from 'lucide-react'
+import Link from 'next/link'
+import { Menu, Send, Loader2, Play, Clock, Sparkles, MessageSquare, ArrowLeft } from 'lucide-react'
 import { ChatHistorySidebar } from '@/components/ChatHistorySidebar'
 import { VideoPlayer } from '@/components/VideoPlayer'
 import { ReactiveNavbar } from '@/components/ReactiveNavbar'
@@ -93,6 +94,12 @@ export default function ChatPage() {
         {/* Header */}
         <div className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
+            <Link
+              href="/"
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
             <motion.button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
