@@ -37,33 +37,15 @@ export function InteractiveHero() {
   return (
     <motion.section
       ref={containerRef}
-      className="relative h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 overflow-hidden flex items-center justify-center"
-      style={{ opacity }}
+      className="relative bg-white overflow-hidden flex items-center justify-center"
+      style={{ 
+        height: '100vh',
+        minHeight: '100vh',
+        opacity 
+      }}
     >
-      {/* Animated background gradient */}
-      <motion.div
-        className="absolute inset-0 opacity-40"
-        style={{ y: backgroundY }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-100/30 via-pink-100/30 to-rose-100/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(184,122,122,0.15),transparent_70%)]" />
-      </motion.div>
-
-      {/* Floating Shapes Background */}
-      <motion.div
-        className="absolute inset-0 overflow-hidden"
-        style={{ y: backgroundY }}
-      >
-        {/* Animated floating shapes */}
-        <div className="absolute top-20 left-20 w-32 h-32 rounded-full animate-pulse" style={{ background: 'linear-gradient(135deg, #1E0F2E 0%, #B87A7A 100%)', animationDuration: '3s' }} />
-        <div className="absolute top-40 right-32 w-24 h-24 rounded-lg rotate-45 animate-bounce" style={{ background: 'linear-gradient(135deg, #B87A7A 0%, #7B4397 100%)', animationDuration: '4s' }} />
-        <div className="absolute bottom-40 left-32 w-20 h-20 rounded-full animate-pulse" style={{ background: 'linear-gradient(135deg, #7B4397 0%, #E6B3BA 100%)', animationDuration: '5s' }} />
-        <div className="absolute bottom-20 right-20 w-36 h-36 rounded-lg rotate-12 animate-bounce" style={{ background: 'linear-gradient(135deg, #3D1A78 0%, #1E0F2E 100%)', animationDuration: '3.5s' }} />
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 rounded-full animate-pulse" style={{ background: 'linear-gradient(135deg, #E6B3BA 0%, #B87A7A 100%)', animationDuration: '4.5s' }} />
-      </motion.div>
-
-      {/* Grain overlay for texture */}
-      <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxmaWx0ZXIgaWQ9Im5vaXNlIj4KICAgICAgPGZlVHVyYnVsZW5jZSBiYXNlRnJlcXVlbmN5PSIwLjkiIG51bU9jdGF2ZXM9IjQiIHJlc3VsdD0ibm9pc2UiLz4KICAgICAgPGZlQ29sb3JNYXRyaXggaW49Im5vaXNlIiB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgICA8L2ZpbHRlcj4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPg==')] bg-repeat" />
+      {/* Clean subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50/30 to-white" />
 
       {/* Main content */}
       <motion.div
@@ -73,8 +55,7 @@ export function InteractiveHero() {
         {/* Hero Typography */}
         <div className="text-center">
           <motion.h1 
-            className="text-7xl md:text-8xl font-black mb-8 leading-none"
-            style={{ color: '#1E0F2E' }}
+            className="text-7xl md:text-9xl font-black mb-8 leading-none text-black"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -82,7 +63,7 @@ export function InteractiveHero() {
             Master Any Subject
           </motion.h1>
           <motion.p 
-            className="text-3xl text-gray-600 font-light mb-12 max-w-4xl mx-auto"
+            className="text-3xl md:text-4xl text-gray-600 font-light mb-12 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}

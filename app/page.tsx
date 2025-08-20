@@ -13,6 +13,7 @@ import { InteractiveHero } from '@/components/InteractiveHero'
 import { MagneticCursor } from '@/components/MagneticCursor'
 import { SmoothScroll, useScrollAnimation } from '@/components/SmoothScroll'
 import { ReactiveNavbar } from '@/components/ReactiveNavbar'
+import { Footer } from '@/components/Footer'
 
 export default function LandingPage() {
   const [demoStep, setDemoStep] = useState(0)
@@ -173,6 +174,9 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+        
+        {/* Footer */}
+        <Footer />
       </div>
     </SmoothScroll>
   )

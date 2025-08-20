@@ -121,8 +121,8 @@ export function MagneticButton({
   }
 
   const baseClasses = variant === 'primary'
-    ? 'bg-white text-black hover:bg-gray-100'
-    : 'bg-transparent text-white border-2 border-white hover:bg-white hover:text-black'
+    ? 'text-white hover:opacity-90'
+    : 'bg-transparent text-gray-900 border-2 hover:bg-gray-50'
 
   return (
     <motion.button
@@ -131,7 +131,7 @@ export function MagneticButton({
       className={`
         relative px-8 py-4 rounded-full font-semibold text-lg
         transition-all duration-300 transform-gpu overflow-hidden
-        ${baseClasses} ${className}
+        ${variant === 'primary' ? 'amethyst-primary' : ''} ${baseClasses} ${className}
       `}
       style={{ x, y }}
       onMouseMove={handleMouseMove}
