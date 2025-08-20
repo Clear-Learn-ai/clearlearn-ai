@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Providers } from '@/components/Providers'
 import './globals.css'
 
 const inter = Inter({
@@ -13,9 +14,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'OrganicAI - Smart Chemistry Learning with Video Explanations',
-  description: 'Transform your organic chemistry learning with AI-powered explanations and curated video content. Master reactions, mechanisms, and synthesis faster.',
-  keywords: 'organic chemistry, AI tutor, video explanations, reaction mechanisms, stereochemistry, synthesis, pre-med',
+  title: 'Clearlearn - AI-Powered Visual Learning',
+  description: 'Master any subject with AI-powered visual learning. Get instant explanations and curated video content to understand complex concepts faster.',
+  keywords: 'AI learning, visual education, video explanations, study assistant, adaptive learning, educational AI',
 }
 
 export default function RootLayout({
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   )

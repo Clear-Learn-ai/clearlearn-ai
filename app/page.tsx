@@ -12,6 +12,7 @@ import {
 import { InteractiveHero } from '@/components/InteractiveHero'
 import { MagneticCursor } from '@/components/MagneticCursor'
 import { SmoothScroll, useScrollAnimation } from '@/components/SmoothScroll'
+import { ReactiveNavbar } from '@/components/ReactiveNavbar'
 
 export default function LandingPage() {
   const [demoStep, setDemoStep] = useState(0)
@@ -43,20 +44,8 @@ export default function LandingPage() {
         {/* Interactive Hero Section */}
         <InteractiveHero />
         
-        {/* Premium Navigation - Fixed */}
-        <nav className="fixed top-0 left-0 right-0 border-b border-gray-200/80 bg-white/90 backdrop-blur-lg z-50">
-          <div className="max-w-7xl mx-auto px-6 py-6">
-            <div className="flex justify-between items-center">
-              <div className="text-2xl font-bold text-gray-900">AI Tutor</div>
-              <Link
-                href="/chat"
-                className="px-6 py-3 bg-black text-white text-base font-medium rounded-lg hover:bg-gray-800 transition-colors shadow-sm"
-              >
-                Try it free
-              </Link>
-            </div>
-          </div>
-        </nav>
+        {/* Reactive Navigation */}
+        <ReactiveNavbar />
 
         {/* Content sections with light theme */}
         <section className="bg-white relative z-10">
@@ -128,7 +117,7 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
               </div>
               <p className="text-gray-600 mt-8 text-xl max-w-3xl mx-auto leading-relaxed">
-                Watch how AI Tutor instantly understands your questions and provides curated video explanations
+                Watch how Clearlearn instantly understands your questions and provides curated video explanations
               </p>
             </div>
 
