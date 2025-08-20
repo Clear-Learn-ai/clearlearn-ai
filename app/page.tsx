@@ -40,7 +40,7 @@ export default function LandingPage() {
   return (
     <SmoothScroll>
       <MagneticCursor />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50">
         {/* Interactive Hero Section */}
         <InteractiveHero />
         
@@ -48,7 +48,7 @@ export default function LandingPage() {
         <ReactiveNavbar />
 
         {/* Content sections with light theme */}
-        <section className="bg-white relative z-10">
+        <section className="bg-white relative z-10 min-h-screen">
           <div className="max-w-7xl mx-auto px-6 py-24">
             {/* Interactive Demo */}
             <div className="bg-white rounded-3xl p-12 mb-20 border border-gray-200 shadow-2xl fade-in">
@@ -101,15 +101,16 @@ export default function LandingPage() {
             </div>
 
             {/* Product Demo Section */}
-            <div className="text-center mb-20 fade-in" id="demo-section">
-              <h2 className="text-5xl font-bold text-gray-900 mb-12">See it in action</h2>
-              <div className="relative bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-2xl max-w-5xl mx-auto">
+            <div className="text-center mb-20 fade-in min-h-screen flex flex-col justify-center" id="demo-section">
+              <h2 className="text-5xl font-bold mb-12" style={{ color: '#1E0F2E' }}>See it in action</h2>
+              <div className="relative bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-2xl w-full max-w-6xl mx-auto">
                 <video 
                   autoPlay 
                   muted 
                   loop 
                   playsInline
                   className="w-full h-auto"
+                  style={{ minHeight: '60vh' }}
                 >
                   <source src="/Demo.mp4" type="video/mp4" />
                   Your browser does not support the video tag.

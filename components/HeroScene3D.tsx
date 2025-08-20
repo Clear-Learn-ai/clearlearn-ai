@@ -29,10 +29,10 @@ function FloatingShape({ position, color, shape = 'sphere', scale = 1 }: {
       <ShapeComponent args={[0.8, 16, 16]}>
         <meshStandardMaterial
           color={color}
-          metalness={0.3}
-          roughness={0.7}
+          metalness={0.4}
+          roughness={0.5}
           transparent
-          opacity={0.6}
+          opacity={0.8}
         />
       </ShapeComponent>
     </mesh>
@@ -53,7 +53,7 @@ function SceneLighting() {
 // Main 3D Scene component
 export function HeroScene3D() {
   return (
-    <div className="absolute inset-0 -z-10 opacity-30">
+    <div className="absolute inset-0 -z-10 opacity-60">
       <Canvas
         camera={{ position: [0, 0, 10], fov: 75 }}
         gl={{ alpha: true, antialias: true }}
@@ -61,10 +61,12 @@ export function HeroScene3D() {
       >
         <SceneLighting />
         
-        {/* Simple floating shapes */}
-        <FloatingShape position={[-3, 2, 0]} color="#3b82f6" shape="sphere" scale={0.8} />
-        <FloatingShape position={[3, -2, -1]} color="#06b6d4" shape="box" scale={0.6} />
-        <FloatingShape position={[0, 1, -2]} color="#10b981" shape="octahedron" scale={0.7} />
+        {/* Brighter floating shapes with amethyst colors */}
+        <FloatingShape position={[-3, 2, 0]} color="#1E0F2E" shape="sphere" scale={0.8} />
+        <FloatingShape position={[3, -2, -1]} color="#B87A7A" shape="box" scale={0.6} />
+        <FloatingShape position={[0, 1, -2]} color="#7B4397" shape="octahedron" scale={0.7} />
+        <FloatingShape position={[-2, -1, 1]} color="#E6B3BA" shape="sphere" scale={0.5} />
+        <FloatingShape position={[2, 2, -1]} color="#3D1A78" shape="box" scale={0.4} />
       </Canvas>
     </div>
   )

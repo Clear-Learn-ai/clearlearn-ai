@@ -62,7 +62,8 @@ export function ReactiveNavbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <motion.div
-              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+              className="text-2xl font-bold"
+              style={{ color: '#1E0F2E' }}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
@@ -134,7 +135,7 @@ export function ReactiveNavbar() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     href="/auth/signin"
-                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="px-6 py-3 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl amethyst-gradient hover:opacity-90"
                   >
                     Try it free
                   </Link>
@@ -213,7 +214,7 @@ export function ReactiveNavbar() {
                 </Link>
                 <Link
                   href="/auth/signin"
-                  className="block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl"
+                  className="block w-full text-center px-6 py-3 text-white font-semibold rounded-xl amethyst-gradient"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Try it free

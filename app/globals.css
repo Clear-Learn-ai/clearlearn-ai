@@ -6,6 +6,9 @@
   :root {
     --font-inter: 'Inter', sans-serif;
     --font-jetbrains-mono: 'JetBrains Mono', monospace;
+    --amethyst-dark: #1E0F2E;
+    --amethyst-light: #B87A7A;
+    --amethyst-accent: #7B4397;
   }
   
   body {
@@ -30,7 +33,15 @@
   }
   
   .gradient-bg {
-    @apply bg-gradient-to-br from-blue-50 via-slate-50 to-gray-50;
+    @apply bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50;
+  }
+
+  .amethyst-gradient {
+    background: linear-gradient(135deg, #1E0F2E 0%, #B87A7A 100%);
+  }
+
+  .amethyst-gradient-light {
+    background: linear-gradient(135deg, rgba(30, 15, 46, 0.1) 0%, rgba(184, 122, 122, 0.1) 100%);
   }
 
   /* Chat interface styles */
@@ -39,7 +50,8 @@
   }
 
   .chat-message-user {
-    @apply bg-blue-600 text-white;
+    background: linear-gradient(135deg, #1E0F2E 0%, #B87A7A 100%);
+    @apply text-white;
   }
 
   .chat-message-assistant {

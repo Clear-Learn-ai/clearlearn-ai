@@ -38,7 +38,7 @@ export function InteractiveHero() {
   return (
     <motion.section
       ref={containerRef}
-      className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 overflow-hidden flex items-center justify-center"
+      className="relative h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 overflow-hidden flex items-center justify-center"
       style={{ opacity }}
     >
       {/* Animated background gradient */}
@@ -46,8 +46,8 @@ export function InteractiveHero() {
         className="absolute inset-0 opacity-40"
         style={{ y: backgroundY }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-cyan-100/30 to-purple-100/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-100/30 via-pink-100/30 to-rose-100/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(184,122,122,0.15),transparent_70%)]" />
       </motion.div>
 
       {/* 3D Scene Background */}
@@ -69,7 +69,8 @@ export function InteractiveHero() {
         {/* Hero Typography */}
         <div className="text-center">
           <motion.h1 
-            className="text-7xl md:text-8xl font-black text-gray-900 mb-8 leading-none"
+            className="text-7xl md:text-8xl font-black mb-8 leading-none"
+            style={{ color: '#1E0F2E' }}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -146,10 +147,11 @@ export function InteractiveHero() {
       <div className="absolute inset-0 pointer-events-none">
         {/* Top-left accent */}
         <motion.div
-          className="absolute top-20 left-20 w-32 h-32 bg-blue-200/20 rounded-full blur-xl"
+          className="absolute top-20 left-20 w-32 h-32 rounded-full blur-xl"
+          style={{ backgroundColor: 'rgba(184, 122, 122, 0.4)' }}
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.2, 0.4, 0.2],
+            opacity: [0.4, 0.6, 0.4],
           }}
           transition={{
             duration: 4,
@@ -160,10 +162,11 @@ export function InteractiveHero() {
 
         {/* Bottom-right accent */}
         <motion.div
-          className="absolute bottom-20 right-20 w-48 h-48 bg-cyan-200/20 rounded-full blur-xl"
+          className="absolute bottom-20 right-20 w-48 h-48 rounded-full blur-xl"
+          style={{ backgroundColor: 'rgba(30, 15, 46, 0.3)' }}
           animate={{
             scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.5, 0.7, 0.5],
           }}
           transition={{
             duration: 5,

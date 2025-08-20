@@ -78,7 +78,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-blue-50 to-white flex overflow-hidden">
+    <div className="h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 flex overflow-hidden">
       {/* Chat History Sidebar */}
       <ChatHistorySidebar
         isOpen={sidebarOpen}
@@ -102,7 +102,7 @@ export default function ChatPage() {
               <Menu className="w-5 h-5" />
             </motion.button>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold" style={{ color: '#1E0F2E' }}>
                 Clearlearn
               </h1>
               <p className="text-sm text-gray-600">AI-Powered Learning Assistant</p>
@@ -127,7 +127,7 @@ export default function ChatPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center py-12"
               >
-                <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl mx-auto mb-8 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-2xl mx-auto mb-8 flex items-center justify-center amethyst-gradient">
                   <Sparkles className="w-10 h-10 text-white" />
                 </div>
                 
@@ -176,7 +176,7 @@ export default function ChatPage() {
                     <div className={cn(
                       "max-w-[80%] rounded-2xl px-6 py-4 shadow-sm",
                       message.role === 'user' 
-                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white' 
+                        ? 'amethyst-gradient text-white' 
                         : 'bg-white border border-gray-200'
                     )}>
                       <div className="text-base leading-relaxed">
@@ -283,7 +283,7 @@ export default function ChatPage() {
               <motion.button
                 type="submit"
                 disabled={!inputValue.trim() || isLoading}
-                className="px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 flex items-center shadow-lg hover:shadow-xl disabled:shadow-sm"
+                className="px-6 py-4 text-white rounded-2xl disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 flex items-center shadow-lg hover:shadow-xl disabled:shadow-sm amethyst-gradient hover:opacity-90"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

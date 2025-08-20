@@ -141,16 +141,17 @@ export function ChatHistorySidebar({
               className={`
                 group relative flex items-center p-3 rounded-lg cursor-pointer transition-all duration-200
                 ${currentChatId === session.id 
-                  ? 'bg-blue-50 border-l-4 border-blue-500' 
+                  ? 'amethyst-gradient-light border-l-4' 
                   : 'hover:bg-gray-50 border-l-4 border-transparent'
                 }
               `}
+              style={currentChatId === session.id ? { borderLeftColor: '#1E0F2E' } : {}}
               onClick={() => onSelectChat(session.id)}
               whileHover={{ x: 4 }}
             >
               <MessageSquare className={`
                 w-4 h-4 mr-3 flex-shrink-0
-                ${currentChatId === session.id ? 'text-blue-500' : 'text-gray-400'}
+                ${currentChatId === session.id ? 'text-gray-700' : 'text-gray-400'}
               `} />
               
               <div className="flex-1 min-w-0">
@@ -249,7 +250,7 @@ export function ChatHistorySidebar({
           {/* New Chat Button */}
           <motion.button
             onClick={onNewChat}
-            className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
+            className="w-full flex items-center justify-center px-4 py-3 text-white rounded-xl transition-all duration-300 shadow-lg amethyst-gradient hover:opacity-90"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
