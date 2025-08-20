@@ -38,16 +38,16 @@ export function InteractiveHero() {
   return (
     <motion.section
       ref={containerRef}
-      className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center"
+      className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 overflow-hidden flex items-center justify-center"
       style={{ opacity }}
     >
       {/* Animated background gradient */}
       <motion.div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-40"
         style={{ y: backgroundY }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-cyan-900/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-cyan-100/30 to-purple-100/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
       </motion.div>
 
       {/* 3D Scene Background */}
@@ -67,12 +67,24 @@ export function InteractiveHero() {
         style={{ y: contentY }}
       >
         {/* Hero Typography */}
-        <AnimatedSection animation="fade-in">
-          <KineticTypography
-            title="Master Any Subject"
-            subtitle="with AI-Powered Visual Learning"
-          />
-        </AnimatedSection>
+        <div className="text-center">
+          <motion.h1 
+            className="text-7xl md:text-8xl font-black text-gray-900 mb-8 leading-none"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            Master Any Subject
+          </motion.h1>
+          <motion.p 
+            className="text-3xl text-gray-600 font-light mb-12 max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            with AI-Powered Visual Learning
+          </motion.p>
+        </div>
 
         {/* Action buttons */}
         <AnimatedSection animation="scale-in" className="mt-16 space-y-6">
@@ -134,10 +146,10 @@ export function InteractiveHero() {
       <div className="absolute inset-0 pointer-events-none">
         {/* Top-left accent */}
         <motion.div
-          className="absolute top-20 left-20 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"
+          className="absolute top-20 left-20 w-32 h-32 bg-blue-200/20 rounded-full blur-xl"
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
+            opacity: [0.2, 0.4, 0.2],
           }}
           transition={{
             duration: 4,
@@ -148,10 +160,10 @@ export function InteractiveHero() {
 
         {/* Bottom-right accent */}
         <motion.div
-          className="absolute bottom-20 right-20 w-48 h-48 bg-purple-500/10 rounded-full blur-xl"
+          className="absolute bottom-20 right-20 w-48 h-48 bg-cyan-200/20 rounded-full blur-xl"
           animate={{
             scale: [1.2, 1, 1.2],
-            opacity: [0.4, 0.7, 0.4],
+            opacity: [0.3, 0.5, 0.3],
           }}
           transition={{
             duration: 5,
@@ -160,34 +172,22 @@ export function InteractiveHero() {
             delay: 1
           }}
         />
-
-        {/* Interactive light rays */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          style={{
-            x: mousePosition.x * 50,
-            y: mousePosition.y * 50,
-          }}
-        >
-          <div className="w-96 h-1 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent blur-sm" />
-          <div className="w-1 h-96 bg-gradient-to-b from-transparent via-purple-400/20 to-transparent blur-sm" />
-        </motion.div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-600"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 3 }}
+        transition={{ duration: 1, delay: 2 }}
       >
         <motion.div
           className="flex flex-col items-center gap-2"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <span className="text-xs uppercase tracking-wider">Scroll to explore</span>
-          <div className="w-[1px] h-8 bg-gradient-to-b from-white/60 to-transparent" />
+          <span className="text-xs uppercase tracking-wider font-medium">Scroll to explore</span>
+          <div className="w-[1px] h-8 bg-gradient-to-b from-gray-600 to-transparent" />
         </motion.div>
       </motion.div>
 
