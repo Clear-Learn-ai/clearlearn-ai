@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Menu, Send, Loader2, Play, Clock, Sparkles, MessageSquare, ArrowLeft } from 'lucide-react'
+import { Menu, Send, Loader2, Play, Clock, Sparkles, ArrowLeft } from 'lucide-react'
 import { ChatHistorySidebar } from '@/components/ChatHistorySidebar'
 import { VideoPlayer } from '@/components/VideoPlayer'
 import { ReactiveNavbar } from '@/components/ReactiveNavbar'
@@ -26,14 +26,6 @@ export default function ChatPage() {
   const selectVideo = useSelectVideo()
   const setError = useSetError()
 
-  // Sample suggested questions for different subjects
-  const suggestedQuestions = [
-    "How does photosynthesis work?",
-    "Explain the water cycle",
-    "What is DNA and how does it work?",
-    "How do vaccines work?",
-    "Explain Newton's laws of motion"
-  ]
 
   useEffect(() => {
     if (selectedVideo && !isVideoOpen) {
@@ -60,12 +52,6 @@ export default function ChatPage() {
     }
   }
 
-  const handleSuggestedQuestion = (question: string) => {
-    setInputValue(question)
-    // Auto-submit the question
-    setCurrentQuery(question)
-    sendMessage(question)
-  }
 
   const handleNewChat = () => {
     // Reset the current chat state
@@ -79,7 +65,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 flex overflow-hidden">
+    <div className="h-screen bg-white flex overflow-hidden">
       {/* Chat History Sidebar */}
       <ChatHistorySidebar
         isOpen={sidebarOpen}
@@ -125,7 +111,7 @@ export default function ChatPage() {
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto bg-gradient-to-b from-white to-blue-50/30">
+        <div className="flex-1 overflow-y-auto bg-gray-50">
           <div className="max-w-4xl mx-auto p-6">
             {messages.length === 0 ? (
               /* Welcome Screen */
@@ -134,7 +120,7 @@ export default function ChatPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center py-12"
               >
-                <div className="w-20 h-20 rounded-2xl mx-auto mb-8 flex items-center justify-center amethyst-gradient">
+                <div className="w-20 h-20 rounded-2xl mx-auto mb-8 flex items-center justify-center" style={{ backgroundColor: '#1E0F2E' }}>
                   <Sparkles className="w-10 h-10 text-white" />
                 </div>
                 
@@ -145,26 +131,6 @@ export default function ChatPage() {
                   Ask me any question and I'll provide clear explanations with relevant videos to help you understand
                 </p>
 
-                {/* Suggested Questions */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                  {suggestedQuestions.map((question, index) => (
-                    <motion.button
-                      key={index}
-                      onClick={() => handleSuggestedQuestion(question)}
-                      className="p-4 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 text-left group"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <div className="flex items-start space-x-3">
-                        <MessageSquare className="w-5 h-5 text-blue-500 mt-0.5 group-hover:scale-110 transition-transform" />
-                        <span className="text-gray-900 font-medium">{question}</span>
-                      </div>
-                    </motion.button>
-                  ))}
-                </div>
               </motion.div>
             ) : (
               /* Chat Messages */
@@ -183,9 +149,9 @@ export default function ChatPage() {
                     <div className={cn(
                       "max-w-[80%] rounded-2xl px-6 py-4 shadow-sm",
                       message.role === 'user' 
-                        ? 'amethyst-gradient text-white' 
+                        ? 'text-white' 
                         : 'bg-white border border-gray-200'
-                    )}>
+                    )} style={message.role === 'user' ? { backgroundColor: '#1E0F2E' } : {}}>
                       <div className="text-base leading-relaxed">
                         {message.content}
                       </div>
@@ -193,23 +159,23 @@ export default function ChatPage() {
                       {/* Video Results for AI messages */}
                       {message.role === 'assistant' && message.videoResults && message.videoResults.length > 0 && (
                         <div className="mt-6 space-y-3">
-                          <div className="text-base font-semibold text-gray-800 mb-4 flex items-center">
-                            <Play className="w-5 h-5 mr-2 text-blue-600" />
+                          <div className="text-base font-semibold mb-4 flex items-center" style={{ color: '#1E0F2E' }}>
+                            <Play className="w-5 h-5 mr-2" style={{ color: '#B87A7A' }} />
                             Related videos:
                           </div>
                           {message.videoResults.map((video: VideoResult) => (
                             <motion.div
                               key={video.id}
-                              className="flex space-x-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100 hover:border-blue-200 cursor-pointer group"
+                              className="flex space-x-4 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-gray-300 cursor-pointer group"
                               onClick={() => selectVideo(video)}
                               whileHover={{ scale: 1.02 }}
                               whileTap={{ scale: 0.98 }}
                             >
-                              <div className="w-24 h-16 bg-gradient-to-r from-blue-200 to-purple-200 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
-                                <Play className="w-6 h-6 text-blue-600" />
+                              <div className="w-24 h-16 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#B87A7A' }}>
+                                <Play className="w-6 h-6 text-white" />
                               </div>
                               <div className="flex-1">
-                                <div className="text-base font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                                <div className="text-base font-semibold mb-1 transition-colors" style={{ color: '#1E0F2E' }}>
                                   {video.title}
                                 </div>
                                 <div className="text-sm text-gray-600 flex items-center space-x-3">
@@ -218,7 +184,7 @@ export default function ChatPage() {
                                     <span>{video.duration}</span>
                                   </div>
                                   <span>•</span>
-                                  <span className="capitalize font-medium text-blue-600">{video.source}</span>
+                                  <span className="capitalize font-medium" style={{ color: '#B87A7A' }}>{video.source}</span>
                                 </div>
                               </div>
                             </motion.div>
@@ -238,7 +204,7 @@ export default function ChatPage() {
                   >
                     <div className="bg-white border border-gray-200 rounded-2xl px-6 py-4 shadow-sm">
                       <div className="flex items-center space-x-3">
-                        <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+                        <Loader2 className="w-5 h-5 animate-spin" style={{ color: '#1E0F2E' }} />
                         <span className="text-base text-gray-700">Thinking...</span>
                       </div>
                     </div>
@@ -290,7 +256,8 @@ export default function ChatPage() {
               <motion.button
                 type="submit"
                 disabled={!inputValue.trim() || isLoading}
-                className="px-6 py-4 text-white rounded-2xl disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 flex items-center shadow-lg hover:shadow-xl disabled:shadow-sm amethyst-gradient hover:opacity-90"
+                className="px-6 py-4 text-white rounded-2xl disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 flex items-center shadow-lg hover:shadow-xl disabled:shadow-sm hover:opacity-90"
+                style={{ backgroundColor: '#1E0F2E' }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
