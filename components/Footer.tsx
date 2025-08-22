@@ -13,7 +13,7 @@ export function Footer() {
       links: [
         { name: 'Features', href: '/features' },
         { name: 'Pricing', href: '/pricing' },
-        { name: 'Demo', href: '/#demo-section' },
+        { name: 'Demo', href: '/demo' },
         { name: 'Changelog', href: '/changelog' }
       ]
     },

@@ -26,12 +26,12 @@ export default function LandingPage() {
       videos: [
         {
           title: "Photosynthesis Explained - Light and Dark Reactions",
-          thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+          thumbnail: "https://img.youtube.com/vi/VFl7Hrm5q-s/maxresdefault.jpg",
           duration: "12:34"
         },
         {
           title: "Chloroplast Structure and Function",
-          thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg", 
+          thumbnail: "https://img.youtube.com/vi/VFl7Hrm5q-s/maxresdefault.jpg", 
           duration: "8:45"
         }
       ]

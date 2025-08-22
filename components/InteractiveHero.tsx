@@ -60,7 +60,7 @@ export function InteractiveHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            Master Any Subject
+            Master Anything
           </motion.h1>
           <motion.p 
             className="text-3xl md:text-4xl text-gray-600 font-light mb-12 max-w-4xl mx-auto"
