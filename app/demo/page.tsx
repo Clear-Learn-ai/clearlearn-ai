@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Play, BookOpen, Brain, Zap } from 'lucide-react'
-import { VideoPlayer } from '@/components/VideoPlayer'
+import { SimpleVideoPlayer } from '@/components/SimpleVideoPlayer'
 
 export default function Demo() {
   return (
@@ -45,7 +45,7 @@ export default function Demo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <VideoPlayer
+          <SimpleVideoPlayer
             videoId="VFl7Hrm5q-s"
             title="Clearlearn Demo - How Photosynthesis Works"
           />

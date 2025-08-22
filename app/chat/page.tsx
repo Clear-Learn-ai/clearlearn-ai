@@ -35,6 +35,7 @@ export default function ChatPage() {
 
   const handleCloseVideo = () => {
     setIsVideoOpen(false)
+    selectVideo(null) // Clear the selected video from store
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
