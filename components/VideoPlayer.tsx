@@ -72,20 +72,21 @@ export function VideoPlayer({ video, onClose, isOpen }: VideoPlayerProps) {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-white rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            className="rounded-lg shadow-2xl w-[80vw] max-w-6xl max-h-[90vh] overflow-hidden"
+            style={{ backgroundColor: '#B87A7A' }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: '#1E0F2E' }}>
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#1E0F2E' }}>
                   <Play className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 truncate max-w-md">
+                  <h3 className="font-semibold text-white truncate max-w-md">
                     {video.title}
                   </h3>
-                  <div className="flex items-center space-x-2 text-sm text-gray-500">
+                  <div className="flex items-center space-x-2 text-sm text-white/80">
                     <span className="capitalize">{video.source}</span>
                     <span>•</span>
                     <Clock className="w-3 h-3" />
@@ -96,14 +97,14 @@ export function VideoPlayer({ video, onClose, isOpen }: VideoPlayerProps) {
               <div className="flex items-center space-x-2">
                 <button
                   onClick={openInNewTab}
-                  className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 text-white hover:text-white hover:bg-white/20 rounded-lg transition-colors"
                   title="Open in new tab"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </button>
                 <button
                   onClick={onClose}
-                  className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 text-white hover:text-white hover:bg-white/20 rounded-lg transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -113,9 +114,9 @@ export function VideoPlayer({ video, onClose, isOpen }: VideoPlayerProps) {
             {/* Video Area */}
             <div className="relative bg-black">
               {/* Placeholder for video player */}
-              <div className="aspect-video bg-gray-900 flex items-center justify-center">
+              <div className="aspect-video flex items-center justify-center" style={{ backgroundColor: '#1E0F2E' }}>
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#B87A7A' }}>
                     <Play className="w-8 h-8 text-white" />
                   </div>
                   <p className="text-white text-lg font-medium">Video Player</p>
@@ -181,7 +182,7 @@ export function VideoPlayer({ video, onClose, isOpen }: VideoPlayerProps) {
             </div>
 
             {/* Video Info */}
-            <div className="p-4">
+            <div className="p-4" style={{ backgroundColor: 'white' }}>
               <h4 className="font-semibold text-gray-900 mb-2">{video.title}</h4>
               <p className="text-gray-600 text-sm mb-4">{video.description}</p>
               

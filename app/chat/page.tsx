@@ -166,25 +166,26 @@ export default function ChatPage() {
                           {message.videoResults.map((video: VideoResult) => (
                             <motion.div
                               key={video.id}
-                              className="flex space-x-4 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-gray-300 cursor-pointer group"
+                              className="flex space-x-4 p-4 rounded-xl border cursor-pointer group"
+                              style={{ backgroundColor: '#B87A7A', borderColor: '#1E0F2E' }}
                               onClick={() => selectVideo(video)}
                               whileHover={{ scale: 1.02 }}
                               whileTap={{ scale: 0.98 }}
                             >
-                              <div className="w-24 h-16 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#B87A7A' }}>
+                              <div className="w-24 h-16 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#1E0F2E' }}>
                                 <Play className="w-6 h-6 text-white" />
                               </div>
                               <div className="flex-1">
-                                <div className="text-base font-semibold mb-1 transition-colors" style={{ color: '#1E0F2E' }}>
+                                <div className="text-base font-semibold mb-1 transition-colors text-white">
                                   {video.title}
                                 </div>
-                                <div className="text-sm text-gray-600 flex items-center space-x-3">
+                                <div className="text-sm text-white/80 flex items-center space-x-3">
                                   <div className="flex items-center space-x-1">
                                     <Clock className="w-4 h-4" />
                                     <span>{video.duration}</span>
                                   </div>
                                   <span>•</span>
-                                  <span className="capitalize font-medium" style={{ color: '#B87A7A' }}>{video.source}</span>
+                                  <span className="capitalize font-medium text-white">{video.source}</span>
                                 </div>
                               </div>
                             </motion.div>

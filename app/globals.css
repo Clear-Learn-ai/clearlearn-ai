@@ -90,11 +90,11 @@
 
   /* Animation classes */
   .fade-in {
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.2s ease-in-out;
   }
 
   .slide-up {
-    animation: slideUp 0.3s ease-out;
+    animation: slideUp 0.2s ease-out;
   }
 
   @keyframes fadeIn {
@@ -110,6 +110,49 @@
     to { 
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  /* Fast button responses */
+  button, .btn {
+    transition: all 0.15s ease-in-out;
+  }
+
+  button:hover, .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  button:active, .btn:active {
+    transform: translateY(0px);
+  }
+
+  /* Performance optimizations */
+  * {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Hardware acceleration for animations */
+  .animate-fade-in {
+    will-change: opacity, transform;
+  }
+
+  /* Fast loading states */
+  .loading {
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
     }
   }
 

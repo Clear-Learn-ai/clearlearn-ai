@@ -53,7 +53,7 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto px-6 w-full">
             <div className="text-center fade-in" id="demo-section">
               <h2 className="text-6xl font-bold mb-12" style={{ color: '#1E0F2E' }}>See it in action</h2>
-              <div className="relative bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-2xl w-full max-w-6xl mx-auto">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl w-full max-w-6xl mx-auto" style={{ backgroundColor: '#1E0F2E' }}>
                 <video 
                   autoPlay 
                   muted 
@@ -78,8 +78,8 @@ export default function LandingPage() {
         <section style={{ backgroundColor: '#1E0F2E' }} className="relative z-10 min-h-screen flex items-center">
           <div className="max-w-7xl mx-auto px-6 py-24 w-full">
             {/* Interactive Demo */}
-            <div className="bg-white rounded-3xl p-12 mb-20 border border-gray-200 shadow-2xl fade-in">
-              <h3 className="text-5xl font-bold text-center mb-16" style={{ color: '#1E0F2E' }}>Try it yourself</h3>
+            <div className="rounded-2xl p-12 mb-20 shadow-2xl fade-in" style={{ backgroundColor: '#B87A7A' }}>
+              <h3 className="text-5xl font-bold text-center mb-16 text-white">Try it yourself</h3>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                 {/* Question Side */}
                 <div>
@@ -105,20 +105,20 @@ export default function LandingPage() {
 
                 {/* Response Side */}
                 <div>
-                  <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-lg">
-                    <div className="text-xl font-semibold text-gray-800 mb-6">AI Response:</div>
-                    <p className="text-gray-700 mb-8 text-lg leading-relaxed">{demoSteps[0].response}</p>
+                  <div className="rounded-2xl p-8 shadow-lg" style={{ backgroundColor: '#1E0F2E' }}>
+                    <div className="text-xl font-semibold text-white mb-6">AI Response:</div>
+                    <p className="text-white/90 mb-8 text-lg leading-relaxed">{demoSteps[0].response}</p>
                     
                     <div className="space-y-4">
-                      <div className="text-lg font-semibold text-gray-900 mb-4">📹 Related Videos:</div>
+                      <div className="text-lg font-semibold text-white mb-4">📹 Related Videos:</div>
                       {demoSteps[0].videos.map((video, index) => (
-                        <div key={index} className="flex space-x-4 p-5 bg-white rounded-xl border border-gray-200 hover:shadow-md transition-all cursor-pointer">
+                        <div key={index} className="flex space-x-4 p-5 rounded-xl hover:shadow-md transition-all cursor-pointer" style={{ backgroundColor: '#B87A7A' }}>
                           <div className="w-28 h-20 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#1E0F2E' }}>
                             <Play className="w-7 h-7 text-white" />
                           </div>
                           <div className="flex-1">
-                            <div className="text-base font-semibold text-gray-900 mb-1">{video.title}</div>
-                            <div className="text-sm text-gray-600">{video.duration}</div>
+                            <div className="text-base font-semibold text-white mb-1">{video.title}</div>
+                            <div className="text-sm text-white/80">{video.duration}</div>
                           </div>
                         </div>
                       ))}
@@ -130,36 +130,36 @@ export default function LandingPage() {
 
             {/* Simple Workflow */}
             <div className="mb-24 slide-left">
-              <h2 className="text-5xl font-bold text-center mb-20" style={{ color: '#1E0F2E' }}>How it works</h2>
+              <h2 className="text-5xl font-bold text-center mb-20 text-white">How it works</h2>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div className="text-center group scale-in">
                   <div className="w-20 h-20 text-white rounded-2xl mx-auto mb-8 flex items-center justify-center font-bold text-2xl group-hover:scale-110 transition-transform shadow-lg" style={{ backgroundColor: '#1E0F2E' }}>1</div>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#1E0F2E' }}>Ask Question</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Type any question in natural language</p>
+                  <h3 className="text-2xl font-bold mb-4 text-white">Ask Question</h3>
+                  <p className="text-white/80 text-lg leading-relaxed">Type any question in natural language</p>
                 </div>
                 <div className="text-center group scale-in">
                   <div className="w-20 h-20 text-white rounded-2xl mx-auto mb-8 flex items-center justify-center font-bold text-2xl group-hover:scale-110 transition-transform shadow-lg" style={{ backgroundColor: '#B87A7A' }}>2</div>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#1E0F2E' }}>AI Analysis</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Advanced AI understands and processes instantly</p>
+                  <h3 className="text-2xl font-bold mb-4 text-white">AI Analysis</h3>
+                  <p className="text-white/80 text-lg leading-relaxed">Advanced AI understands and processes instantly</p>
                 </div>
                 <div className="text-center group scale-in">
                   <div className="w-20 h-20 text-white rounded-2xl mx-auto mb-8 flex items-center justify-center font-bold text-2xl group-hover:scale-110 transition-transform shadow-lg" style={{ backgroundColor: '#1E0F2E' }}>3</div>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#1E0F2E' }}>Video Results</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Get curated educational videos from top sources</p>
+                  <h3 className="text-2xl font-bold mb-4 text-white">Video Results</h3>
+                  <p className="text-white/80 text-lg leading-relaxed">Get curated educational videos from top sources</p>
                 </div>
                 <div className="text-center group scale-in">
                   <div className="w-20 h-20 text-white rounded-2xl mx-auto mb-8 flex items-center justify-center font-bold text-2xl group-hover:scale-110 transition-transform shadow-lg" style={{ backgroundColor: '#B87A7A' }}>4</div>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#1E0F2E' }}>Master</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Watch, learn, and master complex concepts</p>
+                  <h3 className="text-2xl font-bold mb-4 text-white">Master</h3>
+                  <p className="text-white/80 text-lg leading-relaxed">Watch, learn, and master complex concepts</p>
                 </div>
               </div>
             </div>
 
             {/* Final CTA */}
-            <div className="text-center rounded-3xl p-20 text-white shadow-2xl slide-right" style={{ backgroundColor: '#1E0F2E' }}>
+            <div className="text-center rounded-2xl p-20 text-white shadow-2xl slide-right" style={{ backgroundColor: '#1E0F2E' }}>
               <h2 className="text-5xl font-bold mb-8">Ready to transform your learning?</h2>
               <p className="text-2xl mb-12 max-w-3xl mx-auto leading-relaxed text-white/90">
-                Join thousands of students already using AI to master any subject faster than ever
+                Join thousands of students already using AI to Master Anything faster than ever
               </p>
               <Link
                 href="/chat"

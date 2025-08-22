@@ -33,6 +33,29 @@ clearlearn/
 - `npm run type-check` - TypeScript compilation check
 - `npm run lint` - ESLint code quality check
 
+## 🚀 CRITICAL DEPLOYMENT INFORMATION
+
+**IMPORTANT**: This project is actively deployed to Vercel in production.
+
+### Deployment Workflow
+1. All changes should be committed to git and pushed to the repository
+2. Vercel automatically deploys from the main branch
+3. Live site: https://clearlearn-ai.vercel.app
+4. Always test locally before pushing to production
+
+### Before Pushing:
+- Run `npm run build` to ensure production build works
+- Run `npm run type-check` to catch TypeScript errors
+- Run `npm run lint` to ensure code quality
+- Test all major features locally
+
+### Environment Variables in Production:
+- All API keys are configured in Vercel dashboard
+- Database: Supabase (configured)
+- Authentication: NextAuth with Google OAuth
+- AI Services: OpenAI + Anthropic APIs
+- Video: YouTube API integration
+
 ## Key Design Patterns
 
 ### 1. Learning Engine Architecture

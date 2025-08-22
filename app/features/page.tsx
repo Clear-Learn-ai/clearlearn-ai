@@ -35,7 +35,7 @@ export default function FeaturesPage() {
     {
       icon: Globe,
       title: "Any Subject",
-      description: "From science and math to history and literature - master any subject with AI guidance."
+      description: "From science and math to history and literature - Master Anything with AI guidance."
     }
   ]
 

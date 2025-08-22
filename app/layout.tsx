@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'Clearlearn - AI-Powered Visual Learning',
-  description: 'Master any subject with AI-powered visual learning. Get instant explanations and curated video content to understand complex concepts faster.',
+  description: 'Master Anything with AI-powered visual learning. Get instant explanations and curated video content to understand complex concepts faster.',
   keywords: 'AI learning, visual education, video explanations, study assistant, adaptive learning, educational AI',
 }
 
