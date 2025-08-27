@@ -12,6 +12,7 @@ import type {
   LearningProgress,
   EducationalError
 } from '../types/education'
+import type { ProcessedVideo, PlumbingStep } from '@/lib/video/youtubeProcessor'
 import { SubjectArea } from '../types/education'
 import type { ChatMessage, ChatApiRequest } from '../types/api'
 import { createSessionId, createMessageId } from '../types/education'
@@ -27,6 +28,11 @@ export interface StudentLearningSession {
   recommendedVideos: VideoContent[]
   selectedVideo: VideoContent | null
   learningProgress: LearningProgress
+  // Video processing features
+  processedVideos: ProcessedVideo[]
+  isProcessingVideo: boolean
+  selectedProcessedVideo: ProcessedVideo | null
+  currentVideoStep: PlumbingStep | null
 }
 
 // Educational tutor store interface with domain vocabulary
@@ -40,6 +46,12 @@ interface EducationalTutorStore {
   selectEducationalVideo: (video: VideoContent) => void
   clearLearningSession: () => void
   setEducationalError: (error: EducationalError | null) => void
+  
+  // Video processing actions
+  processYouTubeVideo: (videoUrl: string) => Promise<void>
+  selectProcessedVideo: (video: ProcessedVideo) => void
+  setCurrentVideoStep: (step: PlumbingStep) => void
+  searchProcessedVideos: (query: string, filters?: any) => Promise<ProcessedVideo[]>
   
   // Educational analytics and progress
   getRecentQueries: () => ChatMessage[]
@@ -66,7 +78,12 @@ export const useEducationalTutorStore = create<EducationalTutorStore>()(
         videosCompleted: 0,
         sessionDuration: 0,
         engagementScore: 0.5
-      }
+      },
+      // Video processing state
+      processedVideos: [],
+      isProcessingVideo: false,
+      selectedProcessedVideo: null,
+      currentVideoStep: null
     },
     
     // Educational actions using domain vocabulary
@@ -199,7 +216,12 @@ export const useEducationalTutorStore = create<EducationalTutorStore>()(
             videosCompleted: 0,
             sessionDuration: 0,
             engagementScore: 0.5
-          }
+          },
+          // Video processing state reset
+          processedVideos: [],
+          isProcessingVideo: false,
+          selectedProcessedVideo: null,
+          currentVideoStep: null
         }
       })
     },
@@ -212,6 +234,112 @@ export const useEducationalTutorStore = create<EducationalTutorStore>()(
           isGeneratingExplanation: false
         }
       }))
+    },
+
+    // Video processing actions
+    processYouTubeVideo: async (videoUrl: string) => {
+      set(state => ({
+        learningSession: {
+          ...state.learningSession,
+          isProcessingVideo: true,
+          educationalError: null
+        }
+      }))
+
+      try {
+        const response = await fetch('/api/video/process', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            videoUrl, 
+            sessionId: get().learningSession.id 
+          })
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to process video')
+        }
+
+        const data = await response.json()
+
+        if (!data.success) {
+          throw new Error(data.error || 'Video processing failed')
+        }
+
+        set(state => ({
+          learningSession: {
+            ...state.learningSession,
+            isProcessingVideo: false,
+            processedVideos: [...state.learningSession.processedVideos, data.data],
+            selectedProcessedVideo: data.data,
+            learningProgress: {
+              ...state.learningSession.learningProgress,
+              videosCompleted: state.learningSession.learningProgress.videosCompleted + 1,
+              engagementScore: Math.min(state.learningSession.learningProgress.engagementScore + 0.15, 1.0)
+            }
+          }
+        }))
+
+      } catch (error) {
+        console.error('Error processing video:', error)
+        const educationalError: EducationalError = {
+          code: 'AI_UNAVAILABLE',
+          message: error instanceof Error ? error.message : 'Failed to process video',
+          context: { videoUrl },
+          recoveryActions: ['Check the video URL', 'Try again in a moment', 'Ensure the video is from a supported channel']
+        }
+
+        set(state => ({
+          learningSession: {
+            ...state.learningSession,
+            isProcessingVideo: false,
+            educationalError
+          }
+        }))
+      }
+    },
+
+    selectProcessedVideo: (video: ProcessedVideo) => {
+      set(state => ({
+        learningSession: {
+          ...state.learningSession,
+          selectedProcessedVideo: video,
+          currentVideoStep: null
+        }
+      }))
+    },
+
+    setCurrentVideoStep: (step: PlumbingStep) => {
+      set(state => ({
+        learningSession: {
+          ...state.learningSession,
+          currentVideoStep: step
+        }
+      }))
+    },
+
+    searchProcessedVideos: async (query: string, filters?: any) => {
+      try {
+        const params = new URLSearchParams({ q: query })
+        if (filters?.skillLevel) params.append('skillLevel', filters.skillLevel)
+        if (filters?.category) params.append('category', filters.category)
+        if (filters?.channel) params.append('channel', filters.channel)
+
+        const response = await fetch(`/api/video/process?${params}`)
+        
+        if (!response.ok) {
+          throw new Error('Search failed')
+        }
+
+        const data = await response.json()
+        return data.success ? data.data : []
+
+      } catch (error) {
+        console.error('Error searching videos:', error)
+        return []
+      }
     },
     
     updateLearningProgress: (progress: Partial<LearningProgress>) => {
@@ -255,6 +383,12 @@ export const useRecommendedVideos = () => useEducationalTutorStore(state => stat
 export const useSelectedEducationalVideo = () => useEducationalTutorStore(state => state.learningSession.selectedVideo)
 export const useLearningProgress = () => useEducationalTutorStore(state => state.learningSession.learningProgress)
 
+// Video processing selectors
+export const useProcessedVideos = () => useEducationalTutorStore(state => state.learningSession.processedVideos)
+export const useIsProcessingVideo = () => useEducationalTutorStore(state => state.learningSession.isProcessingVideo)
+export const useSelectedProcessedVideo = () => useEducationalTutorStore(state => state.learningSession.selectedProcessedVideo)
+export const useCurrentVideoStep = () => useEducationalTutorStore(state => state.learningSession.currentVideoStep)
+
 // Educational action selectors
 export const useSubmitStudentQuery = () => useEducationalTutorStore(state => state.submitStudentQuery)
 export const useUpdateCurrentQuery = () => useEducationalTutorStore(state => state.updateCurrentQuery)
@@ -262,6 +396,12 @@ export const useSelectEducationalVideo = () => useEducationalTutorStore(state =>
 export const useClearLearningSession = () => useEducationalTutorStore(state => state.clearLearningSession)
 export const useSetEducationalError = () => useEducationalTutorStore(state => state.setEducationalError)
 export const useUpdateLearningProgress = () => useEducationalTutorStore(state => state.updateLearningProgress)
+
+// Video processing action selectors
+export const useProcessYouTubeVideo = () => useEducationalTutorStore(state => state.processYouTubeVideo)
+export const useSelectProcessedVideo = () => useEducationalTutorStore(state => state.selectProcessedVideo)
+export const useSetCurrentVideoStep = () => useEducationalTutorStore(state => state.setCurrentVideoStep)
+export const useSearchProcessedVideos = () => useEducationalTutorStore(state => state.searchProcessedVideos)
 
 // Export additional types for components
 export type { ChatMessage } from '../types/api'

@@ -146,7 +146,10 @@ export class PDFProcessor {
         height: 1200,
       })
 
-      const results = await convert.bulk(-1, { responseType: 'image' })
+      const results = await Promise.race([
+        convert.bulk(-1, { responseType: 'image' }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 20000))
+      ])
       
       return results.map((result, index) => 
         path.join(outputDir, `page.${index + 1}.png`)

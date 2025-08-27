@@ -163,7 +163,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const contentIntegrator = new ContentIntegrator()
+    const contentIntegrator = new ContentIntegratorSafe()
     
     // Search training data
     const searchResults = await contentIntegrator.searchTrainingData(query, limit)

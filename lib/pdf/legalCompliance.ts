@@ -284,7 +284,7 @@ export class LegalComplianceManager {
     const usagesBySource = this.groupUsagesBySource()
     
     for (const [sourceId, usages] of usagesBySource) {
-      const issues = usages.filter(u => u.complianceStatus !== 'compliant').length
+      const issues = usages.filter((u: any) => u.complianceStatus !== 'compliant').length
       if (issues > 0) {
         const source = this.attributions.get(sourceId)
         riskySources.push(`${source?.title || sourceId}: ${issues} compliance issues`)

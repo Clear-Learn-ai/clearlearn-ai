@@ -396,13 +396,13 @@ export class ContentIntegrator {
   private extractCodeReferences(content: string): string[] {
     const codePattern = /(?:IPC|UPC|NPC|CSA)\s*[\d.]+/g
     const matches = content.match(codePattern) || []
-    return [...new Set(matches)]
+    return Array.from(new Set(matches))
   }
 
   private extractComponentReferences(content: string): string[] {
     const componentPattern = /(?:pipe|fitting|valve|toilet|sink|drain|elbow|tee|coupling|reducer)/gi
     const matches = content.match(componentPattern) || []
-    return [...new Set(matches.map(m => m.toLowerCase()))]
+    return Array.from(new Set(matches.map(m => m.toLowerCase())))
   }
 
   private generateTags(question: string, sectionType: string, manufacturer?: string): string[] {

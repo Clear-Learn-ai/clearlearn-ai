@@ -111,11 +111,11 @@ export function PDFUploader({ onUploadComplete }: { onUploadComplete?: (results:
       }
 
       // Update file statuses based on results
-      const updatedFiles = files.map(f => {
+      const updatedFiles: PDFFile[] = files.map(f => {
         const uploadResult = result.results.find((r: UploadResult) => r.filename === f.file.name)
         return {
           ...f,
-          status: uploadResult?.status === 'success' ? 'success' : 'error',
+          status: uploadResult?.status === 'success' ? 'success' as const : 'error' as const,
           message: uploadResult?.message,
           id: uploadResult?.data?.pdfId,
         }
