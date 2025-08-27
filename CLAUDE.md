@@ -107,6 +107,55 @@ tradeai-tutor/
 - **3D Models**: Pipe fittings, valves, fixtures
 - **Video Integration**: Technique demonstrations
 
+### Advanced 3D Tech Stack (NEW)
+
+#### 3D Libraries & Rendering
+- **@react-three/fiber**: React Three.js integration
+- **@react-three/drei**: Helper components (OrbitControls, Environment)
+- **@react-three/gltfjsx**: 3D model components
+- **@react-three/postprocessing**: Realistic rendering effects
+- **three-mesh-bvh**: Efficient collision detection
+- **r3f-perf**: Real-time performance monitoring
+
+#### Interactive Diagrams & Technical Drawing
+- **React Flow**: Plumbing system flowcharts and schematics
+- **Konva**: Canvas-based technical drawing engine
+- **Fabric.js**: Interactive diagram manipulation
+- **@react-spring/three**: Physics-based 3D animations
+
+#### Mobile & Offline Capabilities
+- **next-pwa**: Progressive Web App with service workers
+- **Workbox**: Offline caching for jobsite access
+- **react-webcam**: Camera integration for site documentation
+
+#### 3D Component Architecture
+```
+components/3d/
+├── pipes/                  # Realistic pipe models
+│   └── RealisticPipe.tsx  # Material-specific pipes (copper, PVC, PEX)
+├── fittings/              # Connection components
+│   └── PlumbingFittings.tsx # Elbows, tees, reducers, unions
+├── fixtures/              # Bathroom/kitchen fixtures
+│   └── PlumbingFixtures.tsx # Toilets, sinks, valves, water heaters
+├── tools/                 # Interactive tool models
+│   └── PlumbingTools.tsx  # Wrenches, cutters, threading machines
+└── PlumbingSceneComposer.tsx # Main 3D scene orchestrator
+```
+
+#### Performance Optimizations
+- **Adaptive DPR**: Automatic resolution scaling for performance
+- **Level-of-Detail (LOD)**: Distance-based model complexity
+- **Instanced Rendering**: Efficient rendering of repeated components
+- **Frustum Culling**: Only render visible objects
+- **Texture Compression**: Optimized materials and textures
+- **Progressive Loading**: Lazy loading of 3D assets
+
+#### Mobile-First 3D Features
+- **Touch Controls**: Optimized for touch interaction
+- **Battery Optimization**: Reduced animation complexity
+- **Offline 3D**: Cached models for jobsite use
+- **High Contrast Mode**: Enhanced visibility in bright conditions
+
 ## Key Design Patterns
 
 ### 1. Learning Engine Architecture
