@@ -115,8 +115,7 @@ export default function ContactPage() {
                       type="text"
                       id="firstName"
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:border-transparent outline-none"
-                      style={{ focusRingColor: '#1E0F2E' }}
-                    />
+                                          />
                   </div>
                   <div>
                     <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
@@ -126,8 +125,7 @@ export default function ContactPage() {
                       type="text"
                       id="lastName"
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:border-transparent outline-none"
-                      style={{ focusRingColor: '#1E0F2E' }}
-                    />
+                                          />
                   </div>
                 </div>
 
@@ -139,8 +137,7 @@ export default function ContactPage() {
                     type="email"
                     id="email"
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:border-transparent outline-none"
-                    style={{ focusRingColor: '#1E0F2E' }}
-                  />
+                                      />
                 </div>
 
                 <div>
@@ -151,8 +148,7 @@ export default function ContactPage() {
                     type="text"
                     id="subject"
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:border-transparent outline-none"
-                    style={{ focusRingColor: '#1E0F2E' }}
-                  />
+                                      />
                 </div>
 
                 <div>
@@ -163,8 +159,7 @@ export default function ContactPage() {
                     id="message"
                     rows={6}
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:border-transparent outline-none resize-none"
-                    style={{ focusRingColor: '#1E0F2E' }}
-                  ></textarea>
+                                      ></textarea>
                 </div>
 
                 <div className="text-center">

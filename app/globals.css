@@ -156,16 +156,174 @@
     }
   }
 
-  /* Chemistry-themed gradients */
-  .chem-gradient-primary {
-    @apply bg-gradient-to-br from-green-500 to-blue-600;
+  /* Mobile-first design for jobsite use */
+  @media (max-width: 768px) {
+    /* Larger touch targets for gloved hands */
+    button, .btn, input[type="submit"] {
+      min-height: 48px;
+      min-width: 48px;
+      padding: 12px 16px;
+      font-size: 16px;
+    }
+    
+    /* Larger text for outdoor readability */
+    body {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+    
+    /* Increased spacing for easier navigation */
+    .chat-message {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    /* Better contrast ratios for outdoor lighting */
+    .high-contrast-text {
+      color: #000000;
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Simplified animations to preserve battery */
+    * {
+      animation-duration: 0.2s !important;
+    }
   }
-
-  .chem-gradient-secondary {
-    @apply bg-gradient-to-br from-green-100 to-blue-100;
+  
+  /* High contrast mode for bright outdoor conditions */
+  .jobsite-mode {
+    background: #ffffff !important;
+    color: #000000 !important;
   }
-
-  .chem-gradient-accent {
-    @apply bg-gradient-to-br from-green-400 to-blue-500;
+  
+  .jobsite-mode .amethyst-primary {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+  
+  .jobsite-mode .amethyst-secondary {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+  }
+  
+  /* Emergency button styling for critical actions */
+  .emergency-button {
+    background: #dc2626 !important;
+    color: white !important;
+    border: 3px solid #991b1b !important;
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3) !important;
+    font-weight: bold !important;
+    min-height: 56px !important;
+  }
+  
+  /* Quick reference cards for common problems */
+  .quick-reference-card {
+    @apply bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 shadow-lg;
+    border-left: 6px solid #f59e0b;
+  }
+  
+  .quick-reference-card .title {
+    @apply text-lg font-bold text-gray-900 mb-2;
+  }
+  
+  .quick-reference-card .content {
+    @apply text-sm text-gray-700 leading-relaxed;
+  }
+  
+  /* Tool identification highlights */
+  .tool-highlight {
+    @apply bg-blue-100 border-2 border-blue-300 rounded-lg p-3;
+    background-image: linear-gradient(45deg, rgba(59, 130, 246, 0.1) 25%, transparent 25%, transparent 50%, rgba(59, 130, 246, 0.1) 50%, rgba(59, 130, 246, 0.1) 75%, transparent 75%);
+  }
+  
+  /* Safety warning styling */
+  .safety-warning {
+    @apply bg-red-50 border-2 border-red-300 rounded-lg p-4;
+    border-left: 6px solid #dc2626;
+  }
+  
+  .safety-warning::before {
+    content: "⚠️ SAFETY WARNING: ";
+    font-weight: bold;
+    color: #dc2626;
+  }
+  
+  /* Code compliance indicators */
+  .code-compliance {
+    @apply bg-green-50 border-2 border-green-300 rounded-lg p-3;
+    border-left: 6px solid #16a34a;
+  }
+  
+  .code-compliance::before {
+    content: "📋 CODE: ";
+    font-weight: bold;
+    color: #16a34a;
+  }
+  
+  /* Trade-themed colors */
+  .trade-copper {
+    background-color: #B87333;
+    color: white;
+  }
+  
+  .trade-pvc {
+    background-color: #ffffff;
+    color: #1f2937;
+    border: 2px solid #e5e7eb;
+  }
+  
+  .trade-abs {
+    background-color: #374151;
+    color: white;
+  }
+  
+  .trade-pex {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  /* 3D model container enhancements */
+  .model-3d-container {
+    @apply relative w-full bg-gray-50 rounded-lg border-2 border-gray-200 shadow-inner;
+    min-height: 300px;
+  }
+  
+  .model-3d-controls {
+    @apply absolute top-2 right-2 flex flex-col space-y-2;
+  }
+  
+  .model-3d-controls button {
+    @apply w-10 h-10 bg-white bg-opacity-80 rounded-lg shadow-md flex items-center justify-center hover:bg-opacity-100;
+  }
+  
+  /* Offline indicator */
+  .offline-indicator {
+    @apply fixed top-4 left-4 bg-orange-500 text-white px-3 py-2 rounded-lg shadow-lg z-50;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  /* Performance-optimized animations */
+  .fast-fade {
+    animation: fastFadeIn 0.15s ease-out;
+  }
+  
+  @keyframes fastFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Battery-friendly reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }

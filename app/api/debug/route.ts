@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Debug endpoint error:', error)
     return NextResponse.json(
-      { error: 'Debug endpoint failed', details: error.message },
+      { error: 'Debug endpoint failed', details: (error as Error).message },
       { status: 500 }
     )
   }

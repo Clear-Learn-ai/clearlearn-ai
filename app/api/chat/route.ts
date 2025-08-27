@@ -2,6 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import Anthropic from '@anthropic-ai/sdk'
 
+// Educational domain imports - Following BP-C6: Use import type for type-only imports
+import type { 
+  ChatApiRequest, 
+  ChatApiResponse, 
+  ErrorApiResponse,
+  RateLimitResponse 
+} from '../../../types/api'
+import type { EducationalError } from '../../../types/education'
+import { SubjectArea, DifficultyLevel } from '../../../types/education'
+import { searchVideoContent } from '../../../lib/video/searchVideoContent'
+
 // Prevent build-time execution
 export const dynamic = 'force-dynamic'
 
@@ -11,7 +22,23 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, sessionId, conversationHistory } = await request.json()
+    const requestData: ChatApiRequest = await request.json()
+    const { message, sessionId, conversationHistory } = requestData
+    
+    // Validate educational query input - Following BP-T3: Input validation
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      return NextResponse.json<ErrorApiResponse>({
+        success: false,
+        error: {
+          code: 'INVALID_QUERY',
+          message: 'Student query cannot be empty',
+          context: { providedMessage: message },
+          recoveryActions: ['Please provide a valid question about chemistry or biology']
+        },
+        timestamp: new Date().toISOString(),
+        requestId: `req_${Date.now()}`
+      }, { status: 400 })
+    }
 
     // Initialize AI clients only when needed and with proper error handling
     const anthropicApiKey = process.env.ANTHROPIC_API_KEY
@@ -54,26 +81,30 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Organic chemistry context for AI
-    const systemPrompt = `You are an expert organic chemistry tutor specializing in pre-med education. Your role is to:
+    // Educational tutor system prompt - Following BP-C2: Educational domain vocabulary
+    const educationalTutorPrompt = `You are an expert educational tutor specializing in pre-med sciences. Your role is to:
 
-1. Provide clear, accurate explanations of organic chemistry concepts
-2. Focus on reaction mechanisms, stereochemistry, synthesis, and spectroscopy
-3. Use analogies and real-world examples when helpful
-4. Keep explanations concise but comprehensive
-5. Suggest follow-up questions to deepen understanding
-6. Always maintain a supportive, encouraging tone
+1. Generate clear, pedagogically sound explanations for complex scientific concepts
+2. Adapt explanation complexity to student learning level
+3. Provide step-by-step mechanism explanations with visual cues
+4. Connect concepts to real-world applications and clinical relevance
+5. Generate progressive follow-up questions to deepen understanding
+6. Identify prerequisite concepts students should master
+7. Suggest learning objectives for each topic
 
-Key topics you should be expert in:
-- SN1, SN2, E1, E2 reactions
-- Functional group chemistry
-- Stereochemistry and chirality
-- Spectroscopy (NMR, IR, MS)
-- Synthesis strategies
-- Reaction mechanisms
-- Molecular orbital theory
+Educational subjects you excel in:
+- Organic Chemistry: mechanisms, stereochemistry, synthesis, spectroscopy
+- Biochemistry: metabolic pathways, enzyme kinetics, protein structure
+- Biology: cellular processes, genetics, evolution, ecology
+- General Chemistry: thermodynamics, kinetics, quantum mechanics
 
-Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
+Always respond with:
+- Clear learning objectives
+- Key terminology definitions
+- 2-3 follow-up questions for deeper learning
+- Clinical or real-world connections when appropriate
+
+Maintain an encouraging, supportive tone that builds student confidence.`
 
     // Build conversation context
     const conversationContext = conversationHistory
@@ -81,9 +112,10 @@ Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
       .map(msg => `${msg.role}: ${msg.content}`)
       .join('\n')
 
-    // Generate AI response
-    let aiResponse: string
-    let usedProvider: string = 'none'
+    // Generate educational AI explanation - Following BP-C2: Educational domain vocabulary
+    let educationalExplanation: string
+    let usedProvider: 'claude' | 'openai' | 'openai-fallback' = 'claude'
+    let confidence = 0.8 // Default confidence
     
     try {
       // Try Claude first (better for educational content) if valid key available
@@ -95,16 +127,18 @@ Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
           
           const claudeResponse = await anthropic.messages.create({
             model: 'claude-3-5-sonnet-20241022',
-            max_tokens: 1000,
+            max_tokens: 1200, // Increased for comprehensive educational content
+            temperature: 0.7, // Balanced creativity for educational explanations
             messages: [
               {
                 role: 'user',
-                content: `${systemPrompt}\n\nConversation history:\n${conversationContext}\n\nStudent question: ${message}\n\nProvide a helpful, educational response:`
+                content: `${educationalTutorPrompt}\n\nLearning Context:\n${conversationContext}\n\nStudent Query: ${message}\n\nProvide a comprehensive educational explanation with learning objectives, key terms, and follow-up questions:`
               }
             ]
           })
           
-          aiResponse = claudeResponse.content[0].type === 'text' ? claudeResponse.content[0].text : ''
+          educationalExplanation = claudeResponse.content[0].type === 'text' ? claudeResponse.content[0].text : ''
+          confidence = 0.9 // High confidence for Claude educational content
           usedProvider = 'claude'
         } catch (claudeError) {
           console.error('Claude API error:', claudeError)
@@ -117,19 +151,20 @@ Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
         })
         
         const openaiResponse = await openai.chat.completions.create({
-          model: 'gpt-4',
+          model: 'gpt-4-turbo', // Better model for educational content
           messages: [
-            { role: 'system', content: systemPrompt },
+            { role: 'system', content: educationalTutorPrompt },
             ...conversationHistory.slice(-5).map(msg => ({
               role: msg.role as 'user' | 'assistant',
               content: msg.content
             })),
             { role: 'user', content: message }
           ],
-          max_tokens: 1000,
+          max_tokens: 1200,
           temperature: 0.7
         })
-        aiResponse = openaiResponse.choices[0].message.content || ''
+        educationalExplanation = openaiResponse.choices[0].message.content || ''
+        confidence = 0.8 // Good confidence for OpenAI educational content
         usedProvider = 'openai'
       } else {
         throw new Error('No valid API keys available')
@@ -144,74 +179,163 @@ Respond in a conversational, helpful manner as if you're a knowledgeable tutor.`
           })
           
           const openaiResponse = await openai.chat.completions.create({
-            model: 'gpt-4',
+            model: 'gpt-4-turbo',
             messages: [
-              { role: 'system', content: systemPrompt },
+              { role: 'system', content: educationalTutorPrompt },
               ...conversationHistory.slice(-5).map(msg => ({
                 role: msg.role as 'user' | 'assistant',
                 content: msg.content
               })),
               { role: 'user', content: message }
             ],
-            max_tokens: 1000,
+            max_tokens: 1200,
             temperature: 0.7
           })
-          aiResponse = openaiResponse.choices[0].message.content || ''
+          educationalExplanation = openaiResponse.choices[0].message.content || ''
+          confidence = 0.7 // Lower confidence for fallback
           usedProvider = 'openai-fallback'
         } catch (fallbackError) {
           console.error('Fallback OpenAI error:', fallbackError)
-          throw new Error(`Both AI providers failed. Claude: ${error.message}, OpenAI: ${fallbackError.message}`)
+          throw new Error(`Both AI providers failed. Claude: ${(error as Error).message}, OpenAI: ${(fallbackError as Error).message}`)
         }
       } else {
         throw error
       }
     }
 
-    // Search for relevant videos
-    const videoResults = await searchEducationalVideos(message)
-
-    return NextResponse.json({
-      explanation: aiResponse,
-      videoResults,
-      sessionId,
-      provider: usedProvider,
-      timestamp: new Date().toISOString()
+    // Search for relevant educational videos - Following BP-C2: Educational vocabulary
+    const educationalVideoResults = await searchVideoContent({
+      query: message,
+      subject: SubjectArea.ORGANIC_CHEMISTRY, // Could be inferred from content
+      maxResults: 4,
+      difficultyLevel: DifficultyLevel.INTERMEDIATE // Could be inferred from conversation
     })
 
+    // Generate follow-up questions for continued learning
+    const followUpQuestions = generateEducationalFollowUpQuestions(message, educationalExplanation)
+
+    const response: ChatApiResponse = {
+      success: true,
+      data: {
+        explanation: educationalExplanation,
+        videoResults: educationalVideoResults.videos,
+        sessionId,
+        provider: usedProvider,
+        confidence,
+        followUpQuestions
+      },
+      timestamp: new Date().toISOString(),
+      requestId: `req_${Date.now()}`
+    }
+
+    return NextResponse.json(response)
+
   } catch (error) {
-    console.error('Chat API error:', error)
+    console.error('Educational API error:', error)
     
-    // Provide more specific error messages
-    let errorMessage = 'Failed to process message'
-    let errorDetails = ''
+    // Create educational domain error - Following BP-D3: Handle API rate limits gracefully
+    let educationalError: EducationalError
+    let statusCode = 500
     
     if (error instanceof Error) {
       if (error.message.includes('API key')) {
-        errorMessage = 'API key configuration error'
-        errorDetails = 'Please check your ANTHROPIC_API_KEY or OPENAI_API_KEY environment variables'
+        educationalError = {
+          code: 'AI_UNAVAILABLE',
+          message: 'Educational AI service configuration error',
+          context: { errorType: 'api_key_invalid' },
+          recoveryActions: [
+            'Check API key configuration',
+            'Try again in a few minutes',
+            'Contact support if problem persists'
+          ]
+        }
       } else if (error.message.includes('rate limit')) {
-        errorMessage = 'API rate limit exceeded'
-        errorDetails = 'Please try again in a moment'
-      } else if (error.message.includes('Both AI providers failed')) {
-        errorMessage = 'All AI providers are unavailable'
-        errorDetails = error.message
+        educationalError = {
+          code: 'AI_UNAVAILABLE',
+          message: 'Too many requests - educational AI service temporarily unavailable',
+          context: { errorType: 'rate_limit', retryAfter: 60 },
+          recoveryActions: [
+            'Wait 1 minute before trying again',
+            'Consider rephrasing your question',
+            'Try asking a simpler question first'
+          ]
+        }
+        statusCode = 429 // Rate limit status
       } else {
-        errorMessage = 'AI service error'
-        errorDetails = error.message
+        educationalError = {
+          code: 'AI_UNAVAILABLE',
+          message: 'Educational AI service temporarily unavailable',
+          context: { originalError: error.message },
+          recoveryActions: [
+            'Try rephrasing your question',
+            'Check your internet connection',
+            'Try again in a few moments'
+          ]
+        }
+      }
+    } else {
+      educationalError = {
+        code: 'AI_UNAVAILABLE',
+        message: 'Unknown error in educational service',
+        context: { error: String(error) },
+        recoveryActions: ['Try again', 'Contact support if problem persists']
       }
     }
     
-    return NextResponse.json(
-      { 
-        error: errorMessage,
-        details: errorDetails,
-        timestamp: new Date().toISOString()
-      },
-      { status: 500 }
-    )
+    const errorResponse: ErrorApiResponse = {
+      success: false,
+      error: educationalError,
+      timestamp: new Date().toISOString(),
+      requestId: `req_${Date.now()}`,
+      debugInfo: process.env.NODE_ENV === 'development' ? {
+        stack: error instanceof Error ? error.stack : undefined,
+        requestDetails: { message: 'Provided in request' },
+        systemInfo: {
+          timestamp: new Date().toISOString(),
+          endpoint: '/api/chat',
+          method: 'POST'
+        }
+      } : undefined
+    }
+    
+    return NextResponse.json(errorResponse, { status: statusCode })
   }
 }
 
+// Helper function to generate educational follow-up questions
+function generateEducationalFollowUpQuestions(query: string, explanation: string): string[] {
+  // Extract key concepts for follow-up generation
+  const queryLower = query.toLowerCase()
+  
+  if (queryLower.includes('mechanism') || queryLower.includes('sn2') || queryLower.includes('sn1')) {
+    return [
+      'How does substrate structure affect this reaction rate?',
+      'What role does the solvent play in this mechanism?',
+      'Can you predict the stereochemical outcome?'
+    ]
+  } else if (queryLower.includes('stereochemistry') || queryLower.includes('chiral')) {
+    return [
+      'How would you assign R/S configuration to this molecule?',
+      'What happens during this reaction\'s stereochemistry?',
+      'Can you identify all stereocenters in this compound?'
+    ]
+  } else if (queryLower.includes('synthesis') || queryLower.includes('make')) {
+    return [
+      'What alternative synthetic routes could work?',
+      'How would you optimize the yield of this reaction?',
+      'What side reactions should you watch out for?'
+    ]
+  }
+  
+  // Default educational follow-ups
+  return [
+    'What real-world applications use this concept?',
+    'How does this connect to other topics we\'ve discussed?',
+    'What would happen if we changed the conditions?'
+  ]
+}
+
+// Legacy function for backward compatibility - Following educational patterns
 async function searchEducationalVideos(query: string): Promise<any[]> {
   try {
     const youtubeApiKey = process.env.YOUTUBE_API_KEY
@@ -331,7 +455,14 @@ async function searchEducationalVideos(query: string): Promise<any[]> {
       return relevantVideos.length > 0 ? relevantVideos.slice(0, 3) : allMockVideos.slice(0, 2)
     }
     
-    return getRelevantMockVideos(query)
+    // Use new educational video search system
+    const videoResults = await searchVideoContent({
+      query,
+      subject: SubjectArea.ORGANIC_CHEMISTRY,
+      maxResults: 3
+    })
+    
+    return videoResults.videos
 
   } catch (error) {
     console.error('Video search error:', error)

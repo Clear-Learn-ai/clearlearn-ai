@@ -15,9 +15,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Clearlearn - AI-Powered Visual Learning',
-  description: 'Master Anything with AI-powered visual learning. Get instant explanations and curated video content to understand complex concepts faster.',
-  keywords: 'AI learning, visual education, video explanations, study assistant, adaptive learning, educational AI',
+  title: 'TradeAI Tutor - Master Plumbing Skills with AI',
+  description: 'Master plumbing skills with AI-powered visual learning. Get 3D models, step-by-step guides, and interactive diagrams for plumbing apprentices.',
+  keywords: 'plumbing training, apprentice learning, trade skills, AI tutor, 3D plumbing models, visual plumbing guide, plumbing code',
 }
 
 export default function RootLayout({

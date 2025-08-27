@@ -60,7 +60,7 @@ export function InteractiveHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            Master Anything
+            Master Plumbing Skills
           </motion.h1>
           <motion.p 
             className="text-3xl md:text-4xl text-gray-600 font-light mb-12 max-w-4xl mx-auto"
@@ -85,7 +85,7 @@ export function InteractiveHero() {
               onClick={handleStartLearning}
               className="group"
             >
-              <span>Start Learning</span>
+              <span>Start Learning Plumbing</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </MagneticButton>
 
@@ -110,9 +110,9 @@ export function InteractiveHero() {
             transition={{ duration: 1, delay: 2.5 }}
           >
             {[
-              { icon: Sparkles, text: 'AI-Powered Explanations' },
-              { icon: Play, text: 'Interactive Video Learning' },
-              { icon: ArrowRight, text: 'Instant Understanding' },
+              { icon: Sparkles, text: 'AI-Powered Plumbing Guide' },
+              { icon: Play, text: '3D Visual Learning' },
+              { icon: ArrowRight, text: 'Master Trade Skills' },
             ].map((feature, index) => (
               <motion.div
                 key={index}

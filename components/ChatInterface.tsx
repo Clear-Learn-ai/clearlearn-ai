@@ -163,7 +163,7 @@ export function ChatInterface() {
       {error && (
         <div className="mx-8 mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
           <div className="text-base text-red-800 mb-2">
-            {error}
+            {error?.message || 'An error occurred'}
           </div>
           <button
             onClick={() => setError(null)}

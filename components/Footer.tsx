@@ -120,8 +120,7 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-opacity-50 focus:border-transparent outline-none"
-                style={{ focusRingColor: '#1E0F2E' }}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 focus:border-transparent outline-none"
               />
               <button 
                 className="px-6 py-2 text-white rounded-lg font-medium transition-colors amethyst-primary hover:opacity-90"

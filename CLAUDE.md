@@ -1,11 +1,11 @@
-# Clearlearn Development Guide
+# TradeAI Tutor Development Guide
 
-This file contains development context and guidelines for working with the Clearlearn adaptive visual learning system.
+This file contains development context and guidelines for working with the TradeAI Tutor platform - an AI-powered visual learning system focused on plumbing apprentice training.
 
 ## Project Structure
 
 ```
-clearlearn/
+tradeai-tutor/
 ├── app/                    # Next.js App Router
 │   ├── globals.css        # Global styles and design system
 │   ├── layout.tsx         # Root layout with Inter font
@@ -14,14 +14,19 @@ clearlearn/
 │   ├── LearningEngine.ts  # Main orchestration class
 │   └── types.ts          # TypeScript definitions
 ├── generators/           # Content generation modules
-│   └── AnimatedDiagramGenerator.ts
+│   ├── AnimatedDiagramGenerator.ts
+│   ├── PlumbingDiagramGenerator.ts # Plumbing-specific content
+│   └── ThreeDModelGenerator.ts     # 3D pipe models
 ├── components/           # React components
-│   ├── QueryInput.tsx    # Smart input with autocomplete
+│   ├── QueryInput.tsx    # Smart input with plumbing autocomplete
 │   ├── ContentDisplay.tsx # Content renderer
 │   ├── AnimationRenderer.tsx # Canvas animation engine
+│   ├── ThreeDRenderer.tsx    # Three.js 3D models
+│   ├── VideoPlayer.tsx       # Video demonstrations
 │   └── FeedbackMechanism.tsx # User feedback
 ├── lib/                  # Utilities
 │   ├── store.ts          # Zustand state management
+│   ├── plumbing/         # Plumbing-specific utilities
 │   └── utils.ts          # Utility functions (cn helper)
 └── Configuration files   # TypeScript, Tailwind, ESLint, etc.
 ```
@@ -40,7 +45,7 @@ clearlearn/
 ### Deployment Workflow
 1. All changes should be committed to git and pushed to the repository
 2. Vercel automatically deploys from the main branch
-3. Live site: https://clearlearn-ai.vercel.app
+3. Live site: https://clearlearn-ai.vercel.app (soon to rebrand as TradeAI Tutor)
 4. Always test locally before pushing to production
 
 ### Before Pushing:
@@ -55,6 +60,52 @@ clearlearn/
 - Authentication: NextAuth with Google OAuth
 - AI Services: OpenAI + Anthropic APIs
 - Video: YouTube API integration
+
+## TradeAI Tutor - Plumbing Focus
+
+### Target Audience
+- **Primary**: Plumbing apprentices learning hands-on skills
+- **Secondary**: Journeymen needing quick reference guides
+- **Use Cases**: Jobsite learning, classroom supplements, code reference
+
+### Plumbing-Specific Features
+1. **Visual Learning Priority**
+   - 3D pipe models with Three.js
+   - Step-by-step installation animations
+   - Interactive tool identification
+   - Code violation visual markers
+
+2. **Sample Questions Library**
+   - "How do I install a toilet flange?"
+   - "What size pipe for kitchen sink?"
+   - "How to fix a P-trap leak?"
+   - "Show me different joint types"
+   - "What's the code for bathroom venting?"
+
+3. **Content Categories**
+   - **Beginner**: Basic pipe types, tool identification
+   - **Intermediate**: Installation procedures, code compliance  
+   - **Advanced**: Troubleshooting, system design
+
+4. **Mobile-First Design Requirements**
+   - Large buttons for gloved hands
+   - High contrast for outdoor/basement lighting
+   - Offline capability for remote jobsites
+   - Quick reference cards for common problems
+
+5. **Visual Content Types**
+   - Animated GIFs of cutting techniques
+   - 3D models of joint types (sweated, threaded, compression)
+   - Flow diagrams showing water/waste movement
+   - Interactive hotspots on tools and components
+   - Before/after code violation examples
+
+### Technical Integration Points
+- **Canadian/US Plumbing Codes**: Reference integration
+- **Plumbing Terminology**: Specialized vocabulary system
+- **Tool Library**: Interactive identification system
+- **3D Models**: Pipe fittings, valves, fixtures
+- **Video Integration**: Technique demonstrations
 
 ## Key Design Patterns
 
@@ -125,10 +176,11 @@ Modular generator system:
 ## Testing Strategy
 
 ### Manual Testing
-- Test with "How does photosynthesis work?" for full demo
-- Try edge cases with unknown topics
+- Test with "How do I install a toilet flange?" for full demo
+- Try plumbing questions like "What size pipe for kitchen sink?"
 - Test feedback submission flow
-- Verify responsive design
+- Verify mobile-first design for jobsite use
+- Test high contrast for outdoor lighting conditions
 
 ### Development Tools
 - TypeScript compiler catches type errors

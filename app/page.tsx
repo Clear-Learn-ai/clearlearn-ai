@@ -21,18 +21,18 @@ export default function LandingPage() {
 
   const demoSteps = [
     {
-      question: "How does photosynthesis work?",
-      response: "Photosynthesis is the process by which plants convert sunlight, carbon dioxide, and water into glucose and oxygen. This fundamental biological process occurs in chloroplasts and involves two main stages: light-dependent reactions and the Calvin cycle...",
+      question: "How do I install a toilet flange?",
+      response: "A toilet flange (also called a closet flange) connects the toilet to the drain pipe and secures it to the floor. Installation involves measuring the drain pipe, choosing the right flange type, ensuring proper height above the finished floor, and securing with appropriate fasteners...",
       videos: [
         {
-          title: "Photosynthesis Explained - Light and Dark Reactions",
+          title: "Toilet Flange Installation - Step by Step Guide",
           thumbnail: "https://img.youtube.com/vi/VFl7Hrm5q-s/maxresdefault.jpg",
-          duration: "12:34"
+          duration: "15:22"
         },
         {
-          title: "Chloroplast Structure and Function",
+          title: "Common Toilet Flange Problems and Solutions",
           thumbnail: "https://img.youtube.com/vi/VFl7Hrm5q-s/maxresdefault.jpg", 
-          duration: "8:45"
+          duration: "11:30"
         }
       ]
     }
@@ -68,7 +68,7 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
               </div>
               <p className="text-white mt-8 text-xl max-w-3xl mx-auto leading-relaxed">
-                Watch how Clearlearn instantly understands your questions and provides curated video explanations
+                Watch how TradeAI Tutor instantly understands your plumbing questions and provides visual learning demonstrations
               </p>
             </div>
           </div>
@@ -157,16 +157,16 @@ export default function LandingPage() {
 
             {/* Final CTA */}
             <div className="text-center rounded-2xl p-20 text-white shadow-2xl slide-right" style={{ backgroundColor: '#1E0F2E' }}>
-              <h2 className="text-5xl font-bold mb-8">Ready to transform your learning?</h2>
+              <h2 className="text-5xl font-bold mb-8">Ready to master plumbing skills?</h2>
               <p className="text-2xl mb-12 max-w-3xl mx-auto leading-relaxed text-white/90">
-                Join thousands of students already using AI to Master Anything faster than ever
+                Join apprentices and journeymen using AI to learn plumbing techniques faster than ever
               </p>
               <Link
                 href="/chat"
                 className="inline-flex items-center px-10 py-5 bg-white rounded-2xl hover:bg-gray-100 transition-colors text-xl font-semibold shadow-xl"
                 style={{ color: '#1E0F2E' }}
               >
-                Start Learning Now
+                Start Learning Plumbing
                 <ArrowRight className="w-6 h-6 ml-3" />
               </Link>
               <div className="mt-10 text-white/80">

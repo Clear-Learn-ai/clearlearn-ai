@@ -35,7 +35,7 @@ export default function ChatPage() {
 
   const handleCloseVideo = () => {
     setIsVideoOpen(false)
-    selectVideo(null) // Clear the selected video from store
+    // selectVideo(null) // Will implement proper video clearing
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -97,9 +97,9 @@ export default function ChatPage() {
             </motion.button>
             <div>
               <h1 className="text-2xl font-bold" style={{ color: '#1E0F2E' }}>
-                Clearlearn
+                TradeAI Tutor
               </h1>
-              <p className="text-sm text-gray-600">AI-Powered Learning Assistant</p>
+              <p className="text-sm text-gray-600">AI-Powered Plumbing Learning</p>
             </div>
           </div>
           
@@ -126,10 +126,10 @@ export default function ChatPage() {
                 </div>
                 
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                  Ready to learn anything?
+                  Ready to master plumbing skills?
                 </h2>
                 <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-                  Ask me any question and I'll provide clear explanations with relevant videos to help you understand
+                  Ask me any plumbing question and I'll provide 3D visualizations, step-by-step guides, and video demonstrations
                 </p>
 
               </motion.div>
@@ -224,7 +224,19 @@ export default function ChatPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mx-6 mb-4 p-4 bg-red-50 border border-red-200 rounded-xl"
           >
-            <div className="text-base text-red-800 mb-2">{error}</div>
+            <div className="text-base text-red-800 mb-2">
+              {error?.message || 'An error occurred'}
+            </div>
+            {error?.recoveryActions && (
+              <div className="text-sm text-red-600 mt-2">
+                <p className="font-medium">Try:</p>
+                <ul className="list-disc list-inside">
+                  {error.recoveryActions.map((action, index) => (
+                    <li key={index}>{action}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <button
               onClick={() => setError(null)}
               className="text-sm text-red-600 hover:text-red-800 font-medium"
@@ -242,7 +254,7 @@ export default function ChatPage() {
                 <textarea
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Ask me anything about any subject..."
+                  placeholder="Ask me anything about plumbing... (e.g., 'How do I install a toilet flange?')"
                   disabled={isLoading}
                   rows={1}
                   className="w-full px-6 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed text-gray-900 placeholder-gray-500 text-base shadow-sm resize-none"

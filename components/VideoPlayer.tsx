@@ -200,7 +200,7 @@ export function VideoPlayer({ video, onClose, isOpen }: VideoPlayerProps) {
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
-                    {Math.round(video.relevance * 100)}% relevant
+                    {Math.round(video.relevanceScore * 100)}% relevant
                   </span>
                 </div>
               </div>

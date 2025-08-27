@@ -1,219 +1,300 @@
 import { create } from 'zustand'
 import { subscribeWithSelector } from 'zustand/middleware'
 
-// Types for the new video-augmented AI tutor
-export interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  timestamp: Date
-  videoResults?: VideoResult[]
-  aiExplanation?: string
-}
+// Educational domain imports - Following BP-C6: Use import type for type-only imports
+import type {
+  SessionId,
+  MessageId,
+  VideoId,
+  StudentQuery,
+  VideoContent,
+  LearningSession,
+  LearningProgress,
+  EducationalError
+} from '../types/education'
+import { SubjectArea } from '../types/education'
+import type { ChatMessage, ChatApiRequest } from '../types/api'
+import { createSessionId, createMessageId } from '../types/education'
 
-export interface VideoResult {
-  id: string
-  title: string
-  description: string
-  thumbnail: string
-  url: string
-  duration: string
-  source: 'youtube' | 'khan-academy'
-  relevance: number
-}
-
-export interface SessionState {
-  sessionId: string
+// Updated interfaces using educational domain types
+export interface StudentLearningSession {
+  id: SessionId
   startTime: Date
   messages: ChatMessage[]
   currentQuery: string
-  isLoading: boolean
-  error: string | null
-  videoResults: VideoResult[]
-  selectedVideo: VideoResult | null
+  isGeneratingExplanation: boolean
+  educationalError: EducationalError | null
+  recommendedVideos: VideoContent[]
+  selectedVideo: VideoContent | null
+  learningProgress: LearningProgress
 }
 
-interface ChemTutorStore {
-  // Session state
-  session: SessionState
+// Educational tutor store interface with domain vocabulary
+interface EducationalTutorStore {
+  // Learning session state
+  learningSession: StudentLearningSession
   
-  // Actions
-  sendMessage: (content: string) => Promise<void>
-  setCurrentQuery: (query: string) => void
-  selectVideo: (video: VideoResult) => void
-  clearSession: () => void
-  setError: (error: string | null) => void
+  // Educational actions - Following BP-C2: Educational domain vocabulary
+  submitStudentQuery: (content: string) => Promise<void>
+  updateCurrentQuery: (query: string) => void
+  selectEducationalVideo: (video: VideoContent) => void
+  clearLearningSession: () => void
+  setEducationalError: (error: EducationalError | null) => void
   
-  // Getters
-  getRecentMessages: () => ChatMessage[]
-  getSessionStats: () => { messageCount: number; duration: number }
+  // Educational analytics and progress
+  getRecentQueries: () => ChatMessage[]
+  getLearningSessionStats: () => { queryCount: number; sessionDuration: number; conceptsExplored: number }
+  updateLearningProgress: (progress: Partial<LearningProgress>) => void
 }
 
-export const useChemTutorStore = create<ChemTutorStore>()(
+export const useEducationalTutorStore = create<EducationalTutorStore>()(
   subscribeWithSelector((set, get) => ({
-    // Initial state
-    session: {
-      sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    // Initial learning session state
+    learningSession: {
+      id: createSessionId(),
       startTime: new Date(),
       messages: [],
       currentQuery: '',
-      isLoading: false,
-      error: null,
-      videoResults: [],
-      selectedVideo: null
+      isGeneratingExplanation: false,
+      educationalError: null,
+      recommendedVideos: [],
+      selectedVideo: null,
+      learningProgress: {
+        conceptsMastered: [],
+        conceptsInProgress: [],
+        questionsAsked: 0,
+        videosCompleted: 0,
+        sessionDuration: 0,
+        engagementScore: 0.5
+      }
     },
     
-    // Actions
-    sendMessage: async (content: string) => {
-      const { session } = get()
+    // Educational actions using domain vocabulary
+    submitStudentQuery: async (content: string) => {
+      const { learningSession } = get()
       
-      // Add user message
+      // Create user message
       const userMessage: ChatMessage = {
-        id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        id: createMessageId(),
         role: 'user',
         content,
         timestamp: new Date()
       }
       
       set(state => ({
-        session: {
-          ...state.session,
-          messages: [...state.session.messages, userMessage],
-          isLoading: true,
-          error: null,
-          currentQuery: content
+        learningSession: {
+          ...state.learningSession,
+          messages: [...state.learningSession.messages, userMessage],
+          isGeneratingExplanation: true,
+          educationalError: null,
+          currentQuery: content,
+          learningProgress: {
+            ...state.learningSession.learningProgress,
+            questionsAsked: state.learningSession.learningProgress.questionsAsked + 1
+          }
         }
       }))
       
       try {
-        // Call AI API to get response
+        // Call educational AI API with proper typing
+        const apiRequest: ChatApiRequest = {
+          message: content,
+          sessionId: learningSession.id,
+          conversationHistory: learningSession.messages
+        }
+        
         const response = await fetch('/api/chat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            message: content,
-            sessionId: session.sessionId,
-            conversationHistory: session.messages
-          })
+          body: JSON.stringify(apiRequest)
         })
         
         if (!response.ok) {
-          throw new Error('Failed to get AI response')
+          throw new Error('Failed to generate educational explanation')
         }
         
         const data = await response.json()
         
-        // Add AI response
-        const aiMessage: ChatMessage = {
-          id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        // Create assistant response message
+        const assistantMessage: ChatMessage = {
+          id: createMessageId(),
           role: 'assistant',
           content: data.explanation,
           timestamp: new Date(),
-          videoResults: data.videoResults,
-          aiExplanation: data.explanation
+          videoResults: data.videoResults || []
         }
         
         set(state => ({
-          session: {
-            ...state.session,
-            messages: [...state.session.messages, aiMessage],
-            isLoading: false,
-            videoResults: data.videoResults || []
+          learningSession: {
+            ...state.learningSession,
+            messages: [...state.learningSession.messages, assistantMessage],
+            isGeneratingExplanation: false,
+            recommendedVideos: data.videoResults || [],
+            learningProgress: {
+              ...state.learningSession.learningProgress,
+              engagementScore: Math.min(state.learningSession.learningProgress.engagementScore + 0.1, 1.0)
+            }
           }
         }))
         
       } catch (error) {
-        console.error('Error sending message:', error)
+        console.error('Error generating educational explanation:', error)
+        const educationalError: EducationalError = {
+          code: 'AI_UNAVAILABLE',
+          message: error instanceof Error ? error.message : 'Failed to generate explanation',
+          context: { query: content, sessionId: learningSession.id },
+          recoveryActions: ['Try rephrasing your question', 'Check your internet connection', 'Try again in a moment']
+        }
+        
         set(state => ({
-          session: {
-            ...state.session,
-            isLoading: false,
-            error: error instanceof Error ? error.message : 'Failed to send message'
+          learningSession: {
+            ...state.learningSession,
+            isGeneratingExplanation: false,
+            educationalError
           }
         }))
       }
     },
     
-    setCurrentQuery: (query: string) => {
+    updateCurrentQuery: (query: string) => {
       set(state => ({
-        session: {
-          ...state.session,
+        learningSession: {
+          ...state.learningSession,
           currentQuery: query,
-          error: null
+          educationalError: null
         }
       }))
     },
     
-    selectVideo: (video: VideoResult) => {
+    selectEducationalVideo: (video: VideoContent) => {
       set(state => ({
-        session: {
-          ...state.session,
-          selectedVideo: video
+        learningSession: {
+          ...state.learningSession,
+          selectedVideo: video,
+          learningProgress: {
+            ...state.learningSession.learningProgress,
+            videosCompleted: state.learningSession.learningProgress.videosCompleted + 1
+          }
         }
       }))
     },
     
-    clearSession: () => {
+    clearLearningSession: () => {
       set({
-        session: {
-          sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        learningSession: {
+          id: createSessionId(),
           startTime: new Date(),
           messages: [],
           currentQuery: '',
-          isLoading: false,
-          error: null,
-          videoResults: [],
-          selectedVideo: null
+          isGeneratingExplanation: false,
+          educationalError: null,
+          recommendedVideos: [],
+          selectedVideo: null,
+          learningProgress: {
+            conceptsMastered: [],
+            conceptsInProgress: [],
+            questionsAsked: 0,
+            videosCompleted: 0,
+            sessionDuration: 0,
+            engagementScore: 0.5
+          }
         }
       })
     },
     
-    setError: (error: string | null) => {
+    setEducationalError: (error: EducationalError | null) => {
       set(state => ({
-        session: {
-          ...state.session,
-          error,
-          isLoading: false
+        learningSession: {
+          ...state.learningSession,
+          educationalError: error,
+          isGeneratingExplanation: false
         }
       }))
     },
     
-    // Getters
-    getRecentMessages: () => {
-      const { session } = get()
-      return session.messages.slice(-10) // Last 10 messages
+    updateLearningProgress: (progress: Partial<LearningProgress>) => {
+      set(state => ({
+        learningSession: {
+          ...state.learningSession,
+          learningProgress: {
+            ...state.learningSession.learningProgress,
+            ...progress,
+            sessionDuration: Date.now() - state.learningSession.startTime.getTime()
+          }
+        }
+      }))
     },
     
-    getSessionStats: () => {
-      const { session } = get()
-      const duration = Date.now() - session.startTime.getTime()
+    // Educational analytics and progress tracking
+    getRecentQueries: () => {
+      const { learningSession } = get()
+      return learningSession.messages.slice(-10) // Last 10 messages
+    },
+    
+    getLearningSessionStats: () => {
+      const { learningSession } = get()
+      const duration = Date.now() - learningSession.startTime.getTime()
       return {
-        messageCount: session.messages.length,
-        duration: Math.floor(duration / 1000) // seconds
+        queryCount: learningSession.messages.filter(m => m.role === 'user').length,
+        sessionDuration: Math.floor(duration / 1000), // seconds
+        conceptsExplored: learningSession.learningProgress.conceptsInProgress.length + 
+                         learningSession.learningProgress.conceptsMastered.length
       }
     }
   }))
 )
 
-// Selectors for optimized component subscriptions
-export const useSession = () => useChemTutorStore(state => state.session)
-export const useMessages = () => useChemTutorStore(state => state.session.messages)
-export const useIsLoading = () => useChemTutorStore(state => state.session.isLoading)
-export const useError = () => useChemTutorStore(state => state.session.error)
-export const useVideoResults = () => useChemTutorStore(state => state.session.videoResults)
-export const useSelectedVideo = () => useChemTutorStore(state => state.session.selectedVideo)
+// Educational selectors for optimized component subscriptions
+export const useLearningSession = () => useEducationalTutorStore(state => state.learningSession)
+export const useMessages = () => useEducationalTutorStore(state => state.learningSession.messages)
+export const useIsGeneratingExplanation = () => useEducationalTutorStore(state => state.learningSession.isGeneratingExplanation)
+export const useEducationalError = () => useEducationalTutorStore(state => state.learningSession.educationalError)
+export const useRecommendedVideos = () => useEducationalTutorStore(state => state.learningSession.recommendedVideos)
+export const useSelectedEducationalVideo = () => useEducationalTutorStore(state => state.learningSession.selectedVideo)
+export const useLearningProgress = () => useEducationalTutorStore(state => state.learningSession.learningProgress)
 
-// Action selectors
-export const useSendMessage = () => useChemTutorStore(state => state.sendMessage)
-export const useSetCurrentQuery = () => useChemTutorStore(state => state.setCurrentQuery)
-export const useSelectVideo = () => useChemTutorStore(state => state.selectVideo)
-export const useClearSession = () => useChemTutorStore(state => state.clearSession)
-export const useSetError = () => useChemTutorStore(state => state.setError)
+// Educational action selectors
+export const useSubmitStudentQuery = () => useEducationalTutorStore(state => state.submitStudentQuery)
+export const useUpdateCurrentQuery = () => useEducationalTutorStore(state => state.updateCurrentQuery)
+export const useSelectEducationalVideo = () => useEducationalTutorStore(state => state.selectEducationalVideo)
+export const useClearLearningSession = () => useEducationalTutorStore(state => state.clearLearningSession)
+export const useSetEducationalError = () => useEducationalTutorStore(state => state.setEducationalError)
+export const useUpdateLearningProgress = () => useEducationalTutorStore(state => state.updateLearningProgress)
 
-// Development helpers
-if (typeof window !== 'undefined') {
+// Export additional types for components
+export type { ChatMessage } from '../types/api'
+export type { VideoContent as VideoResult } from '../types/education'
+
+// Backward compatibility exports (marked as deprecated)
+/** @deprecated Use useEducationalTutorStore instead */
+export const useChemTutorStore = useEducationalTutorStore
+/** @deprecated Use useLearningSession instead */
+export const useSession = useLearningSession
+/** @deprecated Use useMessages instead */
+export const useStudentQueries = useMessages
+/** @deprecated Use useIsGeneratingExplanation instead */
+export const useIsLoading = useIsGeneratingExplanation
+/** @deprecated Use useEducationalError instead */
+export const useError = useEducationalError
+/** @deprecated Use useSubmitStudentQuery instead */
+export const useSendMessage = useSubmitStudentQuery
+/** @deprecated Use useUpdateCurrentQuery instead */
+export const useSetCurrentQuery = useUpdateCurrentQuery
+/** @deprecated Use useSelectEducationalVideo instead */
+export const useSelectVideo = useSelectEducationalVideo
+/** @deprecated Use useSetEducationalError instead */
+export const useSetError = useSetEducationalError
+/** @deprecated Use useRecommendedVideos instead */
+export const useVideoResults = useRecommendedVideos
+/** @deprecated Use useSelectedEducationalVideo instead */
+export const useSelectedVideo = useSelectedEducationalVideo
+
+// Development helpers for educational debugging
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   // @ts-expect-error - For debugging in development
-  window.chemTutorStore = useChemTutorStore
+  window.educationalTutorStore = useEducationalTutorStore
+  // @ts-expect-error - Backward compatibility
+  window.chemTutorStore = useEducationalTutorStore
 }
