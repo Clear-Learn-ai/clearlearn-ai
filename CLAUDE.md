@@ -293,6 +293,98 @@ Modular generator system:
 5. Ensure TypeScript compilation passes
 6. Run linting before committing
 
+## PDF Processing & AI Training System
+
+### PDF Processing Pipeline
+Our advanced PDF processing system automatically extracts and structures plumbing documentation:
+
+**Libraries & Tools:**
+- `pdf-parse` - Text extraction from PDF documents
+- `pdf2pic` - Image extraction and conversion
+- `pdf-poppler` - Advanced PDF rendering capabilities
+- `@huggingface/transformers` - Content embeddings generation
+- `chromadb` - Vector database for semantic search
+
+**Core Components:**
+- `lib/pdf/pdfProcessor.ts` - Main PDF processing engine
+- `lib/pdf/contentIntegrator.ts` - Training data generation
+- `lib/pdf/legalCompliance.ts` - Legal attribution and compliance
+- `app/api/pdf/upload/route.ts` - Upload API endpoint
+- `components/pdf/PDFUploader.tsx` - Upload interface
+
+### AI Training Data Generation
+
+**Automated Content Extraction:**
+1. **Text Processing** - Parses installation procedures, specifications, troubleshooting guides
+2. **Section Classification** - Automatically categorizes content (installation, specs, safety, troubleshooting)
+3. **Step Extraction** - Identifies numbered procedures with tools, materials, and warnings
+4. **Q&A Generation** - Creates question-answer pairs for AI training
+5. **Embedding Generation** - Uses OpenAI's text-embedding-3-small for semantic search
+
+**Training Data Structure:**
+```
+data/
+├── pdfs/              # Original PDF files
+├── processed/         # Extracted content JSON
+├── embeddings/        # Vector embeddings for search
+└── training/          # Organized by category
+    ├── codes/         # Building codes & standards
+    ├── manufacturers/ # Product documentation
+    ├── procedures/    # Installation guides
+    └── troubleshooting/ # Problem-solving content
+```
+
+### Legal Compliance System
+
+**Fair Use Framework:**
+- Educational purpose compliance checking
+- Attribution generation for all sources
+- Excerpt length validation (200-400 words max)
+- Copyright notice integration
+- Usage tracking and compliance reporting
+
+**Supported Content Types:**
+- **Building Codes** - NPC, IPC, UPC (200 word limit, reference only)
+- **Manufacturer Guides** - Viega, NIBCO, Kohler, RIDGID, Fernco (300 word limit)
+- **Educational Content** - Training materials (400 word limit)
+
+**Compliance Features:**
+- Automatic source registration
+- Real-time compliance checking
+- Legal attribution generation
+- Usage audit trails
+- Compliance rate monitoring
+
+### Content Integration with 3D Models
+
+**Linking System:**
+- Procedures automatically linked to relevant 3D components
+- Installation steps connected to interactive models
+- Tool usage synchronized with tool visualizations
+- Troubleshooting guides paired with cutaway views
+
+**AI Response Enhancement:**
+- Semantic search through processed documentation
+- Context-aware answer generation
+- Source attribution in all responses
+- Code reference integration
+- Manufacturer-specific guidance
+
+### Mobile PDF Access
+
+**Offline Capability:**
+- PWA integration for jobsite access
+- Cached processed content
+- Offline search functionality
+- Synchronized training data
+
+**Usage Workflow:**
+1. **Upload PDFs** - Manufacturers upload technical documentation
+2. **Automatic Processing** - System extracts and structures content
+3. **Compliance Check** - Legal review and attribution
+4. **Training Integration** - Content becomes part of AI knowledge base
+5. **Student Access** - Apprentices get enhanced AI responses with proper attribution
+
 ---
 
 This codebase is designed for production scale with clean architecture, type safety, and extensibility as core principles.

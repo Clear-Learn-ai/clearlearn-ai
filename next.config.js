@@ -115,7 +115,16 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   experimental: {
-    serverComponentsExternalPackages: ['three', '@react-three/drei', '@react-three/fiber']
+    serverComponentsExternalPackages: [
+      'three', 
+      '@react-three/drei', 
+      '@react-three/fiber',
+      'pdf-parse',
+      'pdf2pic', 
+      'pdf-poppler',
+      'sharp',
+      'canvas'
+    ]
   },
   webpack: (config, { isServer }) => {
     // Handle three.js on server side
@@ -125,16 +134,29 @@ const nextConfig = {
         'three/examples/jsm/loaders/GLTFLoader': 'three/examples/jsm/loaders/GLTFLoader',
         'three/examples/jsm/loaders/DRACOLoader': 'three/examples/jsm/loaders/DRACOLoader',
       })
+
+      // Handle PDF processing libraries for server
+      config.externals.push({
+        'pdf-parse': 'pdf-parse',
+        'pdf2pic': 'pdf2pic',
+        'pdf-poppler': 'pdf-poppler',
+        'gm': 'gm',
+        'sharp': 'sharp',
+      })
     }
 
     // Handle canvas and other native modules
     config.resolve.alias.canvas = false
     config.resolve.alias.encoding = false
 
-    // Handle fabric.js
+    // Handle PDF processing libraries
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
+      path: false,
+      crypto: false,
+      buffer: false,
+      util: false,
     }
 
     return config
