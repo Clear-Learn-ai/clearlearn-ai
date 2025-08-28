@@ -66,17 +66,18 @@ export async function searchYouTubeEducationalContent(
 }
 
 export function enhanceQueryForEducationalContent(query: string, subject: SubjectArea): string {
-  const educationalKeywords = {
+  const plumbingKeywords = {
+    'plumbing': 'plumbing tutorial installation repair how-to step-by-step',
     'organic_chemistry': 'organic chemistry tutorial mechanism explanation',
     'biochemistry': 'biochemistry biology tutorial explanation',
     'biology': 'biology tutorial explanation educational',
     'general_chemistry': 'chemistry tutorial explanation educational'
   }
   
-  const subjectKeywords = educationalKeywords[subject] || educationalKeywords['organic_chemistry']
+  const subjectKeywords = plumbingKeywords['plumbing'] // Default to plumbing for TradeAI Tutor
   
-  // Filter for high-quality educational content
-  return `${query} ${subjectKeywords} -music -vlog -reaction`
+  // Filter for high-quality plumbing educational content
+  return `${query} ${subjectKeywords} -music -vlog -reaction -comedy`
 }
 
 export function formatVideoForEducation(youtubeItem: any): VideoContent {
@@ -143,65 +144,62 @@ export function assessEducationalValue(snippet: any): number {
 }
 
 export function getCuratedEducationalVideos(query: string, subject: SubjectArea): VideoContent[] {
-  // High-quality curated educational content organized by subject
-  const educationalVideoDatabase = {
-    'organic_chemistry': [
+  // High-quality curated plumbing educational content
+  const plumbingVideoDatabase = {
+    'plumbing': [
       {
-        id: createVideoId('youtube', 'sQK3Yr4Sc_k'),
-        title: 'SN2 Reaction Mechanism - Complete Guide with Stereochemistry',
-        description: 'Comprehensive explanation of SN2 nucleophilic substitution including backside attack, inversion of configuration, and substrate effects',
-        thumbnail: 'https://img.youtube.com/vi/sQK3Yr4Sc_k/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=sQK3Yr4Sc_k',
-        duration: '18:45',
+        id: createVideoId('youtube', 'toilet_install_guide'),
+        title: 'How to Install a Toilet - Complete Step-by-Step Guide',
+        description: 'Professional plumber shows complete toilet installation including flange, wax ring, and proper sealing techniques',
+        thumbnail: 'https://img.youtube.com/vi/placeholder/maxresdefault.jpg',
+        url: 'https://www.youtube.com/watch?v=placeholder',
+        duration: '15:30',
         source: 'youtube' as const,
         relevanceScore: 0.95,
         educationalValue: 0.92,
-        keywords: ['sn2', 'nucleophilic', 'substitution', 'stereochemistry', 'mechanism']
+        keywords: ['toilet', 'install', 'installation', 'flange', 'wax ring', 'seal']
       },
       {
-        id: createVideoId('youtube', 'VFl7Hrm5q-s'),
-        title: 'Stereochemistry Made Simple: R/S Configuration',
-        description: 'Step-by-step guide to assigning R and S configuration to chiral centers with practice problems',
-        thumbnail: 'https://img.youtube.com/vi/VFl7Hrm5q-s/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=VFl7Hrm5q-s',
-        duration: '15:22',
+        id: createVideoId('youtube', 'pex_pipe_install'),
+        title: 'PEX Pipe Installation - Tools, Fittings, and Best Practices',
+        description: 'Complete guide to PEX plumbing installation including expansion fittings, manifolds, and code requirements',
+        thumbnail: 'https://img.youtube.com/vi/placeholder2/maxresdefault.jpg',
+        url: 'https://www.youtube.com/watch?v=placeholder2',
+        duration: '22:15',
         source: 'youtube' as const,
         relevanceScore: 0.90,
         educationalValue: 0.88,
-        keywords: ['stereochemistry', 'chiral', 'r/s', 'configuration']
+        keywords: ['pex', 'pipe', 'installation', 'fittings', 'expansion', 'manifold']
       },
       {
-        id: createVideoId('youtube', 'YlzZw1bEZJw'),
-        title: 'Aldol Condensation Reaction Mechanism',
-        description: 'Complete walkthrough of aldol condensation including enolate formation and aldol addition',
-        thumbnail: 'https://img.youtube.com/vi/YlzZw1bEZJw/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=YlzZw1bEZJw',
-        duration: '22:15',
+        id: createVideoId('youtube', 'drain_cleaning'),
+        title: 'Drain Cleaning Techniques - When to Snake vs. Hydro Jet',
+        description: 'Professional techniques for clearing different types of drain clogs including tool selection and safety',
+        thumbnail: 'https://img.youtube.com/vi/placeholder3/maxresdefault.jpg',
+        url: 'https://www.youtube.com/watch?v=placeholder3',
+        duration: '18:45',
         source: 'youtube' as const,
         relevanceScore: 0.87,
         educationalValue: 0.85,
-        keywords: ['aldol', 'condensation', 'enolate', 'carbonyl']
-      }
-    ],
-    'biology': [
+        keywords: ['drain', 'cleaning', 'snake', 'hydro', 'jet', 'clog', 'blockage']
+      },
       {
-        id: createVideoId('youtube', 'photosynthesis_basics'),
-        title: 'Photosynthesis: Light Reactions and Calvin Cycle',
-        description: 'Complete explanation of photosynthesis including light-dependent reactions and carbon fixation',
-        thumbnail: 'https://img.youtube.com/vi/sQK3Yr4Sc_k/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=sQK3Yr4Sc_k',
-        duration: '16:30',
+        id: createVideoId('youtube', 'leak_repair'),
+        title: 'Finding and Fixing Water Leaks - Diagnostic Guide',
+        description: 'Step-by-step leak detection and repair techniques for common plumbing problems',
+        thumbnail: 'https://img.youtube.com/vi/placeholder4/maxresdefault.jpg',
+        url: 'https://www.youtube.com/watch?v=placeholder4',
+        duration: '14:20',
         source: 'youtube' as const,
         relevanceScore: 0.92,
         educationalValue: 0.90,
-        keywords: ['photosynthesis', 'light reactions', 'calvin cycle', 'chloroplast']
+        keywords: ['leak', 'repair', 'water', 'detection', 'diagnostic', 'fix']
       }
     ]
   }
   
   // Get relevant videos for subject with proper typing
-  const subjectVideos = educationalVideoDatabase[subject as keyof typeof educationalVideoDatabase] || 
-                       educationalVideoDatabase['organic_chemistry']
+  const subjectVideos = plumbingVideoDatabase['plumbing'] // Always use plumbing videos for TradeAI Tutor
   
   // Filter by query relevance
   const queryLower = query.toLowerCase()

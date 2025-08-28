@@ -81,30 +81,34 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Educational tutor system prompt - Following BP-C2: Educational domain vocabulary
-    const educationalTutorPrompt = `You are an expert educational tutor specializing in pre-med sciences. Your role is to:
+    // Plumbing education tutor system prompt
+    const educationalTutorPrompt = `You are TradeAI Tutor, an expert plumbing instructor specializing in hands-on apprentice training. Your role is to:
 
-1. Generate clear, pedagogically sound explanations for complex scientific concepts
-2. Adapt explanation complexity to student learning level
-3. Provide step-by-step mechanism explanations with visual cues
-4. Connect concepts to real-world applications and clinical relevance
-5. Generate progressive follow-up questions to deepen understanding
-6. Identify prerequisite concepts students should master
-7. Suggest learning objectives for each topic
+1. Provide clear, step-by-step explanations for plumbing procedures and concepts
+2. Emphasize safety protocols and code compliance in all responses
+3. Offer practical troubleshooting guidance for common plumbing problems
+4. Connect theoretical knowledge to real jobsite applications
+5. Generate follow-up questions to reinforce learning
+6. Identify tools, materials, and safety requirements for each task
+7. Reference relevant building codes when applicable
 
-Educational subjects you excel in:
-- Organic Chemistry: mechanisms, stereochemistry, synthesis, spectroscopy
-- Biochemistry: metabolic pathways, enzyme kinetics, protein structure
-- Biology: cellular processes, genetics, evolution, ecology
-- General Chemistry: thermodynamics, kinetics, quantum mechanics
+Plumbing specialties you excel in:
+- Installation: toilets, sinks, water heaters, fixtures, piping systems
+- Repair: leaks, clogs, valve replacement, pipe repair
+- Troubleshooting: diagnosing problems, identifying causes, solution planning  
+- Codes & Standards: NPC, IPC, UPC compliance, permits, inspections
+- Tools & Materials: pipe types, fittings, tools, safety equipment
+- Systems: water supply, drainage, venting, gas lines
 
 Always respond with:
-- Clear learning objectives
-- Key terminology definitions
-- 2-3 follow-up questions for deeper learning
-- Clinical or real-world connections when appropriate
+- Safety warnings and PPE requirements
+- Step-by-step procedures with clear instructions
+- Tool and material lists
+- Code compliance considerations
+- Practical tips from experienced tradespeople
+- Common mistakes to avoid
 
-Maintain an encouraging, supportive tone that builds student confidence.`
+Use encouraging, mentor-like tone suitable for apprentice learning. Focus on practical, hands-on knowledge that works on actual jobsites.`
 
     // Build conversation context
     const conversationContext = conversationHistory
@@ -203,10 +207,10 @@ Maintain an encouraging, supportive tone that builds student confidence.`
       }
     }
 
-    // Search for relevant educational videos - Following BP-C2: Educational vocabulary
+    // Search for relevant plumbing videos
     const educationalVideoResults = await searchVideoContent({
       query: message,
-      subject: SubjectArea.ORGANIC_CHEMISTRY, // Could be inferred from content
+      subject: 'plumbing' as any, // TradeAI Tutor focuses on plumbing education
       maxResults: 4,
       difficultyLevel: DifficultyLevel.INTERMEDIATE // Could be inferred from conversation
     })
@@ -302,36 +306,48 @@ Maintain an encouraging, supportive tone that builds student confidence.`
   }
 }
 
-// Helper function to generate educational follow-up questions
+// Helper function to generate plumbing follow-up questions
 function generateEducationalFollowUpQuestions(query: string, explanation: string): string[] {
   // Extract key concepts for follow-up generation
   const queryLower = query.toLowerCase()
   
-  if (queryLower.includes('mechanism') || queryLower.includes('sn2') || queryLower.includes('sn1')) {
+  if (queryLower.includes('install') || queryLower.includes('installation')) {
     return [
-      'How does substrate structure affect this reaction rate?',
-      'What role does the solvent play in this mechanism?',
-      'Can you predict the stereochemical outcome?'
+      'What tools do I need for this installation?',
+      'What are the code requirements for this installation?',
+      'What common mistakes should I avoid during installation?'
     ]
-  } else if (queryLower.includes('stereochemistry') || queryLower.includes('chiral')) {
+  } else if (queryLower.includes('leak') || queryLower.includes('repair')) {
     return [
-      'How would you assign R/S configuration to this molecule?',
-      'What happens during this reaction\'s stereochemistry?',
-      'Can you identify all stereocenters in this compound?'
+      'How do I identify the source of this leak?',
+      'What are the most common causes of this type of leak?',
+      'When should I call a professional vs. doing this myself?'
     ]
-  } else if (queryLower.includes('synthesis') || queryLower.includes('make')) {
+  } else if (queryLower.includes('toilet') || queryLower.includes('flange')) {
     return [
-      'What alternative synthetic routes could work?',
-      'How would you optimize the yield of this reaction?',
-      'What side reactions should you watch out for?'
+      'What wax ring should I use for this toilet?',
+      'How do I know if my flange is the right height?',
+      'What if the floor around the toilet is uneven?'
+    ]
+  } else if (queryLower.includes('pipe') || queryLower.includes('fitting')) {
+    return [
+      'What size pipe do I need for this application?',
+      'What type of fitting works best here?',
+      'How do I ensure proper water pressure?'
+    ]
+  } else if (queryLower.includes('drain') || queryLower.includes('clog')) {
+    return [
+      'What tools work best for clearing this type of drain?',
+      'How can I prevent this clog from happening again?',
+      'When should I use chemical drain cleaners vs. mechanical methods?'
     ]
   }
   
-  // Default educational follow-ups
+  // Default plumbing follow-ups
   return [
-    'What real-world applications use this concept?',
-    'How does this connect to other topics we\'ve discussed?',
-    'What would happen if we changed the conditions?'
+    'What safety precautions should I take for this job?',
+    'Do I need any permits for this type of work?',
+    'What are the signs that this repair was successful?'
   ]
 }
 

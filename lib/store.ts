@@ -132,15 +132,15 @@ export const useEducationalTutorStore = create<EducationalTutorStore>()(
           throw new Error('Failed to generate educational explanation')
         }
         
-        const data = await response.json()
+        const apiResponse = await response.json()
         
         // Create assistant response message
         const assistantMessage: ChatMessage = {
           id: createMessageId(),
           role: 'assistant',
-          content: data.explanation,
+          content: apiResponse.data?.explanation || apiResponse.explanation || 'No response received',
           timestamp: new Date(),
-          videoResults: data.videoResults || []
+          videoResults: apiResponse.data?.videoResults || apiResponse.videoResults || []
         }
         
         set(state => ({
@@ -148,7 +148,7 @@ export const useEducationalTutorStore = create<EducationalTutorStore>()(
             ...state.learningSession,
             messages: [...state.learningSession.messages, assistantMessage],
             isGeneratingExplanation: false,
-            recommendedVideos: data.videoResults || [],
+            recommendedVideos: apiResponse.data?.videoResults || apiResponse.videoResults || [],
             learningProgress: {
               ...state.learningSession.learningProgress,
               engagementScore: Math.min(state.learningSession.learningProgress.engagementScore + 0.1, 1.0)
