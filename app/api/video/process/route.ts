@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { YouTubeVideoProcessor, ProcessedVideo } from '@/lib/video/youtubeProcessor'
+// import { YouTubeVideoProcessor, ProcessedVideo } from '@/lib/video/youtubeProcessor'
 
 interface ProcessVideoRequest {
   videoUrl: string
@@ -8,14 +8,18 @@ interface ProcessVideoRequest {
 
 interface ProcessVideoResponse {
   success: boolean
-  data?: ProcessedVideo
+  data?: any
   error?: string
   processingTime?: number
 }
 
-const processor = new YouTubeVideoProcessor()
+// const processor = new YouTubeVideoProcessor()
 
 export async function POST(request: NextRequest) {
+  return NextResponse.json({
+    success: false,
+    error: 'Video processing temporarily disabled for production deployment'
+  }, { status: 503 })
   const startTime = Date.now()
 
   try {

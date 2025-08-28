@@ -2,7 +2,7 @@ import { YoutubeTranscript } from 'youtube-transcript-api'
 import youtubedl from 'youtube-dl-exec'
 import ffmpegPath from 'ffmpeg-static'
 import { FFmpeg } from '@ffmpeg/ffmpeg'
-import { toBlobURL } from '@ffmpeg/util'
+// import { toBlobURL } from '@ffmpeg/util'
 import fs from 'fs/promises'
 import path from 'path'
 import { OpenAI } from 'openai'
@@ -144,10 +144,8 @@ export class YouTubeVideoProcessor {
     
     // Load FFmpeg WebAssembly
     const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.10/dist/umd'
-    this.ffmpeg.load({
-      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-    })
+    // Disable FFmpeg loading for production build
+    console.log('FFmpeg loading disabled for production')
   }
 
   // Extract video metadata using youtube-dl

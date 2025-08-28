@@ -1,22 +1,22 @@
 'use client'
 
 import React from 'react'
-import { VideoAnalyzer } from '@/components/video/VideoAnalyzer'
-import { ProcessedVideo } from '@/lib/video/youtubeProcessor'
-import { useProcessYouTubeVideo, useProcessedVideos } from '@/lib/store'
+// import { VideoAnalyzer } from '@/components/video/VideoAnalyzer'
+// import { ProcessedVideo } from '@/lib/video/youtubeProcessor'
+// import { useProcessYouTubeVideo, useProcessedVideos } from '@/lib/store'
 
 export default function VideoPage() {
-  const processYouTubeVideo = useProcessYouTubeVideo()
-  const processedVideos = useProcessedVideos()
+  // const processYouTubeVideo = useProcessYouTubeVideo()
+  // const processedVideos = useProcessedVideos()
 
-  const handleVideoProcessed = (video: ProcessedVideo) => {
+  /*const handleVideoProcessed = (video: ProcessedVideo) => {
     console.log('Video processed successfully:', video.metadata.title)
     console.log(`Found ${video.plumbingSteps.length} plumbing steps`)
     console.log(`Extracted ${video.keyFrames.filter(f => f.isKeyFrame).length} key frames`)
     
     // Update the global store state
     // The video is already added to the store via the processYouTubeVideo function
-  }
+  }*/
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -31,7 +31,7 @@ export default function VideoPage() {
               </span>
             </div>
             <div className="flex items-center space-x-4 text-sm text-gray-600">
-              <span>Processed Videos: {processedVideos.length}</span>
+              <span>Video Processing: Coming Soon</span>
               <a 
                 href="/" 
                 className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
@@ -45,7 +45,13 @@ export default function VideoPage() {
 
       {/* Main Content */}
       <main className="py-6">
-        <VideoAnalyzer onVideoProcessed={handleVideoProcessed} />
+        <div className="max-w-4xl mx-auto text-center py-16">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Video Analysis Coming Soon</h2>
+          <p className="text-gray-600 mb-8">YouTube video processing and analysis features are being optimized for production deployment.</p>
+          <a href="/pdf" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            Try PDF Processing Instead
+          </a>
+        </div>
       </main>
 
       {/* Footer */}
