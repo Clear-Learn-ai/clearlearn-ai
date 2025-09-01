@@ -15,7 +15,6 @@ import {
   BakeShadows,
   Preload
 } from '@react-three/drei'
-import { EffectComposer, Bloom, SSAO, ToneMapping } from '@react-three/postprocessing'
 import { Perf } from 'r3f-perf'
 import * as THREE from 'three'
 
@@ -391,27 +390,7 @@ export function PlumbingSceneComposer({
             <SampleInstallation onComponentSelect={onComponentSelect} />
           )}
           
-          {/* Post-processing effects */}
-          {enableEffects && quality !== 'low' && (
-            <EffectComposer>
-              <Bloom 
-                intensity={0.5}
-                luminanceThreshold={0.9}
-                luminanceSmoothing={0.9}
-              />
-              {quality === 'high' && (
-                <SSAO 
-                  intensity={0.3}
-                  radius={0.5}
-                  bias={0.005}
-                />
-              ) as any}
-              <ToneMapping 
-                adaptive={true}
-                resolution={256}
-              />
-            </EffectComposer>
-          )}
+          {/* Post-processing effects disabled - removed @react-three/postprocessing dependency */}
           
           {/* Camera controls */}
           {interactive && (
