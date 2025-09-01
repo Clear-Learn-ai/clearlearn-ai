@@ -339,7 +339,7 @@ export function PlumbingSceneComposer({
           toneMapping: qualitySettings.toneMapping,
           toneMappingExposure: 1,
           outputColorSpace: THREE.SRGBColorSpace,
-          shadowMap: qualitySettings.shadows,
+          shadowMap: qualitySettings.shadows as any,
         }}
         shadows={qualitySettings.shadows}
         camera={{ position: [5, 5, 5], fov: 50, near: 0.1, far: 1000 }}
@@ -356,7 +356,7 @@ export function PlumbingSceneComposer({
           <SceneLighting environment={environment} />
           
           {/* Environment */}
-          <Environment preset={environmentPresets[environment]} />
+          <Environment preset={environmentPresets[environment] as any} />
           
           {/* Grid */}
           {showGrid && (
@@ -405,7 +405,7 @@ export function PlumbingSceneComposer({
                   radius={0.5}
                   bias={0.005}
                 />
-              )}
+              ) as any}
               <ToneMapping 
                 adaptive={true}
                 resolution={256}

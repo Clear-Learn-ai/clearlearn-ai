@@ -60,7 +60,7 @@ export function AppleFooter() {
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-12 mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <Link href="/apple-theme" className="inline-block mb-4">
+            <Link href="/apple-theme" className="inline-block mb-4" as any>
               <span className="text-3xl font-thin text-gray-900">
                 Clearlearn
               </span>
@@ -95,7 +95,7 @@ export function AppleFooter() {
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     <Link
-                      href={link.href}
+                      href={link.href} as any
                       className="text-gray-600 hover:text-gray-900 transition-colors font-light"
                     >
                       {link.name}

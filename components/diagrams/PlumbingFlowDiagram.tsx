@@ -311,7 +311,7 @@ export function PlumbingFlowDiagram({
         onNodeClick={onNodeClick}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        connectionMode="loose"
+        connectionMode="loose" as any
         snapToGrid
         snapGrid={[20, 20]}
         deleteKeyCode="Delete"

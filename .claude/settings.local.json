@@ -13,7 +13,8 @@
       "mcp__puppeteer__puppeteer_evaluate",
       "Bash(npm run build:*)",
       "Bash(npm run type-check:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(vercel env add:*)"
     ],
     "deny": [],
     "ask": [],

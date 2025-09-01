@@ -146,4 +146,4 @@ export class ContentIntegratorSafe {
   }
 }
 
-export { TrainingData }
+export type { TrainingData }

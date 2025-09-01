@@ -112,7 +112,7 @@ export class PDFProcessor {
           creator: pdfData.info?.Creator,
           producer: pdfData.info?.Producer,
           creationDate: pdfData.info?.CreationDate,
-          modificationDate: pdfData.info?.ModDate,
+          modificationDate: (pdfData.info as any)?.ModDate,
         },
         processedAt: new Date(),
       }
@@ -137,7 +137,7 @@ export class PDFProcessor {
       const outputDir = path.join(this.outputDir, 'images', pdfId)
       await fs.mkdir(outputDir, { recursive: true })
 
-      const convert = pdf2pic.fromPath(pdfPath, {
+      const convert = (pdf2pic as any).fromPath(pdfPath, {
         density: 100,
         saveFilename: 'page',
         savePath: outputDir,
@@ -151,7 +151,7 @@ export class PDFProcessor {
         new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 20000))
       ])
       
-      return results.map((result, index) => 
+      return results.map((result: any, index: any) => 
         path.join(outputDir, `page.${index + 1}.png`)
       )
 

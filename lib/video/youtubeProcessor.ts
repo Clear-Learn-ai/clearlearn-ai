@@ -154,7 +154,7 @@ export class YouTubeVideoProcessor {
       const info = await youtubedl(videoUrl, {
         dumpSingleJson: true,
         noWarnings: true,
-        extractFlat: false,
+        // extractFlat: false, // Removed for compatibility
       }) as any
 
       return {

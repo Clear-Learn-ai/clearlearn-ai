@@ -1,0 +1,181 @@
+{
+  "system": {
+    "name": "AI Tutor Multi-Agent System",
+    "version": "1.0.0",
+    "environment": "development",
+    "debug": true
+  },
+  "agents": {
+    "content-specialist": {
+      "enabled": true,
+      "maxConcurrentTasks": 3,
+      "timeout": 45000,
+      "retryAttempts": 2,
+      "priority": "high",
+      "dependencies": [],
+      "mcpTools": ["ai_query_claude", "video_search_youtube", "fs_read_file"],
+      "customConfig": {
+        "preferredAIProvider": "claude",
+        "fallbackProvider": "openai",
+        "maxExplanationLength": 2000,
+        "includeVisualizations": true,
+        "chemistrySpecialization": {
+          "organicChemistry": true,
+          "biochemistry": true,
+          "generalChemistry": false
+        }
+      }
+    },
+    "pedagogy": {
+      "enabled": true,
+      "maxConcurrentTasks": 2,
+      "timeout": 30000,
+      "retryAttempts": 3,
+      "priority": "high",
+      "dependencies": ["content-specialist"],
+      "mcpTools": ["ai_query_openai", "fs_write_file"],
+      "customConfig": {
+        "learningStyleDetection": true,
+        "adaptiveDifficulty": true,
+        "progressTracking": true,
+        "spacedRepetition": true,
+        "bayesianModeling": {
+          "enabled": true,
+          "updateFrequency": "per_interaction",
+          "confidenceThreshold": 0.7
+        }
+      }
+    },
+    "visual-learning": {
+      "enabled": true,
+      "maxConcurrentTasks": 4,
+      "timeout": 60000,
+      "retryAttempts": 2,
+      "priority": "medium",
+      "dependencies": ["content-specialist"],
+      "mcpTools": ["video_search_youtube", "figma_export_images", "github_write_file"],
+      "customConfig": {
+        "videoQuality": "high",
+        "maxVideosPerQuery": 5,
+        "visualizationTypes": [
+          "molecular-structure",
+          "reaction-mechanism",
+          "energy-diagram",
+          "concept-map"
+        ],
+        "interactivityLevels": ["static", "interactive", "immersive"]
+      }
+    },
+    "assessment": {
+      "enabled": true,
+      "maxConcurrentTasks": 3,
+      "timeout": 30000,
+      "retryAttempts": 2,
+      "priority": "medium",
+      "dependencies": ["content-specialist"],
+      "mcpTools": ["ai_query_claude", "fs_read_file"],
+      "customConfig": {
+        "questionTypes": [
+          "multiple-choice",
+          "mechanism-drawing",
+          "structure-identification",
+          "synthesis-pathway"
+        ],
+        "difficultyLevels": [1, 2, 3, 4, 5],
+        "adaptiveQuestioning": true,
+        "immediateSteps": true
+      }
+    },
+    "conversation": {
+      "enabled": true,
+      "maxConcurrentTasks": 10,
+      "timeout": 20000,
+      "retryAttempts": 3,
+      "priority": "critical",
+      "dependencies": [],
+      "mcpTools": ["ai_query_claude", "ai_query_openai"],
+      "customConfig": {
+        "contextMemory": {
+          "maxMessages": 50,
+          "ttl": 7200000
+        },
+        "intentRecognition": true,
+        "emotionalSupport": true,
+        "clarificationThreshold": 0.6,
+        "conversationStyles": ["supportive", "encouraging", "professional"]
+      }
+    },
+    "resource": {
+      "enabled": true,
+      "maxConcurrentTasks": 5,
+      "timeout": 45000,
+      "retryAttempts": 2,
+      "priority": "low",
+      "dependencies": [],
+      "mcpTools": ["video_search_youtube", "github_read_file"],
+      "customConfig": {
+        "resourceTypes": [
+          "textbook",
+          "video",
+          "practice-problems",
+          "reference-material",
+          "study-guide"
+        ],
+        "qualityFiltering": true,
+        "verifiedSources": [
+          "khan-academy",
+          "mit-opencourseware",
+          "coursera",
+          "edx"
+        ]
+      }
+    }
+  },
+  "communication": {
+    "messageTimeout": 30000,
+    "retryAttempts": 3,
+    "priorityQueues": true,
+    "maxQueueSize": 1000,
+    "deadLetterQueue": true,
+    "circuitBreaker": true,
+    "processingInterval": 100
+  },
+  "mcp": {
+    "serverUrl": "http://localhost:10000",
+    "endpoints": [
+      {
+        "name": "primary",
+        "url": "http://localhost:10000",
+        "priority": 1,
+        "healthCheck": true
+      }
+    ],
+    "fallbackStrategy": "priority",
+    "healthCheckInterval": 30000,
+    "timeout": 30000,
+    "retryAttempts": 3
+  },
+  "logging": {
+    "level": "debug",
+    "logToFile": true,
+    "logToConsole": true,
+    "maxLogFiles": 5,
+    "maxLogSize": "10MB",
+    "logPath": "./logs"
+  },
+  "performance": {
+    "cachingEnabled": true,
+    "cacheSize": 100,
+    "cacheTTL": 300,
+    "metricsCollection": true,
+    "healthChecks": true,
+    "loadBalancing": false
+  },
+  "development": {
+    "hotReload": true,
+    "debugMode": true,
+    "mockServices": false,
+    "testData": true,
+    "agentStandalone": true
+  }
+}

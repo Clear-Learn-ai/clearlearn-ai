@@ -143,7 +143,7 @@ export class PDFProcessorSafe {
         )
       ])
     } catch (error) {
-      console.warn(`Image extraction failed for ${path.basename(filePath)}:`, error.message)
+      console.warn(`Image extraction failed for ${path.basename(filePath)}:`, error instanceof Error ? error.message : 'Unknown error')
       return [] // Return empty array if images fail - text processing continues
     }
   }
@@ -154,7 +154,7 @@ export class PDFProcessorSafe {
       await fs.mkdir(outputDir, { recursive: true })
 
       // Configure pdf2pic with safe settings
-      const convert = pdf2pic.fromPath(filePath, {
+      const convert = (pdf2pic as any).fromPath(filePath, {
         density: 150, // Lower density for faster processing
         saveFilename: "page",
         savePath: outputDir,
@@ -168,13 +168,13 @@ export class PDFProcessorSafe {
       // Convert only first 10 pages to prevent overwhelming processing
       const results = await convert.bulk(-1, { responseType: "image" })
       
-      const imagePaths = results.map(result => result.path)
+      const imagePaths = results.map((result: any) => result.path)
       console.log(`Extracted ${imagePaths.length} images from PDF`)
       
       return imagePaths
 
     } catch (error) {
-      console.error(`Error extracting images from ${filePath}:`, error)
+      console.error(`Error extracting images from ${filePath}:`, error instanceof Error ? error.message : 'Unknown error')
       throw error
     }
   }
@@ -266,4 +266,4 @@ export class PDFProcessorSafe {
   }
 }
 
-export { PDFContent, PDFSection, InstallationStep, PDFMetadata }
+export type { PDFContent, PDFSection, InstallationStep, PDFMetadata }

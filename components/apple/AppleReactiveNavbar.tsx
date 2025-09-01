@@ -39,7 +39,7 @@ export function AppleReactiveNavbar() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/apple-theme" className="flex items-center">
+          <Link href="/apple-theme" className="flex items-center" as any>
             <span className="text-2xl font-thin text-gray-900">Clearlearn</span>
           </Link>
 

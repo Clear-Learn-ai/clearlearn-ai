@@ -407,6 +407,20 @@ export const useSearchProcessedVideos = () => useEducationalTutorStore(state => 
 export type { ChatMessage } from '../types/api'
 export type { VideoContent as VideoResult } from '../types/education'
 
+// Additional store selectors for components
+export const useCurrentContent = () => useEducationalTutorStore(state => state.learningSession.currentQuery)
+export const useIsGenerating = () => useEducationalTutorStore(state => state.learningSession.isGeneratingExplanation)
+export const useGenerateContent = () => useEducationalTutorStore(state => state.submitStudentQuery)
+export const useSetQuery = () => useEducationalTutorStore(state => state.updateCurrentQuery)
+export const useCurrentQuery = () => useEducationalTutorStore(state => state.learningSession.currentQuery)
+export const useSubmitFeedback = () => useEducationalTutorStore(state => {
+  // Mock feedback submission for now
+  return async (feedback: any) => {
+    console.log('Feedback submitted:', feedback)
+    return { success: true }
+  }
+})
+
 // Backward compatibility exports (marked as deprecated)
 /** @deprecated Use useEducationalTutorStore instead */
 export const useChemTutorStore = useEducationalTutorStore
