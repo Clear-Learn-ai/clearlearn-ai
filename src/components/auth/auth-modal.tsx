@@ -84,7 +84,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
           )}
 
           <div className="space-y-6">
-            <OAuthButtons onLoading={setLoading} onError={handleError} />
+            <OAuthButtons onLoading={_setLoading} onError={handleError} />
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
