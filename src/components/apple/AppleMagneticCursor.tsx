@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 export function AppleMagneticCursor() {
@@ -58,7 +58,7 @@ export function AppleMagneticButton({
   className 
 }: AppleMagneticButtonProps) {
   return (
-    <motion.button
+    <button
       onClick={onClick}
       className={cn(
         "inline-flex items-center transition-all duration-300",
@@ -75,6 +75,6 @@ export function AppleMagneticButton({
       transition={{ duration: 0.2 }}
     >
       {children}
-    </motion.button>
+    </button>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Play, BookOpen, Brain, Zap } from 'lucide-react'
 import { SimpleVideoPlayer } from '@/components/SimpleVideoPlayer'
@@ -21,25 +21,25 @@ export default function Demo() {
       <div className="max-w-7xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.h1 
+          <h1 
             className="text-5xl font-bold text-gray-900 mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             See Clearlearn in Action
-          </motion.h1>
-          <motion.p 
+          </h1>
+          <p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
             Watch how AI-powered visual learning transforms complex concepts into easy-to-understand explanations
-          </motion.p>
+          </p>
         </div>
 
         {/* Demo Video */}
-        <motion.div 
+        <div 
           className="mb-16"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ export default function Demo() {
             videoId="VFl7Hrm5q-s"
             title="Clearlearn Demo - How Photosynthesis Works"
           />
-        </motion.div>
+        </div>
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -70,7 +70,7 @@ export default function Demo() {
               description: "Complex concepts become clear in minutes, not hours. Learn faster with visual learning techniques."
             }
           ].map((feature, index) => (
-            <motion.div
+            <div
               key={index}
               className="text-center p-6"
               initial={{ opacity: 0, y: 20 }}
@@ -82,12 +82,12 @@ export default function Demo() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
               <p className="text-gray-600">{feature.description}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <motion.div 
+        <div 
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -100,7 +100,7 @@ export default function Demo() {
             <BookOpen className="w-5 h-5 mr-2" />
             Start Learning Now
           </Link>
-        </motion.div>
+        </div>
       </div>
     </div>
   )

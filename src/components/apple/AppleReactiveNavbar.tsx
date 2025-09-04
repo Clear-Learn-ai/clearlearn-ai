@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 
@@ -26,7 +26,7 @@ export function AppleReactiveNavbar() {
   ]
 
   return (
-    <motion.nav
+    <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
           ? 'bg-white/80 backdrop-blur-lg shadow-sm border-b border-gray-100' 
@@ -73,7 +73,7 @@ export function AppleReactiveNavbar() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <motion.div
+          <div
             className="md:hidden py-4 border-t border-gray-100"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
@@ -98,9 +98,9 @@ export function AppleReactiveNavbar() {
                 Try Now
               </Link>
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.nav>
+    </nav>
   )
 }

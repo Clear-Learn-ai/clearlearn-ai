@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Mail, MessageCircle, Phone, MapPin } from 'lucide-react'
 import { ReactiveNavbar } from '@/components/ReactiveNavbar'
@@ -45,7 +45,7 @@ export default function ContactPage() {
       <div className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
@@ -60,17 +60,17 @@ export default function ContactPage() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Have questions about Clearlearn? We're here to help. Reach out to us using any of the methods below.
             </p>
-          </motion.div>
+          </div>
 
           {/* Contact Methods */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
           >
             {contactMethods.map((method, index) => (
-              <motion.div
+              <div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -89,12 +89,12 @@ export default function ContactPage() {
                 >
                   {method.contact}
                 </Link>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Contact Form */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -173,10 +173,10 @@ export default function ContactPage() {
                 </div>
               </form>
             </div>
-          </motion.div>
+          </div>
 
           {/* FAQ Section */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -211,7 +211,7 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
       

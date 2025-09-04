@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Check, Star } from 'lucide-react'
 import { ReactiveNavbar } from '@/components/ReactiveNavbar'
@@ -64,7 +64,7 @@ export default function PricingPage() {
       <div className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
@@ -79,12 +79,12 @@ export default function PricingPage() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Choose the perfect plan for your learning journey. All plans include our core AI-powered features.
             </p>
-          </motion.div>
+          </div>
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
-              <motion.div
+              <div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -143,12 +143,12 @@ export default function PricingPage() {
                 >
                   {plan.buttonText}
                 </button>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* FAQ Section */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -173,7 +173,7 @@ export default function PricingPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>

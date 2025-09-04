@@ -1,14 +1,14 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
 export default function SignIn() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 flex items-center justify-center p-6">
-      <motion.div
+      <div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
@@ -102,7 +102,7 @@ export default function SignIn() {
             By signing in, you agree to our <Link href="/terms" className="text-blue-600 hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>
           </p>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

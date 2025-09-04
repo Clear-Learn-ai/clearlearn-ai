@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Menu, Send, Loader2, Play, Clock, Sparkles, ArrowLeft } from 'lucide-react'
 import { ChatHistorySidebar } from '@/components/ChatHistorySidebar'
@@ -94,14 +94,14 @@ export default function ChatPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <motion.button
+            <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Menu className="w-5 h-5" />
-            </motion.button>
+            </button>
             <div>
               <h1 className="text-2xl font-bold" style={{ color: '#1E0F2E' }}>
                 TradeAI Tutor
@@ -126,7 +126,7 @@ export default function ChatPage() {
           <div className="max-w-4xl mx-auto p-6">
             {messages.length === 0 ? (
               /* Welcome Screen */
-              <motion.div
+              <div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center py-12"
@@ -142,7 +142,7 @@ export default function ChatPage() {
                   Ask me any plumbing question and I'll provide 3D visualizations, step-by-step guides, and video demonstrations
                 </p>
 
-              </motion.div>
+              </div>
             ) : (
               /* Chat Messages */
               <div className="space-y-8">
@@ -150,7 +150,7 @@ export default function ChatPage() {
                   You have 1 free AI video generation per day. Upgrade for unlimited.
                 </div>
                 {messages.map((message, index) => (
-                  <motion.div
+                  <div
                     key={message.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ export default function ChatPage() {
                             Related videos:
                           </div>
                           {message.videoResults.map((video: VideoResult) => (
-                            <motion.div
+                            <div
                               key={video.id}
                               className="flex space-x-4 p-4 rounded-xl border cursor-pointer group"
                               style={{ backgroundColor: '#B87A7A', borderColor: '#1E0F2E' }}
@@ -202,17 +202,17 @@ export default function ChatPage() {
                                   <span className="capitalize font-medium text-white">{video.source}</span>
                                 </div>
                               </div>
-                            </motion.div>
+                            </div>
                           ))}
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
                 
                 {/* Loading indicator */}
                 {isLoading && (
-                  <motion.div
+                  <div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="flex justify-start"
@@ -223,7 +223,7 @@ export default function ChatPage() {
                         <span className="text-base text-gray-700">Thinking...</span>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
               </div>
             )}
@@ -232,7 +232,7 @@ export default function ChatPage() {
 
         {/* Error Display */}
         {error && (
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mx-6 mb-4 p-4 bg-red-50 border border-red-200 rounded-xl"
@@ -256,7 +256,7 @@ export default function ChatPage() {
             >
               Dismiss
             </button>
-          </motion.div>
+          </div>
         )}
 
         {/* Input Area */}
@@ -280,7 +280,7 @@ export default function ChatPage() {
                   }}
                 />
               </div>
-              <motion.button
+              <button
                 type="submit"
                 disabled={!inputValue.trim() || isLoading}
                 className="px-6 py-4 text-white rounded-2xl disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 flex items-center shadow-lg hover:shadow-xl disabled:shadow-sm hover:opacity-90"
@@ -293,7 +293,7 @@ export default function ChatPage() {
                 ) : (
                   <Send className="w-5 h-5" />
                 )}
-              </motion.button>
+              </button>
             </div>
             <p className="text-xs text-gray-500 mt-3 text-center">
               Press Enter to send, Shift + Enter for new line

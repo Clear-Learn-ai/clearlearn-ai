@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useSpring } from 'framer-motion'
+// import { motion, useSpring } from 'framer-motion'
 
 export function MagneticCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
@@ -46,7 +46,7 @@ export function MagneticCursor() {
   return (
     <>
       {/* Main cursor */}
-      <motion.div
+      <div
         ref={cursorRef}
         className="fixed top-0 left-0 w-4 h-4 pointer-events-none z-50 mix-blend-difference"
         style={{
@@ -54,7 +54,7 @@ export function MagneticCursor() {
           y: cursorY,
         }}
       >
-        <motion.div
+        <div
           className="w-full h-full bg-white rounded-full"
           animate={{
             scale: isPointer || isHovering ? 2 : 1,
@@ -62,10 +62,10 @@ export function MagneticCursor() {
           }}
           transition={{ duration: 0.2 }}
         />
-      </motion.div>
+      </div>
 
       {/* Trailing cursor */}
-      <motion.div
+      <div
         className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-40 border border-white/30 rounded-full"
         style={{
           x: useSpring(cursorX, { stiffness: 150, damping: 20 }),
@@ -125,7 +125,7 @@ export function MagneticButton({
     : 'bg-transparent text-gray-900 border-2 hover:bg-gray-50'
 
   return (
-    <motion.button
+    <button
       ref={buttonRef}
       data-magnetic
       className={`
@@ -142,7 +142,7 @@ export function MagneticButton({
       whileTap={{ scale: 0.95 }}
     >
       {/* Animated background */}
-      <motion.div
+      <div
         className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ 
@@ -153,7 +153,7 @@ export function MagneticButton({
       />
       
       {/* Glowing border effect */}
-      <motion.div
+      <div
         className="absolute inset-0 rounded-full border-2 border-blue-400"
         initial={{ opacity: 0, scale: 1 }}
         animate={{ 
@@ -172,7 +172,7 @@ export function MagneticButton({
       {isHovered && (
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(8)].map((_, i) => (
-            <motion.div
+            <div
               key={i}
               className="absolute w-1 h-1 bg-blue-400 rounded-full"
               initial={{
@@ -194,6 +194,6 @@ export function MagneticButton({
           ))}
         </div>
       )}
-    </motion.button>
+    </button>
   )
 }

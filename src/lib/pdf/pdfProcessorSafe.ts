@@ -1,7 +1,7 @@
 import fs from 'fs/promises'
 import path from 'path'
-import pdfParse from 'pdf-parse'
-import pdf2pic from 'pdf2pic'
+// import pdfParse from 'pdf-parse'
+// import pdf2pic from 'pdf2pic'
 import { OpenAI } from 'openai'
 
 interface PDFContent {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+// import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Play, Sparkles } from 'lucide-react'
 import { AppleMagneticButton } from './AppleMagneticCursor'
 import { AppleAnimatedSection } from './AppleSmoothScroll'
@@ -33,7 +33,7 @@ export function AppleInteractiveHero() {
   }
 
   return (
-    <motion.section
+    <section
       ref={containerRef}
       className="relative bg-white overflow-hidden flex items-center justify-center"
       style={{ 
@@ -46,33 +46,33 @@ export function AppleInteractiveHero() {
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50/30 to-white" />
 
       {/* Main content */}
-      <motion.div
+      <div
         className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center"
         style={{ y: contentY }}
       >
         {/* Apple-style Typography */}
         <div className="text-center">
-          <motion.h1 
+          <h1 
             className="text-8xl md:text-9xl font-thin mb-8 leading-none text-black tracking-tight"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
           >
             Master Anything
-          </motion.h1>
-          <motion.p 
+          </h1>
+          <p 
             className="text-3xl md:text-4xl text-gray-600 font-light mb-12 max-w-4xl mx-auto tracking-wide"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
           >
             with AI-Powered Visual Learning
-          </motion.p>
+          </p>
         </div>
 
         {/* Apple-style action buttons */}
         <AppleAnimatedSection animation="scale-in" className="mt-16 space-y-6">
-          <motion.div
+          <div
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -97,10 +97,10 @@ export function AppleInteractiveHero() {
               <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
               <span>Watch Demo</span>
             </AppleMagneticButton>
-          </motion.div>
+          </div>
 
           {/* Feature highlights */}
-          <motion.div
+          <div
             className="flex flex-wrap justify-center gap-8 mt-16 text-gray-500"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -111,7 +111,7 @@ export function AppleInteractiveHero() {
               { icon: Play, text: 'Interactive Video Learning' },
               { icon: ArrowRight, text: 'Instant Understanding' },
             ].map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
                 className="flex items-center gap-2 text-sm font-light tracking-wide"
                 whileHover={{ scale: 1.05, color: '#3b82f6' }}
@@ -119,16 +119,16 @@ export function AppleInteractiveHero() {
               >
                 <feature.icon className="w-4 h-4" />
                 <span>{feature.text}</span>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </AppleAnimatedSection>
-      </motion.div>
+      </div>
 
       {/* Subtle floating elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Top-left accent */}
-        <motion.div
+        <div
           className="absolute top-32 left-32 w-24 h-24 rounded-full blur-2xl bg-blue-200/30"
           animate={{
             scale: [1, 1.1, 1],
@@ -142,7 +142,7 @@ export function AppleInteractiveHero() {
         />
 
         {/* Bottom-right accent */}
-        <motion.div
+        <div
           className="absolute bottom-32 right-32 w-32 h-32 rounded-full blur-2xl bg-gray-200/40"
           animate={{
             scale: [1.1, 1, 1.1],
@@ -158,21 +158,21 @@ export function AppleInteractiveHero() {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-500"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 3 }}
       >
-        <motion.div
+        <div
           className="flex flex-col items-center gap-2"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           <span className="text-xs uppercase tracking-wider font-light">Scroll to explore</span>
           <div className="w-[1px] h-8 bg-gradient-to-b from-gray-400 to-transparent" />
-        </motion.div>
-      </motion.div>
-    </motion.section>
+        </div>
+      </div>
+    </section>
   )
 }

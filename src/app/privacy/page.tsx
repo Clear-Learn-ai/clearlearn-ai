@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Shield, Eye, Lock, Users } from 'lucide-react'
 
@@ -18,7 +18,7 @@ export default function Privacy() {
       </nav>
 
       <div className="max-w-4xl mx-auto px-6 py-16">
-        <motion.div
+        <div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
@@ -28,9 +28,9 @@ export default function Privacy() {
             Your privacy is important to us. Here's how we protect your data.
           </p>
           <p className="text-sm text-gray-500 mt-4">Last updated: August 22, 2025</p>
-        </motion.div>
+        </div>
 
-        <motion.div
+        <div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -137,7 +137,7 @@ export default function Privacy() {
               </div>
             </section>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   )

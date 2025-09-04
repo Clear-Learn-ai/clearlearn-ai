@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+// import { motion, // useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Play, Sparkles } from 'lucide-react'
 import { KineticTypography } from './KineticTypography'
 import { MagneticButton } from './MagneticCursor'
@@ -10,12 +10,13 @@ import { AnimatedSection } from './SmoothScroll'
 export function InteractiveHero() {
   const containerRef = useRef<HTMLElement>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const { scrollY } = useScroll()
-  
-  // Parallax effects
-  const backgroundY = useTransform(scrollY, [0, 1000], [0, -300])
-  const contentY = useTransform(scrollY, [0, 1000], [0, -100])
-  const opacity = useTransform(scrollY, [0, 500], [1, 0])
+  // Scroll effects removed - using simple scroll detection
+  // const { scrollY } = useScroll()
+
+  // Simple scroll-based effects (no framer-motion)
+  // const backgroundY = useTransform(scrollY, [0, 1000], [0, -300])
+  // const contentY = useTransform(scrollY, [0, 1000], [0, -100])
+  // const opacity = useTransform(scrollY, [0, 500], [1, 0])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -35,7 +36,7 @@ export function InteractiveHero() {
   }
 
   return (
-    <motion.section
+    <section
       ref={containerRef}
       className="relative bg-white overflow-hidden flex items-center justify-center"
       style={{ 
@@ -48,33 +49,33 @@ export function InteractiveHero() {
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50/30 to-white" />
 
       {/* Main content */}
-      <motion.div
+      <div
         className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center"
         style={{ y: contentY }}
       >
         {/* Hero Typography */}
         <div className="text-center">
-          <motion.h1 
+          <h1 
             className="text-7xl md:text-9xl font-black mb-8 leading-none text-black"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
             Master Plumbing Skills
-          </motion.h1>
-          <motion.p 
+          </h1>
+          <p 
             className="text-3xl md:text-4xl text-gray-600 font-light mb-12 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
           >
             with AI-Powered Visual Learning
-          </motion.p>
+          </p>
         </div>
 
         {/* Action buttons */}
         <AnimatedSection animation="scale-in" className="mt-16 space-y-6">
-          <motion.div
+          <div
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -100,10 +101,10 @@ export function InteractiveHero() {
               <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
               <span>Watch Demo</span>
             </MagneticButton>
-          </motion.div>
+          </div>
 
           {/* Feature highlights */}
-          <motion.div
+          <div
             className="flex flex-wrap justify-center gap-8 mt-12 text-gray-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -114,7 +115,7 @@ export function InteractiveHero() {
               { icon: Play, text: '3D Visual Learning' },
               { icon: ArrowRight, text: 'Master Trade Skills' },
             ].map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
                 className="flex items-center gap-2 text-sm font-medium"
                 whileHover={{ scale: 1.05, color: '#6366f1' }}
@@ -122,16 +123,16 @@ export function InteractiveHero() {
               >
                 <feature.icon className="w-4 h-4" />
                 <span>{feature.text}</span>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </AnimatedSection>
-      </motion.div>
+      </div>
 
       {/* Floating UI elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Top-left accent */}
-        <motion.div
+        <div
           className="absolute top-20 left-20 w-32 h-32 rounded-full blur-xl"
           style={{ backgroundColor: 'rgba(184, 122, 122, 0.4)' }}
           animate={{
@@ -146,7 +147,7 @@ export function InteractiveHero() {
         />
 
         {/* Bottom-right accent */}
-        <motion.div
+        <div
           className="absolute bottom-20 right-20 w-48 h-48 rounded-full blur-xl"
           style={{ backgroundColor: 'rgba(30, 15, 46, 0.3)' }}
           animate={{
@@ -163,24 +164,24 @@ export function InteractiveHero() {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-600"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 2 }}
       >
-        <motion.div
+        <div
           className="flex flex-col items-center gap-2"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           <span className="text-xs uppercase tracking-wider font-medium">Scroll to explore</span>
           <div className="w-[1px] h-8 bg-gradient-to-b from-gray-600 to-transparent" />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Glass morphism overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/20 pointer-events-none" />
-    </motion.section>
+    </section>
   )
 }

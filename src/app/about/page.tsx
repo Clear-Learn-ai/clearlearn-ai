@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Users, Target, Lightbulb, Heart } from 'lucide-react'
@@ -59,9 +59,7 @@ export default function AboutPage() {
       <div className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div
             className="text-center mb-20"
           >
             <Link href="/" className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-8">
@@ -74,13 +72,10 @@ export default function AboutPage() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               We're on a mission to make learning more effective, engaging, and accessible for everyone through the power of AI.
             </p>
-          </motion.div>
+          </div>
 
           {/* Story Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+          <div
             className="mb-24"
           >
             <div className="bg-white rounded-3xl p-12 shadow-xl border border-gray-200">
@@ -102,10 +97,10 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Values Section */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -114,7 +109,7 @@ export default function AboutPage() {
             <h2 className="text-4xl font-bold text-center mb-16" style={{ color: '#1E0F2E' }}>Our Values</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((value, index) => (
-                <motion.div
+                <div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -126,13 +121,13 @@ export default function AboutPage() {
                   </div>
                   <h3 className="text-xl font-bold mb-4" style={{ color: '#1E0F2E' }}>{value.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{value.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Team Section */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -141,7 +136,7 @@ export default function AboutPage() {
             <h2 className="text-4xl font-bold text-center mb-16" style={{ color: '#1E0F2E' }}>Meet Our Team</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {teamMembers.map((member, index) => (
-                <motion.div
+                <div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -160,13 +155,13 @@ export default function AboutPage() {
                   <h3 className="text-xl font-bold mb-2" style={{ color: '#1E0F2E' }}>{member.name}</h3>
                   <p className="text-lg mb-4" style={{ color: '#B87A7A' }}>{member.role}</p>
                   <p className="text-gray-600 leading-relaxed">{member.bio}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* CTA Section */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
@@ -185,7 +180,7 @@ export default function AboutPage() {
                 Start Learning Now
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
       

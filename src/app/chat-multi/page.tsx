@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Menu, Send, Loader2, Play, Clock, ArrowLeft, Zap, Brain, Video, Image, Music, Box } from 'lucide-react'
 import { ChatHistorySidebar } from '@/components/ChatHistorySidebar'
@@ -97,14 +97,14 @@ export default function MultiAIChatPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <motion.button
+            <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Menu className="w-5 h-5" />
-            </motion.button>
+            </button>
             <div>
               <div className="flex items-center space-x-2">
                 <h1 className="text-2xl font-bold" style={{ color: '#1E0F2E' }}>
@@ -123,7 +123,7 @@ export default function MultiAIChatPage() {
             {/* Multi-AI Toggle */}
             <div className="flex items-center space-x-3">
               <span className="text-sm text-gray-700">Multi-AI Mode</span>
-              <motion.button
+              <button
                 onClick={() => setMultiAIEnabled(!multiAIEnabled)}
                 className={cn(
                   "relative w-12 h-6 rounded-full transition-colors",
@@ -131,12 +131,12 @@ export default function MultiAIChatPage() {
                 )}
                 whileTap={{ scale: 0.95 }}
               >
-                <motion.div
+                <div
                   className="absolute w-5 h-5 bg-white rounded-full top-0.5 shadow-sm"
                   animate={{ x: multiAIEnabled ? 26 : 2 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
-              </motion.button>
+              </button>
             </div>
 
             <div className="flex items-center space-x-2 text-sm text-gray-600">
@@ -154,7 +154,7 @@ export default function MultiAIChatPage() {
           <div className="max-w-6xl mx-auto p-6">
             {(!currentQuery && messages.length === 0) ? (
               /* Welcome Screen */
-              <motion.div
+              <div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center py-12"
@@ -204,12 +204,12 @@ export default function MultiAIChatPage() {
                     <p className="text-sm text-gray-600">"Show me different pipe joint types"</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ) : (
               <div className="space-y-8">
                 {/* Current Query Display */}
                 {currentQuery && (
-                  <motion.div
+                  <div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="flex justify-end"
@@ -219,12 +219,12 @@ export default function MultiAIChatPage() {
                         {currentQuery}
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Multi-AI Response */}
                 {multiAIEnabled && currentQuery && (
-                  <motion.div
+                  <div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="flex justify-start"
@@ -245,12 +245,12 @@ export default function MultiAIChatPage() {
                         onResult={handleOrchestrationResult}
                       />
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Regular chat messages for fallback mode */}
                 {!multiAIEnabled && messages.map((message, index) => (
-                  <motion.div
+                  <div
                     key={message.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -278,7 +278,7 @@ export default function MultiAIChatPage() {
                             Related videos:
                           </div>
                           {message.videoResults.map((video: VideoResult) => (
-                            <motion.div
+                            <div
                               key={video.id}
                               className="flex space-x-4 p-4 rounded-xl border border-purple-200 cursor-pointer group hover:bg-purple-50"
                               onClick={() => selectVideo(video)}
@@ -301,17 +301,17 @@ export default function MultiAIChatPage() {
                                   <span className="capitalize font-medium">{video.source}</span>
                                 </div>
                               </div>
-                            </motion.div>
+                            </div>
                           ))}
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
                 
                 {/* Loading indicator */}
                 {!multiAIEnabled && isLoading && (
-                  <motion.div
+                  <div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="flex justify-start"
@@ -322,7 +322,7 @@ export default function MultiAIChatPage() {
                         <span className="text-base text-gray-700">Thinking...</span>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
               </div>
             )}
@@ -331,7 +331,7 @@ export default function MultiAIChatPage() {
 
         {/* Error Display */}
         {error && (
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mx-6 mb-4 p-4 bg-red-50 border border-red-200 rounded-xl"
@@ -355,7 +355,7 @@ export default function MultiAIChatPage() {
             >
               Dismiss
             </button>
-          </motion.div>
+          </div>
         )}
 
         {/* Input Area */}
@@ -382,7 +382,7 @@ export default function MultiAIChatPage() {
                   }}
                 />
               </div>
-              <motion.button
+              <button
                 type="submit"
                 disabled={!inputValue.trim() || isLoading}
                 className="px-6 py-4 text-white rounded-2xl disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 flex items-center shadow-lg hover:shadow-xl disabled:shadow-sm bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
@@ -399,7 +399,7 @@ export default function MultiAIChatPage() {
                 ) : (
                   <Send className="w-5 h-5" />
                 )}
-              </motion.button>
+              </button>
             </div>
             <p className="text-xs text-gray-500 mt-3 text-center">
               Press Enter to send, Shift + Enter for new line

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+// import { motion, div } from 'framer-motion'
 import {
   Plus,
   MessageSquare,
@@ -136,7 +136,7 @@ export function ChatHistorySidebar({
         </h3>
         <div className="space-y-1">
           {sessions.map((session) => (
-            <motion.div
+            <div
               key={session.id}
               className={`
                 group relative flex items-center p-3 rounded-lg cursor-pointer transition-all duration-200
@@ -206,7 +206,7 @@ export function ChatHistorySidebar({
                   <Trash2 className="w-3 h-3" />
                 </button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -216,9 +216,9 @@ export function ChatHistorySidebar({
   return (
     <>
       {/* Overlay for mobile */}
-      <AnimatePresence>
+      <div>
         {isOpen && (
-          <motion.div
+          <div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -226,10 +226,10 @@ export function ChatHistorySidebar({
             onClick={onToggle}
           />
         )}
-      </AnimatePresence>
+      </div>
 
       {/* Sidebar */}
-      <motion.div
+      <div
         initial={{ x: -320 }}
         animate={{ x: isOpen ? 0 : -320 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -248,7 +248,7 @@ export function ChatHistorySidebar({
           </div>
 
           {/* New Chat Button */}
-          <motion.button
+          <button
             onClick={onNewChat}
             className="w-full flex items-center justify-center px-4 py-3 text-white rounded-xl transition-all duration-300 shadow-lg amethyst-gradient hover:opacity-90"
             whileHover={{ scale: 1.02 }}
@@ -256,7 +256,7 @@ export function ChatHistorySidebar({
           >
             <Plus className="w-4 h-4 mr-2" />
             New Chat
-          </motion.button>
+          </button>
 
           {/* Search */}
           <div className="relative mt-4">
@@ -287,15 +287,15 @@ export function ChatHistorySidebar({
         </div>
 
         {/* Delete Confirmation Modal */}
-        <AnimatePresence>
+        <div>
           {showDeleteConfirm && (
-            <motion.div
+            <div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="absolute inset-0 bg-black/50 flex items-center justify-center p-4"
             >
-              <motion.div
+              <div
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.9 }}
@@ -319,11 +319,11 @@ export function ChatHistorySidebar({
                     Delete
                   </button>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
-      </motion.div>
+        </div>
+      </div>
     </>
   )
 }

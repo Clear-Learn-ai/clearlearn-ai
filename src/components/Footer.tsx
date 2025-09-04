@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import { Github, Twitter, Mail, MessageCircle } from 'lucide-react'
 
 export function Footer() {
@@ -73,7 +73,7 @@ export function Footer() {
             {/* Social Links */}
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
-                <motion.a
+                <a
                   key={index}
                   href={social.href}
                   className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
@@ -82,7 +82,7 @@ export function Footer() {
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>

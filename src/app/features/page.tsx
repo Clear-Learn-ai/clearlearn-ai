@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Brain, Video, Search, Users, Zap, Globe } from 'lucide-react'
 import { ReactiveNavbar } from '@/components/ReactiveNavbar'
@@ -46,7 +46,7 @@ export default function FeaturesPage() {
       <div className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
@@ -61,12 +61,12 @@ export default function FeaturesPage() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover how Clearlearn revolutionizes learning with cutting-edge AI technology and intuitive design.
             </p>
-          </motion.div>
+          </div>
 
           {/* Features Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -84,12 +84,12 @@ export default function FeaturesPage() {
                 <p className="text-gray-600 leading-relaxed">
                   {feature.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* CTA Section */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
@@ -109,7 +109,7 @@ export default function FeaturesPage() {
                 Start Learning Now
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>

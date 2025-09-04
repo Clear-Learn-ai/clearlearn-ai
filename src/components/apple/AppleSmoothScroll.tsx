@@ -1,18 +1,18 @@
 'use client'
 
 import { useEffect } from 'react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 export function AppleSmoothScroll({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div
+    <div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }
 
@@ -50,7 +50,7 @@ export function AppleAnimatedSection({
   className 
 }: AppleAnimatedSectionProps) {
   return (
-    <motion.div
+    <div
       className={cn(animation, className)}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -58,6 +58,6 @@ export function AppleAnimatedSection({
       viewport={{ once: true }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }
