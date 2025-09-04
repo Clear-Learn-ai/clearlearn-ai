@@ -1,7 +1,7 @@
 // Jest setup for educational tutor testing
 // Following BP-T3: Separate pure-logic unit tests from API-touching integration tests
 
-import { TextEncoder, TextDecoder } from 'util'
+const { TextEncoder, TextDecoder } = require('util')
 
 // Polyfills for Node.js environment
 global.TextEncoder = TextEncoder
@@ -59,8 +59,8 @@ process.env.NODE_ENV = 'test'
 // Global test utilities for educational content
 global.createMockStudentQuery = (overrides = {}) => ({
   id: 'q_test_123',
-  content: 'How does the SN2 reaction mechanism work?',
-  subject: 'organic_chemistry',
+  content: 'How to fix a sink drainage effectively?',
+  subject: 'plumbing',
   difficultyLevel: 'intermediate',
   timestamp: new Date('2024-01-01T00:00:00Z'),
   ...overrides
@@ -68,8 +68,8 @@ global.createMockStudentQuery = (overrides = {}) => ({
 
 global.createMockVideoContent = (overrides = {}) => ({
   id: 'youtube_test123',
-  title: 'SN2 Mechanism Explained',
-  description: 'Complete guide to SN2 reactions',
+  title: 'Fix a Sink Drainage - Step by Step',
+  description: 'Complete guide to clearing a P-trap clog',
   thumbnail: 'https://test.jpg',
   url: 'https://youtube.com/watch?v=test123',
   duration: '15:30',

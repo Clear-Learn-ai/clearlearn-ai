@@ -21,14 +21,16 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["./components/*"],
-      "@/core/*": ["./core/*"],
-      "@/generators/*": ["./generators/*"],
-      "@/adapters/*": ["./adapters/*"],
-      "@/lib/*": ["./lib/*"]
+      "@/types/*": ["./src/types/*", "./types/*"],
+      "@/lib/*": ["./src/lib/*", "./lib/*"],
+      "@/app/*": ["./src/app/*", "./app/*"],
+      "@/components/*": ["./src/components/*", "./components/*"],
+      "@/core/*": ["./src/core/*", "./core/*"],
+      "@/generators/*": ["./src/generators/*", "./generators/*"],
+      "@/adapters/*": ["./src/adapters/*", "./adapters/*"],
+      "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types/**/*.d.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts", "__tests__", "app/contact/page.tsx", "components/Footer.tsx", "components/HeroScene3D.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types/**/*.d.ts", "src/types/**/*.d.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts", "__tests__", "app/contact/page.tsx", "components/Footer.tsx", "components/HeroScene3D.tsx", "mcp-server/**", "agents/**", "generators/**"]
 }

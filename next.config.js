@@ -106,10 +106,10 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   swcMinify: true,
   poweredByHeader: false,
@@ -120,10 +120,8 @@ const nextConfig = {
       '@react-three/drei', 
       '@react-three/fiber',
       'pdf-parse',
-      'pdf2pic', 
-      'pdf-poppler',
-      'sharp',
-      'canvas'
+      'pdf2pic',
+      'sharp'
     ]
   },
   webpack: (config, { isServer }) => {
@@ -139,14 +137,11 @@ const nextConfig = {
       config.externals.push({
         'pdf-parse': 'pdf-parse',
         'pdf2pic': 'pdf2pic',
-        'pdf-poppler': 'pdf-poppler',
-        'gm': 'gm',
         'sharp': 'sharp',
       })
     }
 
-    // Handle canvas and other native modules
-    config.resolve.alias.canvas = false
+    // Handle native modules aliases
     config.resolve.alias.encoding = false
 
     // Handle PDF processing libraries

@@ -1,0 +1,8 @@
+node_modules/
+.next/
+build/
+public/
+data/
+**/*.min.js
+**/*.bundle.js
+**/*.generated.*
