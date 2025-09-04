@@ -8,7 +8,7 @@ import * as THREE from 'three'
 import { PlumbingComponent } from '@/types/plumbing'
 
 interface FixtureProps {
-  _component: PlumbingComponent
+  component: PlumbingComponent
   position?: [number, number, number]
   rotation?: [number, number, number]
   scale?: number

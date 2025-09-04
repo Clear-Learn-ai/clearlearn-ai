@@ -8,7 +8,7 @@ import * as THREE from 'three'
 import { PlumbingComponent } from '@/types/plumbing'
 
 interface FittingProps {
-  _component: PlumbingComponent
+  component: PlumbingComponent
   position?: [number, number, number]
   rotation?: [number, number, number]
   diameter?: number
@@ -291,7 +291,7 @@ export function ReducerFitting({
 
 // Union Fitting Component (for removable connections)
 export function UnionFitting({
-  _component,
+  component,
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   diameter = 0.1,

@@ -281,7 +281,7 @@ export function PlumbingSceneComposer({
   installation,
   showPerformance = false,
   quality = 'medium',
-  _enableEffects = true,
+  enableEffects = true,
   interactive = true,
   autoRotate = false,
   showGrid = true,

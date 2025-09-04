@@ -8,7 +8,7 @@ import * as THREE from 'three'
 import { PlumbingTool } from '@/types/plumbing'
 
 interface ToolProps {
-  _tool: PlumbingTool
+  tool: PlumbingTool
   position?: [number, number, number]
   rotation?: [number, number, number]
   scale?: number
@@ -31,7 +31,7 @@ export function PipeWrench({
   onHover,
   onClick,
   highlighted = false,
-  _inUse = false
+  inUse = false
 }: ToolProps) {
   const groupRef = useRef<THREE.Group>(null!)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -142,7 +142,7 @@ export function TubingCutter({
   onHover,
   onClick,
   highlighted = false,
-  _inUse = false
+  inUse = false
 }: ToolProps) {
   const groupRef = useRef<THREE.Group>(null!)
   const [cutting, setCutting] = useState(false)
@@ -259,7 +259,7 @@ export function ChannelLocks({
   onHover,
   onClick,
   highlighted = false,
-  _inUse = false
+  inUse = false
 }: ToolProps) {
   const groupRef = useRef<THREE.Group>(null!)
   const [isGripping, setIsGripping] = useState(false)
@@ -386,7 +386,7 @@ export function ThreadingMachine({
   onHover,
   onClick,
   highlighted = false,
-  _inUse = false
+  inUse = false
 }: ToolProps) {
   const groupRef = useRef<THREE.Group>(null!)
   const [isThreading, setIsThreading] = useState(false)
@@ -519,7 +519,7 @@ export function ToolBox({
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   scale = 1,
-  _tools = [],
+  tools = [],
   onToolSelect
 }: {
   position?: [number, number, number]
@@ -575,7 +575,7 @@ export function ToolBox({
           >
             Plumbing Tools
           </Text>
-          {_tools.slice(0, 3).map((tool, index) => (
+          {tools.slice(0, 3).map((tool, index) => (
             <mesh
               key={tool.id}
               position={[-0.2 + index * 0.2, 0, 0]}
