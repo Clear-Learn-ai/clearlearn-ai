@@ -3,6 +3,7 @@ import { getMessages } from '@/lib/supabase'
 import { jsonError } from '@/lib/errors'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
