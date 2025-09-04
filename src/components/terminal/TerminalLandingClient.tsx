@@ -1,62 +1,31 @@
-'use client';
+import React, { useEffect } from 'react'
 
-import { useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import Lenis from 'lenis';
-import { HeroSection } from './HeroSection';
-import { Interactive3DShowcase } from './Interactive3DShowcase';
-import { TestimonialSection } from './TestimonialSection';
-import { TrustSection } from './TrustSection';
-import { DemoSection } from './DemoSection';
-import { MagneticCursor } from './MagneticCursor';
-import { SmoothScrollProvider } from './SmoothScrollProvider';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
+interface TerminalLandingClientProps {
+  children: React.ReactNode
 }
 
-export default function TerminalLandingClient() {
+export function TerminalLandingClient({ children }: TerminalLandingClientProps) {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      mouseMultiplier: 1,
-      touchMultiplier: 2,
-      infinite: false,
-    } as any);
+    // Simple scroll effect without heavy dependencies
+    const handleScroll = () => {
+      const scrolled = window.scrollY
+      const rate = scrolled * -0.5
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      // Apply simple parallax effect to elements with data-speed attribute
+      const parallaxElements = document.querySelectorAll('[data-speed]')
+      parallaxElements.forEach((element) => {
+        const speed = parseFloat(element.getAttribute('data-speed') || '0')
+        ;(element as HTMLElement).style.transform = `translateY(${rate * speed}px)`
+      })
     }
-    requestAnimationFrame(raf);
 
-    lenis.on('scroll', ScrollTrigger.update);
-
-    return () => {
-      lenis.destroy();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <SmoothScrollProvider>
-      <div className="bg-black text-white overflow-hidden">
-        <MagneticCursor />
-        
-        <HeroSection />
-        
-        <Interactive3DShowcase />
-        
-        <TestimonialSection />
-        
-        <TrustSection />
-        
-        <DemoSection />
-        
-        <footer className="h-20 bg-zinc-950 border-t border-zinc-800" />
-      </div>
-    </SmoothScrollProvider>
-  );
+    <div className="relative">
+      {children}
+    </div>
+  )
 }
