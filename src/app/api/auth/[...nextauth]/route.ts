@@ -12,10 +12,10 @@ const handler = NextAuth({
     signIn: '/auth/signin',
   },
   callbacks: {
-    async session({ session, _token }) {
+    async session({ session }) {
       return session
     },
-    async jwt({ token, _user }) {
+    async jwt({ token }) {
       return token
     },
   },

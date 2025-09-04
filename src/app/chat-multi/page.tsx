@@ -48,7 +48,7 @@ export default function MultiAIChatPage() {
     setInputValue('')
     setCurrentQuery(message)
     setCurrentQueryStore(message)
-    setOrchestrationResult(null)
+    // setOrchestrationResult(null) // TODO: Implement orchestration result state
     
     if (multiAIEnabled) {
       // Let MultimediaResponse handle the AI orchestration
