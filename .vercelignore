@@ -1,0 +1,44 @@
+# Vercel ignore file to reduce deployment size
+
+# Development files
+__tests__
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+jest.config.js
+jest.setup.js
+
+# Documentation
+*.md
+docs/
+AUTHENTICATION_SETUP.md
+supabase-auth-schema.sql
+
+# Large assets not needed for deployment
+assets/
+Demo.mp4
+*.tar.gz
+landing-page-screenshot.png
+
+# Development tools
+.vscode/
+.claude/
+scripts/
+
+# Heavy dependencies for client-side only
+# These are externalized in next.config.js
+node_modules/three/
+node_modules/@react-three/
+node_modules/three-mesh-bvh/
+node_modules/canvas/
+node_modules/sharp/
+node_modules/pdf-parse/
+node_modules/pdf2pic/
+node_modules/@ffmpeg/
+node_modules/ffmpeg-static/
+node_modules/youtube-dl-exec/
+node_modules/gsap/
+node_modules/lenis/
+node_modules/konva/
+node_modules/react-konva/

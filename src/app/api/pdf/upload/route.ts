@@ -5,6 +5,10 @@ import { PDFProcessor } from '@/lib/pdf/pdfProcessor'
 import { ContentIntegrator } from '@/lib/pdf/contentIntegrator'
 import { legalCompliance } from '@/lib/pdf/legalCompliance'
 
+// Configure for Edge Runtime to reduce bundle size
+export const runtime = 'nodejs'
+export const maxDuration = 60
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
