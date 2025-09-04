@@ -101,9 +101,6 @@ export default function AboutPage() {
 
           {/* Values Section */}
           <div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
             className="mb-24"
           >
             <h2 className="text-4xl font-bold text-center mb-16" style={{ color: '#1E0F2E' }}>Our Values</h2>
@@ -111,9 +108,6 @@ export default function AboutPage() {
               {values.map((value, index) => (
                 <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
                   className="text-center p-6"
                 >
                   <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center" style={{ backgroundColor: '#B87A7A' }}>
@@ -128,9 +122,6 @@ export default function AboutPage() {
 
           {/* Team Section */}
           <div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
             className="mb-24"
           >
             <h2 className="text-4xl font-bold text-center mb-16" style={{ color: '#1E0F2E' }}>Meet Our Team</h2>
@@ -138,9 +129,6 @@ export default function AboutPage() {
               {teamMembers.map((member, index) => (
                 <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
                   className="text-center"
                 >
                   <div className="relative mb-6">
@@ -162,9 +150,6 @@ export default function AboutPage() {
 
           {/* CTA Section */}
           <div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
             className="text-center"
           >
             <div className="rounded-3xl p-16 text-white shadow-2xl" style={{ backgroundColor: '#1E0F2E' }}>
