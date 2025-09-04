@@ -70,7 +70,8 @@ export default function MultiAIChatPage() {
   }
 
   const handleOrchestrationResult = (result: OrchestrationResult) => {
-    setOrchestrationResult(result)
+    // setOrchestrationResult(result) // TODO: Implement orchestration result state
+    console.log('Orchestration result:', result)
     // Optionally add to regular message store for history
   }
 
